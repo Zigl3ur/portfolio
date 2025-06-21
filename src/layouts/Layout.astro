@@ -1,0 +1,21 @@
+---
+import Header from "../components/header.astro";
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Work In Progress - Eden Douru</title>
+  </head>
+
+  <body
+    class="bg-background min-h-screen border-x border-dashed border-gray mx-4 sm:mx-16 md:mx-32 lg:mx-48 xl:mx-64 2xl:mx-80 text-foreground transition-all duration-300 ease-in-out"
+  >
+    <Header />
+    <slot />
+  </body>
+</html>

@@ -1,16 +1,43 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import GithubIcon from "../icons/github-logo.svg";
+import LinkedInIcon from "../icons/linkedin-logo.svg";
+import DiscordIcon from "../icons/discord-logo.svg";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <div
+    class="flex items-center justify-center min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-4rem)]"
+  >
+    <div
+      class="relative text-center space-y-7 text-foreground p-10 border-y border-dashed border-gray w-full"
+    >
+      <h1 class="text-4xl font-mono">Work In Progress</h1>
+      <p>Come back later</p>
+
+      <div class="flex justify-center gap-2">
+        <a
+          href="https://discordapp.com/users/384053588042711040"
+          target="_blank"
+          aria-label="Discord"
+        >
+          <DiscordIcon width={"25"} height={"25"} />
+        </a>
+        <a
+          href="https://github.com/Zigl3ur"
+          target="_blank"
+          aria-label="GitHub"
+        >
+          <GithubIcon width={"25"} height={"25"} />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/eden-douru/"
+          target="_blank"
+          aria-label="LinkedIn"
+        >
+          <LinkedInIcon width={"25"} height={"25"} />
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
