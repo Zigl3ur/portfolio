@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { MusicJsonType } from "../types";
+import Modal from "./Modal";
 
 export default function Listener({
   initialData,
@@ -35,16 +36,46 @@ export default function Listener({
             <span className="w-1 h-4 bg-lime-bright rounded-sm animate-bar-inner"></span>
             <span className="w-1 h-3 bg-lime-bright rounded-sm animate-bar-outter"></span>
           </div>
-          <p className="text-sm">
+          <div className="text-sm">
             <span className="font-semibold">{musicData.track.artist}</span> -{" "}
-            <a
-              href={musicData.track.url}
-              target="_blank"
-              className="italic hover:underline"
-            >
-              {musicData.track.name}
-            </a>
-          </p>
+            <Modal>
+              <Modal.Trigger>
+                <span className="italice hover:cursor-pointer hover:underline">
+                  {musicData.track.name}
+                </span>
+              </Modal.Trigger>
+              <Modal.Content>
+                <div className="flex flex-col items-center">
+                  {musicData.track.image && (
+                    <img
+                      src={musicData.track.image}
+                      alt={`${musicData.track.name} cover`}
+                      className="mb-4 rounded-md"
+                    />
+                  )}
+                  <div className="flex flex-col">
+                    <a
+                      className="text-white hover:underline"
+                      href={musicData.track.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <h2 className="text-lg font-semibold">
+                        {musicData.track.name}
+                      </h2>
+                    </a>
+                    <div className="flex flex-col gap-2">
+                      <p>{musicData.track.album}</p>
+                      <p className="text-sm italic">
+                        <span className="font-semibold">By</span>{" "}
+                        {musicData.track.artist}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Modal.Content>
+            </Modal>
+          </div>
         </div>
       )}
     </>
