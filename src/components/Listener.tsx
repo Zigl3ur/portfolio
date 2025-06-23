@@ -27,7 +27,7 @@ export default function Listener({
   }, []);
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <>
       {musicData.isListening && musicData.track?.artist && (
         <div className="flex flex-row items-center gap-2">
           <div className="flex flex-row items-center gap-0.5">
@@ -47,6 +47,6 @@ export default function Listener({
           </p>
         </div>
       )}
-    </div>
+    </>
   );
 }
