@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import type { MusicJsonType } from "../types";
 import Modal from "./Modal";
@@ -14,7 +16,7 @@ export default function Listener({
     setMusicData(initialData);
 
     const fetchMusic = async () => {
-      const res = await fetch(`/api/music`);
+      const res = await fetch(`https://api.douru.fr/api/music`);
       const data = await res.json();
       setMusicData(data as MusicJsonType);
     };
