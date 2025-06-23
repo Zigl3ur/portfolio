@@ -4,22 +4,20 @@ import { useEffect, useState } from "react";
 import type { MusicJsonType } from "../types";
 import Modal from "./Modal";
 
-export default function Listener({
-  initialData,
-}: {
-  initialData: MusicJsonType;
-}) {
-  const [musicData, setMusicData] = useState<MusicJsonType>(initialData);
+export default function Listener() {
+  const [musicData, setMusicData] = useState<MusicJsonType>({
+    isListening: false,
+  });
 
   useEffect(() => {
-    // set data fetched from the server
-    setMusicData(initialData);
-
     const fetchMusic = async () => {
       const res = await fetch(`https://api.douru.fr/api/music`);
       const data = await res.json();
       setMusicData(data as MusicJsonType);
     };
+
+    // Initial fetch
+    fetchMusic();
 
     // fetch every 30s
     const interval = setInterval(() => {

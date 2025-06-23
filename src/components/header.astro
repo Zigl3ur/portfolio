@@ -1,9 +1,5 @@
 ---
 import Listener from "./Listener";
-import type { MusicJsonType } from "../types";
-
-const response = await fetch("https://api.douru.fr/api/music");
-const musicData: MusicJsonType = await response.json();
 ---
 
 <header class="flex border-b border-dashed border-gray p-4 h-20 sm:h-16">
@@ -11,6 +7,6 @@ const musicData: MusicJsonType = await response.json();
     class="flex flex-col text-center sm:flex-row items-center justify-center sm:justify-between w-full"
   >
     <h1 class="font-mono text-lg">Eden Douru</h1>
-    <Listener initialData={musicData} client:load />
+    <Listener client:load />
   </div>
 </header>

@@ -52,10 +52,22 @@ function Content({ children }: { children: ReactNode }) {
       }
     };
 
-    document.addEventListener("mousedown", shouldClose);
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        shouldShow(false);
+      }
+    };
 
-    return () => document.removeEventListener("mousedown", shouldClose);
-  }, [shouldShow]);
+    if (show) {
+      document.addEventListener("mousedown", shouldClose);
+      document.addEventListener("keydown", handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", shouldClose);
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [shouldShow, show]);
 
   return (
     <div
