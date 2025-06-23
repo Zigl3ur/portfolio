@@ -21,7 +21,7 @@
 }
 
 ::selection {
-    background-color: var(--color-lime-pale);
+    background-color: var(--color-lime-bright);
     color: var(--color-background);
 }
 
