@@ -1,9 +1,8 @@
 ---
 import Listener from "./Listener";
 import type { MusicJsonType } from "../types";
-import { GET } from "../pages/api/music";
 
-const response = await GET();
+const response = await fetch("https://api.douru.fr/api/music");
 const musicData: MusicJsonType = await response.json();
 ---
 

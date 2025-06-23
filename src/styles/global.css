@@ -61,7 +61,7 @@
     }
 
     .animate-bar-inner {
-        animation: bar-bounce-inner 1.1s infinite alternate ease-in-out;
+        animation: bar-bounce-inner 1.1s  infinite alternate ease-in-out;
     }
 
     .animate-bar-outter {
