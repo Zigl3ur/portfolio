@@ -11,7 +11,7 @@ export default function Listener() {
 
   useEffect(() => {
     const fetchMusic = async () => {
-      const res = await fetch(`https://api.douru.fr/api/music`);
+      const res = await fetch(`https://api.douru.fr/music`);
       const data = await res.json();
       setMusicData(data as MusicJsonType);
     };
