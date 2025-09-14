@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { MusicJsonType } from "../types";
-import Modal from "./Modal";
+import Modal from "./ui/Modal";
 
 export default function Listener() {
   const [musicData, setMusicData] = useState<MusicJsonType>({
@@ -11,7 +11,7 @@ export default function Listener() {
 
   useEffect(() => {
     const fetchMusic = async () => {
-      const res = await fetch(`https://api.douru.fr/music`);
+      const res = await fetch("https://api.douru.fr/music");
       const data = await res.json();
       setMusicData(data as MusicJsonType);
     };
