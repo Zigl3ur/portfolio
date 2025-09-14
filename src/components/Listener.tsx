@@ -6,7 +6,7 @@ import Modal from "./ui/Modal";
 
 export default function Listener() {
   const [musicData, setMusicData] = useState<MusicJsonType>({
-    isListening: false,
+    isListening: false
   });
 
   useEffect(() => {
@@ -32,9 +32,9 @@ export default function Listener() {
       {musicData.isListening && musicData.track?.artist && (
         <div className="flex flex-row items-center gap-2">
           <div className="flex flex-row items-center gap-0.5">
-            <span className="w-1 h-3 bg-lime-bright rounded-sm animate-bar-outter"></span>
-            <span className="w-1 h-4 bg-lime-bright rounded-sm animate-bar-inner"></span>
-            <span className="w-1 h-3 bg-lime-bright rounded-sm animate-bar-outter"></span>
+            <span className="bg-lime-bright animate-bar-outter h-3 w-1 rounded-sm"></span>
+            <span className="bg-lime-bright animate-bar-inner h-4 w-1 rounded-sm"></span>
+            <span className="bg-lime-bright animate-bar-outter h-3 w-1 rounded-sm"></span>
           </div>
           <div className="text-sm">
             <span className="font-semibold">{musicData.track.artist}</span> -{" "}

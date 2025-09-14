@@ -4,7 +4,7 @@ import {
   useEffect,
   useRef,
   useState,
-  type ReactNode,
+  type ReactNode
 } from "react";
 
 type ModalContextType = {
@@ -78,10 +78,10 @@ function Content({ children }: { children: ReactNode }) {
       {/* modal content */}
       <div
         ref={modalRef}
-        className="bg-background shadow-lg p-6 max-w-md relative border border-dashed border-gray"
+        className="bg-background border-gray relative max-w-md border border-dashed p-6 shadow-lg"
       >
         <button
-          className="absolute top-0.5 right-0.5 rounded-sm w-5 h-5 flex items-center justify-center hover:bg-gray"
+          className="hover:bg-gray absolute top-0.5 right-0.5 flex h-5 w-5 items-center justify-center rounded-sm"
           onClick={() => shouldShow(false)}
         >
           <svg
