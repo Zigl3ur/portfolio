@@ -78,7 +78,7 @@ function Content({ children }: { children: ReactNode }) {
       {/* modal content */}
       <div
         ref={modalRef}
-        className="bg-background border-gray relative max-w-md border border-dashed p-6 shadow-lg"
+        className="bg-background border-gray relative max-w-xs border border-dashed p-6 shadow-lg"
       >
         <button
           className="hover:bg-gray absolute top-0.5 right-0.5 flex h-5 w-5 items-center justify-center rounded-sm"

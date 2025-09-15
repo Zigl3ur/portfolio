@@ -1,8 +1,7 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import type { MusicJsonType } from "../types";
 import Modal from "./ui/Modal";
+import Image from "./ui/Image";
 
 export default function Listener() {
   const [musicData, setMusicData] = useState<MusicJsonType>({
@@ -12,8 +11,8 @@ export default function Listener() {
   useEffect(() => {
     const fetchMusic = async () => {
       const res = await fetch("https://api.douru.fr/music");
-      const data = await res.json();
-      setMusicData(data as MusicJsonType);
+      const data = (await res.json()) as MusicJsonType;
+      setMusicData(data);
     };
 
     // Initial fetch
@@ -47,10 +46,10 @@ export default function Listener() {
               <Modal.Content>
                 <div className="flex flex-col items-center">
                   {musicData.track.image && (
-                    <img
+                    <Image
+                      className="mb-4 rounded-md"
                       src={musicData.track.image}
                       alt={`${musicData.track.name} cover`}
-                      className="mb-4 rounded-md"
                     />
                   )}
                   <div className="flex flex-col">
