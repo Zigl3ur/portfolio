@@ -1,19 +1,18 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import type { MusicJsonType } from "../types";
-import Modal from "./Modal";
+import Modal from "./ui/Modal";
+import Image from "./ui/Image";
 
 export default function Listener() {
   const [musicData, setMusicData] = useState<MusicJsonType>({
-    isListening: false,
+    isListening: false
   });
 
   useEffect(() => {
     const fetchMusic = async () => {
-      const res = await fetch(`https://api.douru.fr/music`);
-      const data = await res.json();
-      setMusicData(data as MusicJsonType);
+      const res = await fetch("https://api.douru.fr/music");
+      const data = (await res.json()) as MusicJsonType;
+      setMusicData(data);
     };
 
     // Initial fetch
@@ -32,9 +31,9 @@ export default function Listener() {
       {musicData.isListening && musicData.track?.artist && (
         <div className="flex flex-row items-center gap-2">
           <div className="flex flex-row items-center gap-0.5">
-            <span className="w-1 h-3 bg-lime-bright rounded-sm animate-bar-outter"></span>
-            <span className="w-1 h-4 bg-lime-bright rounded-sm animate-bar-inner"></span>
-            <span className="w-1 h-3 bg-lime-bright rounded-sm animate-bar-outter"></span>
+            <span className="bg-lime-bright animate-bar-outter h-3 w-1 rounded-sm"></span>
+            <span className="bg-lime-bright animate-bar-inner h-4 w-1 rounded-sm"></span>
+            <span className="bg-lime-bright animate-bar-outter h-3 w-1 rounded-sm"></span>
           </div>
           <div className="text-sm">
             <span className="font-semibold">{musicData.track.artist}</span> -{" "}
@@ -47,10 +46,10 @@ export default function Listener() {
               <Modal.Content>
                 <div className="flex flex-col items-center">
                   {musicData.track.image && (
-                    <img
+                    <Image
+                      className="mb-4 h-[174px] w-[174px] rounded-md object-cover"
                       src={musicData.track.image}
                       alt={`${musicData.track.name} cover`}
-                      className="mb-4 rounded-md"
                     />
                   )}
                   <div className="flex flex-col">

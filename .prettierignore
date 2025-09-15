@@ -2,14 +2,22 @@
 
 # build output
 dist/
-
 # generated types
 .astro/
 
 # dependencies
 node_modules/
 
+bun.lock
+
 # environment variables
 .env
 .env.production
 
+*.md
+.prettierrc
+tsconfig.json
+*.d.ts
+*.config.mjs
+*.config.js
+package.json
