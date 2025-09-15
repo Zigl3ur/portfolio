@@ -47,7 +47,7 @@ export default function Listener() {
                 <div className="flex flex-col items-center">
                   {musicData.track.image && (
                     <Image
-                      className="mb-4 rounded-md"
+                      className="mb-4 h-[174px] w-[174px] rounded-md object-cover"
                       src={musicData.track.image}
                       alt={`${musicData.track.name} cover`}
                     />

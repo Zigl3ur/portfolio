@@ -11,16 +11,14 @@ export default function Image({ src, alt, className }: ImageProps) {
   const [imgLoaded, setImgLoaded] = useState<boolean>(false);
 
   return (
-    <>
+    <div className="relative">
       <img
         src={src}
         alt={alt}
-        className={className}
+        className={`${className} ${imgLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-200`}
         onLoad={() => setImgLoaded(true)}
       />
-      {!imgLoaded && (
-        <Skeleton className={`${className} h-[174px] w-[174px]`} />
-      )}
-    </>
+      {!imgLoaded && <Skeleton className={`${className} absolute inset-0`} />}
+    </div>
   );
 }
