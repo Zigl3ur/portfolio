@@ -1,0 +1,12 @@
+---
+import Listener from "./Listener";
+---
+
+<footer class="border-gray flex h-20 border-t border-dashed p-4 sm:h-16">
+  <div
+    class="flex w-full flex-col items-center justify-center text-center sm:flex-row sm:justify-between"
+  >
+    <p class="text-md font-mono">&copy {new Date().getFullYear()}</p>
+    <Listener client:load />
+  </div>
+</footer>
