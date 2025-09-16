@@ -1,12 +1,30 @@
 ---
-import Listener from "./Listener";
+import GithubIcon from "../icons/github-logo.svg";
+import LinkedInIcon from "../icons/linkedin-logo.svg";
+import DiscordIcon from "../icons/discord-logo.svg";
 ---
 
-<header class="border-gray flex h-20 border-b border-dashed p-4 sm:h-16">
-  <div
-    class="flex w-full flex-col items-center justify-center text-center sm:flex-row sm:justify-between"
-  >
-    <h1 class="font-mono text-lg">Eden Douru</h1>
-    <Listener client:load />
+<header class="sticky top-0 z-10 bg-background h-16 p-4 border-b border-dashed border-gray">
+  <div class="flex w-full items-center justify-between text-center">
+    <h1 class="font-mono text-lg">EN</h1>
+    <div class="flex justify-center gap-2">
+      <a
+        href="https://discordapp.com/users/384053588042711040"
+        target="_blank"
+        aria-label="Discord"
+      >
+        <DiscordIcon width={"25"} height={"25"} />
+      </a>
+      <a href="https://github.com/Zigl3ur" target="_blank" aria-label="GitHub">
+        <GithubIcon width={"25"} height={"25"} />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/eden-douru/"
+        target="_blank"
+        aria-label="LinkedIn"
+      >
+        <LinkedInIcon width={"25"} height={"25"} />
+      </a>
+    </div>
   </div>
 </header>

@@ -1,5 +1,4 @@
 ---
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 ---
@@ -9,14 +8,12 @@ import "../styles/global.css";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Work In Progress - Eden Douru</title>
+    <title>Eden Douru</title>
   </head>
 
   <body
-    class="bg-background border-gray text-foreground mx-4 min-h-screen border-x border-dashed transition-all duration-300 ease-in-out sm:mx-16 md:mx-32 lg:mx-48 xl:mx-64 2xl:mx-80"
+    class="bg-background border-gray text-foreground mx-4 border-x border-dashed font-sans transition duration-300 ease-in-out sm:mx-16 md:mx-32 lg:mx-48 xl:mx-64 2xl:mx-80"
   >
-    <Header />
     <slot />
     <Footer />
   </body>
