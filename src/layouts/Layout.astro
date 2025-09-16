@@ -1,5 +1,6 @@
 ---
 import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 import "../styles/global.css";
 ---
 
@@ -12,9 +13,12 @@ import "../styles/global.css";
   </head>
 
   <body
-    class="bg-background border-gray text-foreground mx-4 border-x border-dashed font-sans transition duration-300 ease-in-out sm:mx-16 md:mx-32 lg:mx-48 xl:mx-64 2xl:mx-80"
+    class="bg-background border-gray text-foreground mx-4 min-h-screen border-x border-dashed font-sans transition-all duration-300 ease-in-out sm:mx-16 md:mx-32 lg:mx-48 xl:mx-64 2xl:mx-80"
   >
-    <slot />
+    <Header />
+    <div class="mx-6 space-y-32">
+      <slot />
+    </div>
     <Footer />
   </body>
 </html>
