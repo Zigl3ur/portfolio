@@ -61,11 +61,13 @@ function Content({ children }: { children: ReactNode }) {
     };
 
     if (show) {
+      document.body.classList.add("overflow-hidden"); // disable scrolling on modal open
       document.addEventListener("mousedown", shouldClose);
       document.addEventListener("keydown", handleEscapeKey);
     }
 
     return () => {
+      document.body.classList.remove("overflow-hidden");
       document.removeEventListener("mousedown", shouldClose);
       document.removeEventListener("keydown", handleEscapeKey);
     };

@@ -1,8 +1,9 @@
 ---
 import Plus from "../../icons/plus.svg";
+const { class: className } = Astro.props;
 ---
 
-<div class="border-gray relative border border-dashed p-4">
+<div class={`border-gray relative border border-dashed p-4 ${className}`}>
   <Plus
     width={15}
     height={15}
@@ -25,10 +26,5 @@ import Plus from "../../icons/plus.svg";
   />
   <div class="px-2">
     <slot />
-    aaaa
-    <br />
-    <br />
-
-    <br />
   </div>
 </div>

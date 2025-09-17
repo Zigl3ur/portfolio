@@ -13,12 +13,6 @@ export default defineConfig({
 
   output: "static",
 
-  env: {
-    schema: {
-      LASTFM_API_KEY: envField.string({ context: "server", access: "secret" })
-    }
-  },
-
   vite: {
     plugins: [tailwindcss(), svgr()],
     resolve: {
