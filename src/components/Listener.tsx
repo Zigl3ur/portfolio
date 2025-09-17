@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import type { MusicJsonType } from "../types";
+import type { MusicDataType } from "../types";
 import Modal from "./ui/Modal";
 import Image from "./ui/Image";
 
 export default function Listener() {
-  const [musicData, setMusicData] = useState<MusicJsonType>({
+  const [musicData, setMusicData] = useState<MusicDataType>({
     isListening: false
   });
 
   useEffect(() => {
     const fetchMusic = async () => {
       const res = await fetch("https://api.douru.fr/music");
-      const data = (await res.json()) as MusicJsonType;
+      const data = (await res.json()) as MusicDataType;
       setMusicData(data);
     };
 

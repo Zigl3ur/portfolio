@@ -1,4 +1,4 @@
-export type MusicJsonType = {
+export type MusicDataType = {
   isListening: boolean;
   track?: {
     artist: string;
