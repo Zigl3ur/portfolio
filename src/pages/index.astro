@@ -108,7 +108,7 @@ const tools: skill[] = [
   <!-- Landing View Main Title -->
   <div class="flex min-h-[calc(100vh-4rem)] flex-col">
     <div class="my-auto space-y-2">
-      <h1 class="font-mono text-6xl font-bold md:text-7xl">Eden Douru</h1>
+      <h1 class="text-6xl font-bold md:text-7xl">Eden Douru</h1>
       <p class="text-md md:text-lg">Computer Science Student</p>
     </div>
     <a
@@ -122,14 +122,14 @@ const tools: skill[] = [
   <!-- About Me Section -->
   <div class="space-y-8">
     <Title id="about-me" text="About Me" />
-    <h2 class="flex gap-1.5 text-xl">
+    <p class="flex gap-1.5 font-sans text-xl">
       <span>Hi I'm</span>
       <span
         class="bg-lime-bright text-gray -skew-x-8 transform px-1 font-mono font-bold"
       >
         Eden
       </span>
-    </h2>
+    </p>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquet
       cursus turpis non rutrum. Morbi magna lacus, elementum et quam ac,
@@ -149,17 +149,21 @@ const tools: skill[] = [
   <!-- Skills Section -->
   <div>
     <Title id="skills" text="What i like to use" />
-    <div class="space-y-4">
-      <div class="grid gap-4 lg:grid-cols-2">
-        <!-- Programming Languages -->
-        <div class="flex flex-col space-y-2">
-          <h3 class="font-mono">Programming Languages</h3>
-          <Card class="flex-1">
-            <div class="grid grid-cols-2 gap-6">
+    <div class="space-y-6">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <!-- Programing Languages -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-lg font-semibold">Programing Languages</h3>
+          <Card class="flex-1 p-6">
+            <div class="xs:grid-cols-2 grid grid-cols-1 gap-8">
               {
                 programingLang.map((s: skill) => (
-                  <div class="flex items-center gap-2">
-                    <img src={s.icon.src} alt={s.name} class="h-6 w-6" />
+                  <div class="flex items-center gap-3">
+                    <img
+                      src={s.icon.src}
+                      alt={s.name}
+                      class="h-6 w-6 flex-shrink-0"
+                    />
                     <p class="truncate text-sm sm:text-base">{s.name}</p>
                   </div>
                 ))
@@ -167,18 +171,21 @@ const tools: skill[] = [
             </div>
           </Card>
         </div>
+
         <!-- Frameworks -->
-        <div class="flex flex-col space-y-2">
-          <h3 class="font-mono">Frameworks</h3>
-          <Card class="flex-1">
-            <div class="grid grid-cols-2 gap-6">
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-lg font-semibold">Frameworks</h3>
+          <Card class="flex-1 p-6">
+            <div class="xs:grid-cols-2 grid grid-cols-1 gap-8">
               {
                 frameworks.map((f: skill) => (
-                  <div class="flex items-center gap-2">
-                    <img src={f.icon.src} alt={f.name} class="h-6 w-6" />
-                    <p class="truncate text-sm break-all sm:text-base">
-                      {f.name}
-                    </p>
+                  <div class="flex items-center gap-3">
+                    <img
+                      src={f.icon.src}
+                      alt={f.name}
+                      class="h-6 w-6 flex-shrink-0"
+                    />
+                    <p class="truncate text-sm sm:text-base">{f.name}</p>
                   </div>
                 ))
               }
@@ -188,14 +195,18 @@ const tools: skill[] = [
       </div>
 
       <!-- Tools & Others -->
-      <div class="space-y-2">
-        <h3 class="font-mono">Tools & Others</h3>
-        <Card class="flex-1">
-          <div class="grid grid-cols-2 gap-6 sm:grid-cols-3">
+      <div class="space-y-3">
+        <h3 class="text-lg font-semibold">Tools & Others</h3>
+        <Card class="p-6">
+          <div class="xs:grid-cols-2 grid grid-cols-1 gap-8 lg:grid-cols-3">
             {
               tools.map((t: skill) => (
-                <div class="flex items-center gap-2">
-                  <img src={t.icon.src} alt={t.name} class="h-6 w-6" />
+                <div class="flex items-center gap-3">
+                  <img
+                    src={t.icon.src}
+                    alt={t.name}
+                    class="h-6 w-6 flex-shrink-0"
+                  />
                   <p class="truncate text-sm sm:text-base">{t.name}</p>
                 </div>
               ))
@@ -203,12 +214,6 @@ const tools: skill[] = [
           </div>
         </Card>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
   </div>
 </Layout>

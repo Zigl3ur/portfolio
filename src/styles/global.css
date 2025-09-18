@@ -19,6 +19,7 @@
   --color-lime-pale: #bdee63;
   --color-gray: #393835;
   --color-muted: #262626;
+  --breakpoint-xs: 30rem;
 }
 
 html {
@@ -26,6 +27,14 @@ html {
   scroll-padding: 6rem;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-mono);
+}
 
 ::selection {
   background-color: var(--color-lime-bright);
