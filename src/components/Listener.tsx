@@ -54,7 +54,7 @@ export default function Listener() {
                   )}
                   <div className="flex flex-col">
                     <a
-                      className="text-white hover:opacity-70 hover:cursor-pointer"
+                      className="text-white hover:cursor-pointer hover:opacity-70"
                       href={musicData.track.url}
                       target="_blank"
                       rel="noopener noreferrer"
