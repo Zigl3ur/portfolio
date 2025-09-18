@@ -112,7 +112,6 @@ const tools: skill[] = [
       <p class="text-md md:text-lg">Computer Science Student</p>
     </div>
     <a
-      id="scroll-chevron"
       href="#about-me"
       class="mx-auto mb-20 transition duration-300 hover:-translate-y-1.5"
     >
@@ -154,7 +153,7 @@ const tools: skill[] = [
         <!-- Programing Languages -->
         <div class="flex flex-col space-y-3">
           <h3 class="text-lg font-semibold">Programing Languages</h3>
-          <Card class="flex-1 p-6">
+          <Card class="flex-1 px-8 py-6">
             <div class="xs:grid-cols-2 grid grid-cols-1 gap-8">
               {
                 programingLang.map((s: skill) => (
@@ -175,7 +174,7 @@ const tools: skill[] = [
         <!-- Frameworks -->
         <div class="flex flex-col space-y-3">
           <h3 class="text-lg font-semibold">Frameworks</h3>
-          <Card class="flex-1 p-6">
+          <Card class="flex-1 px-8 py-6">
             <div class="xs:grid-cols-2 grid grid-cols-1 gap-8">
               {
                 frameworks.map((f: skill) => (
@@ -197,7 +196,7 @@ const tools: skill[] = [
       <!-- Tools & Others -->
       <div class="space-y-3">
         <h3 class="text-lg font-semibold">Tools & Others</h3>
-        <Card class="p-6">
+        <Card class="flex-1 px-8 py-6">
           <div class="xs:grid-cols-2 grid grid-cols-1 gap-8 lg:grid-cols-3">
             {
               tools.map((t: skill) => (

@@ -82,7 +82,7 @@ function Content({ children }: { children: ReactNode }) {
       {/* modal content */}
       <div
         ref={modalRef}
-        className="bg-background border-gray relative mx-4 max-w-xs border border-dashed p-6 shadow-lg"
+        className="bg-background border-gray xs:mx-0 relative mx-4 max-w-xs border border-dashed p-6 shadow-lg"
       >
         <PlusIcon
           width={15}
