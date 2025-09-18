@@ -11,6 +11,10 @@ export default defineConfig({
     port: 3000
   },
 
+  devToolbar: {
+    enabled: false
+  },
+
   output: "static",
 
   vite: {

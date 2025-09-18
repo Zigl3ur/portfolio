@@ -1,0 +1,172 @@
+---
+import Card from "../../components/ui/Card.astro";
+import type { ImageMetadata } from "astro";
+
+import JavascriptIcon from "../../icons/skills/progLang/javascript.svg";
+import TypescriptIcon from "../../icons/skills/progLang/typescript.svg";
+import HtmlIcon from "../../icons/skills/progLang/HTML5.svg";
+import GolangIcon from "../../icons/skills/progLang/golang.svg";
+import CsharpIcon from "../../icons/skills/progLang/csharp.svg";
+import CssIcon from "../../icons/skills/progLang/css.svg";
+
+import ReactIcon from "../../icons/skills/frameworks/react.svg";
+import TailwindIcon from "../../icons/skills/frameworks/tailwindcss.svg";
+import NextIcon from "../../icons/skills/frameworks/nextjs.svg";
+import AstroIcon from "../../icons/skills/frameworks/astro.svg";
+
+import VScodeIcon from "../../icons/skills/tools/vscode.svg";
+import GitIcon from "../../icons/skills/tools/git.svg";
+import DockerIcon from "../../icons/skills/tools/docker.svg";
+import LinuxIcon from "../../icons/skills/tools/linux.svg";
+import PostgresIcon from "../../icons/skills/tools/postgresql.svg";
+import FigmaIcon from "../../icons/skills/tools/figma.svg";
+import Title from "../ui/Title.astro";
+
+type skill = {
+  name: string;
+  icon: ImageMetadata;
+};
+
+const programingLang: skill[] = [
+  {
+    name: "JavaScript",
+    icon: JavascriptIcon
+  },
+  {
+    name: "TypeScript",
+    icon: TypescriptIcon
+  },
+  {
+    name: "HTML",
+    icon: HtmlIcon
+  },
+  {
+    name: "CSS",
+    icon: CssIcon
+  },
+  {
+    name: "Golang",
+    icon: GolangIcon
+  },
+  {
+    name: "CSharp",
+    icon: CsharpIcon
+  }
+];
+
+const frameworks: skill[] = [
+  {
+    name: "React",
+    icon: ReactIcon
+  },
+  {
+    name: "Tailwind CSS",
+    icon: TailwindIcon
+  },
+  {
+    name: "NextJS",
+    icon: NextIcon
+  },
+  {
+    name: "Astro",
+    icon: AstroIcon
+  }
+];
+
+const tools: skill[] = [
+  {
+    name: "Visual Studio Code",
+    icon: VScodeIcon
+  },
+  {
+    name: "Git",
+    icon: GitIcon
+  },
+  {
+    name: "Docker",
+    icon: DockerIcon
+  },
+  {
+    name: "Linux",
+    icon: LinuxIcon
+  },
+  {
+    name: "Postgres",
+    icon: PostgresIcon
+  },
+  {
+    name: "Figma",
+    icon: FigmaIcon
+  }
+];
+---
+
+<>
+  <Title id="skills" text="What i like to use" />
+  <div class="space-y-6">
+    <div class="flex flex-col gap-4 sm:flex-row">
+      <!-- Programing Languages -->
+      <div class="flex flex-1 flex-col space-y-3">
+        <h3 class="text-lg font-semibold">Programing Languages</h3>
+        <Card class="flex-1 px-8 py-6">
+          <div class="xs:grid-cols-2 grid grid-cols-1 gap-8">
+            {
+              programingLang.map((s: skill) => (
+                <div class="flex items-center gap-3">
+                  <img
+                    src={s.icon.src}
+                    alt={s.name}
+                    class="h-6 w-6 flex-shrink-0"
+                  />
+                  <p class="truncate text-sm sm:text-base">{s.name}</p>
+                </div>
+              ))
+            }
+          </div>
+        </Card>
+      </div>
+
+      <!-- Frameworks -->
+      <div class="flex flex-col space-y-3 flex-1">
+        <h3 class="text-lg font-semibold">Frameworks</h3>
+        <Card class="flex-1 px-8 py-6">
+          <div class="xs:grid-cols-2 grid grid-cols-1 gap-8">
+            {
+              frameworks.map((f: skill) => (
+                <div class="flex items-center gap-3">
+                  <img
+                    src={f.icon.src}
+                    alt={f.name}
+                    class="h-6 w-6 flex-shrink-0"
+                  />
+                  <p class="truncate text-sm sm:text-base">{f.name}</p>
+                </div>
+              ))
+            }
+          </div>
+        </Card>
+      </div>
+    </div>
+
+    <!-- Tools & Others -->
+    <div class="space-y-3">
+      <h3 class="text-lg font-semibold">Tools & Others</h3>
+      <Card class="flex-1 px-8 py-6">
+        <div class="xs:grid-cols-2 grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {
+            tools.map((t: skill) => (
+              <div class="flex items-center gap-3">
+                <img
+                  src={t.icon.src}
+                  alt={t.name}
+                  class="h-6 w-6 flex-shrink-0"
+                />
+                <p class="truncate text-sm sm:text-base">{t.name}</p>
+              </div>
+            ))
+          }
+        </div>
+      </Card>
+    </div>
+  </div>
+</>

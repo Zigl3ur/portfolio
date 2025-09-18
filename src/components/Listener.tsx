@@ -39,7 +39,7 @@ export default function Listener() {
             <span className="font-semibold">{musicData.track.artist}</span> -{" "}
             <Modal>
               <Modal.Trigger>
-                <span className="italice hover:cursor-pointer hover:underline">
+                <span className="italice hover:cursor-pointer hover:opacity-70">
                   {musicData.track.name}
                 </span>
               </Modal.Trigger>
@@ -54,14 +54,14 @@ export default function Listener() {
                   )}
                   <div className="flex flex-col">
                     <a
-                      className="text-white hover:underline"
+                      className="text-white hover:opacity-70 hover:cursor-pointer"
                       href={musicData.track.url}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <h2 className="text-lg font-semibold">
+                      <p className="text-lg font-semibold">
                         {musicData.track.name}
-                      </h2>
+                      </p>
                     </a>
                     <div className="flex flex-col gap-2">
                       <p>{musicData.track.album}</p>
