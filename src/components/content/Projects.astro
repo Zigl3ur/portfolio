@@ -1,0 +1,47 @@
+---
+import Card from "../ui/Card.astro";
+import Title from "../ui/Title.astro";
+
+type ProjectType = {
+  name: string;
+  description: string;
+  url: string;
+};
+
+const projects: ProjectType[] = [
+  {
+    name: "Jellyhub",
+    description:
+      "A web app that indexes media from multiple Jellyfin servers into a single searchable hub, letting you see which server hosts the content you're looking for.",
+    url: "https://github.com/Zigl3ur/jellyhub"
+  },
+  {
+    name: "McJar",
+    description:
+      "A cli tool that allow you to easily download jar for minecraft as server software and addons (plugins, mods, modpacks, datapacks)",
+    url: "https://github.com/Zigl3ur/mcjar"
+  }
+];
+---
+
+<>
+  <Title id="projects" text="Projects" />
+  <div class="space-y-6">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {
+        projects.map((p: ProjectType) => {
+          return (
+            <Card class="flex-1 px-8 py-6 space-y-4">
+              <h3 class="text-lg hover:opacity-70">
+                <a href={p.url} target="_blank">
+                  {p.name}
+                </a>
+              </h3>
+              <p>{p.description}</p>
+            </Card>
+          );
+        })
+      }
+    </div>
+  </div>
+</>

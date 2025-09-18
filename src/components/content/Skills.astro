@@ -104,46 +104,42 @@ const tools: skill[] = [
 <>
   <Title id="skills" text="What i like to use" />
   <div class="space-y-6">
-    <div class="flex flex-col gap-4 sm:flex-row">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <!-- Programing Languages -->
-      <div class="flex flex-1 flex-col space-y-3">
+      <div class="flex flex-col space-y-3">
         <h3 class="text-lg font-semibold">Programing Languages</h3>
-        <Card class="flex-1 px-8 py-6">
-          <div class="xs:grid-cols-2 grid grid-cols-1 gap-8">
-            {
-              programingLang.map((s: skill) => (
-                <div class="flex items-center gap-3">
-                  <img
-                    src={s.icon.src}
-                    alt={s.name}
-                    class="h-6 w-6 flex-shrink-0"
-                  />
-                  <p class="truncate text-sm sm:text-base">{s.name}</p>
-                </div>
-              ))
-            }
-          </div>
+        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 px-8 py-6">
+          {
+            programingLang.map((s: skill) => (
+              <div class="flex items-center gap-3">
+                <img
+                  src={s.icon.src}
+                  alt={s.name}
+                  class="h-6 w-6 flex-shrink-0"
+                />
+                <p class="truncate text-sm sm:text-base">{s.name}</p>
+              </div>
+            ))
+          }
         </Card>
       </div>
 
       <!-- Frameworks -->
-      <div class="flex flex-1 flex-col space-y-3">
+      <div class="flex flex-col space-y-3">
         <h3 class="text-lg font-semibold">Frameworks</h3>
-        <Card class="flex-1 px-8 py-6">
-          <div class="xs:grid-cols-2 grid grid-cols-1 gap-8">
-            {
-              frameworks.map((f: skill) => (
-                <div class="flex items-center gap-3">
-                  <img
-                    src={f.icon.src}
-                    alt={f.name}
-                    class="h-6 w-6 flex-shrink-0"
-                  />
-                  <p class="truncate text-sm sm:text-base">{f.name}</p>
-                </div>
-              ))
-            }
-          </div>
+        <Card class="xs:grid-cols-2 grid flex-1 gap-8 grid-cols-1 px-8 py-6">
+          {
+            frameworks.map((f: skill) => (
+              <div class="flex items-center gap-3">
+                <img
+                  src={f.icon.src}
+                  alt={f.name}
+                  class="h-6 w-6 flex-shrink-0"
+                />
+                <p class="truncate text-sm sm:text-base">{f.name}</p>
+              </div>
+            ))
+          }
         </Card>
       </div>
     </div>
@@ -151,21 +147,21 @@ const tools: skill[] = [
     <!-- Tools & Others -->
     <div class="space-y-3">
       <h3 class="text-lg font-semibold">Tools & Others</h3>
-      <Card class="flex-1 px-8 py-6">
-        <div class="xs:grid-cols-2 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {
-            tools.map((t: skill) => (
-              <div class="flex items-center gap-3">
-                <img
-                  src={t.icon.src}
-                  alt={t.name}
-                  class="h-6 w-6 flex-shrink-0"
-                />
-                <p class="truncate text-sm sm:text-base">{t.name}</p>
-              </div>
-            ))
-          }
-        </div>
+      <Card
+        class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 px-8 py-6 lg:grid-cols-3"
+      >
+        {
+          tools.map((t: skill) => (
+            <div class="flex items-center gap-3">
+              <img
+                src={t.icon.src}
+                alt={t.name}
+                class="h-6 w-6 flex-shrink-0"
+              />
+              <p class="truncate text-sm sm:text-base">{t.name}</p>
+            </div>
+          ))
+        }
       </Card>
     </div>
   </div>
