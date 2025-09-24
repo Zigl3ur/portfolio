@@ -25,9 +25,3 @@ export type ContactFormData = {
   email: string;
   message: string;
 };
-
-export type ContactFormErrors = {
-  name: string[];
-  email: string[];
-  message: string[];
-};
