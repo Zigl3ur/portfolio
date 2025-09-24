@@ -38,13 +38,12 @@ export default function ContactForm() {
     )
   });
 
-  const validateFields = (): boolean => {
-    const result = contactFormSchema.safeParse(formData);
-
-    const newErrors: ContactFormErrors = { name: [], email: [], message: [] };
+  const validateFields = (data: ContactFormData): boolean => {
+    const result = contactFormSchema.safeParse(data);
 
     if (!result.success) {
       const { error } = result;
+      const newErrors: ContactFormErrors = { name: [], email: [], message: [] };
 
       error.issues.forEach((issue) => {
         const field = issue.path[0] as keyof ContactFormErrors;
@@ -54,20 +53,21 @@ export default function ContactForm() {
       setFormDataErrors(newErrors);
       return false;
     }
+    setFormDataErrors({ name: [], email: [], message: [] });
     return true;
   };
 
   const handleChange = (field: keyof ContactFormData, value: string) => {
-    validateFields();
-
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value
-    }));
+    setFormData((prev) => {
+      const updated = { ...prev, [field]: value };
+      validateFields(updated);
+      return updated;
+    });
   };
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
-    validateFields();
+    validateFields(formData);
+    setPending(true);
     e.preventDefault();
   };
 
