@@ -8,3 +8,26 @@ export type MusicDataType = {
     url: string;
   };
 };
+
+export type ProjectType = {
+  name: string;
+  description: string;
+  url: string;
+};
+
+export type Skill = {
+  name: string;
+  icon: ImageMetadata;
+};
+
+export type ContactFormData = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+export type ContactFormErrors = {
+  name: string[];
+  email: string[];
+  message: string[];
+};
