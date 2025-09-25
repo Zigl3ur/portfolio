@@ -1,5 +1,9 @@
 ---
 import Listener from "./Listener";
+import { getLangFromUrl, translate } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { listener: t } = translate(lang);
 ---
 
 <footer class="border-gray mt-6 flex border-t border-dashed px-6 py-4">
@@ -7,6 +11,6 @@ import Listener from "./Listener";
     class="flex w-full flex-col items-center justify-center text-center sm:flex-row sm:justify-between"
   >
     <p class="text-md font-mono">&copy {new Date().getFullYear()}</p>
-    <Listener client:load />
+    <Listener t={t} client:load />
   </div>
 </footer>

@@ -22,6 +22,11 @@ import FigmaIcon from "../../icons/skills/tools/figma.svg";
 import Title from "../ui/Title.astro";
 import type { Skill } from "../../types";
 
+import { getLangFromUrl, translate } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { skills: t } = translate(lang);
+
 const programingLang: Skill[] = [
   {
     name: "JavaScript",
@@ -97,12 +102,12 @@ const tools: Skill[] = [
 ---
 
 <>
-  <Title id="skills" text="What i like to use" />
+  <Title id="skills" text={t.title} />
   <div class="space-y-6">
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <!-- Programing Languages -->
       <div class="flex flex-col space-y-3">
-        <h3 class="text-lg font-semibold">Programing Languages</h3>
+        <h3 class="text-lg font-semibold">{t.proglang}</h3>
         <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 px-8 py-6">
           {
             programingLang.map((s: Skill) => (
@@ -141,7 +146,7 @@ const tools: Skill[] = [
 
     <!-- Tools & Others -->
     <div class="space-y-3">
-      <h3 class="text-lg font-semibold">Tools & Others</h3>
+      <h3 class="text-lg font-semibold">{t.tools}</h3>
       <Card
         class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 px-8 py-6 lg:grid-cols-3"
       >

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import type { MusicDataType } from "../types";
+import type { LangProps, MusicDataType } from "../types";
 import Modal from "./ui/Modal";
 import Image from "./ui/Image";
 
-export default function Listener() {
+export default function Listener({ t }: LangProps<"listener">) {
   const [musicData, setMusicData] = useState<MusicDataType>({
     isListening: false
   });
@@ -66,7 +66,7 @@ export default function Listener() {
                     <div className="flex flex-col gap-2">
                       <p>{musicData.track.album}</p>
                       <p className="text-sm italic">
-                        <span className="font-semibold">By</span>{" "}
+                        <span className="font-semibold">{t.artistBy}</span>{" "}
                         {musicData.track.artist}
                       </p>
                     </div>

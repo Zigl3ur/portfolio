@@ -1,11 +1,15 @@
 ---
 import Title from "../../components/ui/Title.astro";
+import { getLangFromUrl, translate } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { aboutme: t } = translate(lang);
 ---
 
 <div class="space-y-8">
-  <Title id="about-me" text="About Me" />
+  <Title id="about-me" text={t.title} />
   <p class="flex flex-wrap gap-1.5 font-sans text-xl">
-    <span>Hi I'm</span>
+    <span>{t.hi}</span>
     <span
       class="bg-lime-bright text-gray h-fit w-fit -skew-x-8 transform px-1 font-mono font-bold"
     >
@@ -13,16 +17,6 @@ import Title from "../../components/ui/Title.astro";
     </span>
   </p>
   <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquet
-    cursus turpis non rutrum. Morbi magna lacus, elementum et quam ac, ultrices
-    interdum urna. Nunc lacinia risus vitae bibendum iaculis. Maecenas massa
-    nibh, convallis quis ultrices nec, pharetra eget sem. In lectus urna, mollis
-    at auctor ac, pretium id felis. Aenean vehicula sit amet neque ac venenatis.
-    Vestibulum suscipit laoreet mauris a mattis. Proin et augue neque. Proin
-    scelerisque mauris lacus, eget tempus velit laoreet vel. Nam pellentesque
-    dui vel metus commodo, vitae sodales magna elementum. Aenean id malesuada
-    lectus. Nunc a justo scelerisque, iaculis est sed, aliquam tortor. Sed
-    pellentesque egestas dui, in ullamcorper dui. Nulla fringilla, arcu sed
-    mollis bibendum, orci urna fermentum orci, vel viverra enim dui ut lacus.
+    {t.description}
   </p>
 </div>

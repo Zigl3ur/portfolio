@@ -3,24 +3,27 @@ import type { ProjectType } from "../../types";
 import Card from "../ui/Card.astro";
 import Title from "../ui/Title.astro";
 
+import { getLangFromUrl, translate } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { projects: t } = translate(lang);
+
 const projects: ProjectType[] = [
   {
     name: "Jellyhub",
-    description:
-      "A web app that indexes media from multiple Jellyfin servers into a single searchable hub, letting you see which server hosts the content you're looking for.",
+    description: t.jellyhubdesc,
     url: "https://github.com/Zigl3ur/jellyhub"
   },
   {
     name: "McJar",
-    description:
-      "A cli tool that allow you to easily download jar for minecraft as server software and addons (plugins, mods, modpacks, datapacks)",
+    description: t.mcjardesc,
     url: "https://github.com/Zigl3ur/mcjar"
   }
 ];
 ---
 
 <>
-  <Title id="projects" text="Projects" />
+  <Title id="projects" text={t.title} />
   <div class="space-y-6">
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {

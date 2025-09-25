@@ -4,6 +4,7 @@ import { z } from "zod/mini";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import type { LangProps } from "../types";
 
 const messageMaxChars: number = 1500;
 
@@ -34,7 +35,7 @@ const contactFormSchema = z.object({
 
 type ContactFormSchemaType = z.infer<typeof contactFormSchema>;
 
-export default function ContactForm() {
+export default function ContactForm({ t }: LangProps<"contact">) {
   const {
     register,
     handleSubmit,
@@ -44,7 +45,10 @@ export default function ContactForm() {
     mode: "onChange"
   });
 
-  const [submitError, setSubmitError] = useState<string>("");
+  const [submitMessage, setSubmitMessage] = useState<{
+    type: "success" | "error";
+    message: string;
+  }>({ type: "error", message: "" });
 
   const onSubmit: SubmitHandler<ContactFormSchemaType> = async (data) => {
     try {
@@ -57,12 +61,21 @@ export default function ContactForm() {
       });
 
       if (response.ok) {
-        setSubmitError("Successfully send message !");
+        setSubmitMessage({
+          type: "success",
+          message: t.form.submitMessages.ok
+        });
       } else if (response.status === 429) {
-        setSubmitError("Too much messages send, try again later.");
+        setSubmitMessage({
+          type: "error",
+          message: t.form.submitMessages.rateLimit
+        });
       }
     } catch {
-      setSubmitError("Failed to send message, try again later.");
+      setSubmitMessage({
+        type: "success",
+        message: t.form.submitMessages.error
+      });
     }
   };
 
@@ -72,39 +85,41 @@ export default function ContactForm() {
         <div className="xs:flex-row flex flex-col gap-2">
           <Input
             type="text"
-            placeholder="Name"
-            label="Name"
+            placeholder={t.form.fields.name.placeholder}
+            label={t.form.fields.name.label}
             error={errors.name?.message}
             {...register("name")}
           />
           <Input
             type="email"
-            placeholder="Email"
-            label="Email"
+            placeholder={t.form.fields.email.placeholder}
+            label={t.form.fields.email.label}
             error={errors.email?.message}
             {...register("email")}
           />
         </div>
         <Input
           type="text"
-          placeholder="Subject"
-          label="Subject"
+          placeholder={t.form.fields.subject.placeholder}
+          label={t.form.fields.subject.label}
           error={errors.subject?.message}
           {...register("subject")}
         />
         <TextArea
-          placeholder="Message"
+          placeholder={t.form.fields.message.placeholder}
+          label={t.form.fields.message.label}
           maxChars={messageMaxChars}
           error={errors.message?.message}
-          label="Message"
           {...register("message")}
         />
       </div>
-      {submitError && (
-        <div className="text-destructive-muted hover:text-destructive flex justify-between text-sm">
-          <span>{submitError}</span>
+      {submitMessage.message && (
+        <div
+          className={`flex justify-between text-sm ${submitMessage.type === "error" ? "text-destructive-muted hover:text-destructive" : "text-lime-pale/80 hover:text-lime-bright"}`}
+        >
+          <span>{submitMessage.message}</span>
           <button
-            onClick={() => setSubmitError("")}
+            onClick={() => setSubmitMessage({ type: "error", message: "" })}
             className="hover:cursor-pointer hover:underline"
           >
             Dismiss
@@ -116,7 +131,9 @@ export default function ContactForm() {
         disabled={!isValid || isSubmitting}
         className="bg-lime-bright text-gray hover:bg-lime-pale disabled:bg-muted mt-2 w-full rounded-md px-2 py-1 text-sm font-semibold transition-colors duration-200 hover:cursor-pointer disabled:cursor-default"
       >
-        {isSubmitting ? "Sending Message..." : "Send Message"}
+        {isSubmitting
+          ? t.form.submitButton.submitting
+          : t.form.submitButton.base}
       </button>
     </form>
   );

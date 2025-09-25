@@ -15,6 +15,11 @@ export default defineConfig({
     enabled: false
   },
 
+  i18n: {
+    locales: ["en", "fr"],
+    defaultLocale: "fr"
+  },
+
   output: "static",
 
   vite: {
