@@ -23,12 +23,10 @@ export default function textArea({
       <label>{label}</label>
       <textarea
         placeholder={placeholder}
+        maxLength={maxChars}
         className={`peer bg-background min-h-32 w-full rounded-md border-2 p-1 transition-colors duration-200 focus:outline-0 ${error ? "placeholder:text-destructive-muted border-destructive-muted focus:border-destructive focus:placeholder:text-destructive" : "placeholder:text-muted border-muted focus:border-gray focus:placeholder:text-gray"}`}
         onChange={(e) => {
-          const content = e.target.value;
-          const contentChars = content.trim().length;
-
-          if (contentChars > maxChars) return;
+          const contentChars = e.target.value.length;
 
           onChange && onChange(e);
           setCharCount(contentChars);

@@ -3,6 +3,7 @@ import TextArea from "./ui/TextArea";
 import { z } from "zod/mini";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 const messageMaxChars: number = 1500;
 
@@ -15,6 +16,13 @@ const contactFormSchema = z.object({
       z.trim()
     ),
   email: z.string().check(z.email({ error: "Email is invalid" })),
+  subject: z
+    .string()
+    .check(
+      z.minLength(5, { error: "Subject must be at least 5 char" }),
+      z.maxLength(100, { error: "Name must be at most 100 char" }),
+      z.trim()
+    ),
   message: z.string().check(
     z.minLength(10, { error: "Message must be at least 10 char" }),
     z.maxLength(messageMaxChars, {
@@ -36,9 +44,26 @@ export default function ContactForm() {
     mode: "onChange"
   });
 
+  const [submitError, setSubmitError] = useState<string>("");
+
   const onSubmit: SubmitHandler<ContactFormSchemaType> = async (data) => {
-    console.log(data);
-    console.log(errors);
+    try {
+      const response = await fetch("http://localhost:8080/message", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        setSubmitError("Successfully send message !");
+      } else if (response.status === 429) {
+        setSubmitError("Too much messages send, try again later.");
+      }
+    } catch {
+      setSubmitError("Failed to send message, try again later.");
+    }
   };
 
   return (
@@ -60,6 +85,13 @@ export default function ContactForm() {
             {...register("email")}
           />
         </div>
+        <Input
+          type="text"
+          placeholder="Subject"
+          label="Subject"
+          error={errors.subject?.message}
+          {...register("subject")}
+        />
         <TextArea
           placeholder="Message"
           maxChars={messageMaxChars}
@@ -68,15 +100,24 @@ export default function ContactForm() {
           {...register("message")}
         />
       </div>
-      <div className="flex w-full justify-end">
-        <button
-          type="submit"
-          disabled={!isValid || isSubmitting}
-          className="bg-lime-bright text-gray hover:bg-lime-pale disabled:bg-muted rounded-md px-2 py-1 text-sm font-semibold transition-colors duration-200 hover:cursor-pointer disabled:cursor-default"
-        >
-          {isSubmitting ? "Sending..." : "Send"}
-        </button>
-      </div>
+      {submitError && (
+        <div className="text-destructive-muted hover:text-destructive flex justify-between text-sm">
+          <span>{submitError}</span>
+          <button
+            onClick={() => setSubmitError("")}
+            className="hover:cursor-pointer hover:underline"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+      <button
+        type="submit"
+        disabled={!isValid || isSubmitting}
+        className="bg-lime-bright text-gray hover:bg-lime-pale disabled:bg-muted mt-2 w-full rounded-md px-2 py-1 text-sm font-semibold transition-colors duration-200 hover:cursor-pointer disabled:cursor-default"
+      >
+        {isSubmitting ? "Sending Message..." : "Send Message"}
+      </button>
     </form>
   );
 }

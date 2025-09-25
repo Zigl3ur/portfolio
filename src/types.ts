@@ -19,9 +19,3 @@ export type Skill = {
   name: string;
   icon: ImageMetadata;
 };
-
-export type ContactFormData = {
-  name: string;
-  email: string;
-  message: string;
-};
