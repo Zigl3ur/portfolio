@@ -10,7 +10,7 @@ export default function Listener({ t }: LangProps<"listener">) {
 
   useEffect(() => {
     const fetchMusic = async () => {
-      const res = await fetch("https://api.douru.fr/music");
+      const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/music`);
       const data = (await res.json()) as MusicDataType;
       setMusicData(data);
     };

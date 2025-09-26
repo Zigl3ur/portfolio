@@ -31,18 +31,31 @@ export type uiLangSchema = {
         name: {
           placeholder: string;
           label: string;
+          errors: {
+            min: string;
+            max: string;
+          };
         };
         email: {
           placeholder: string;
           label: string;
+          error: string;
         };
         subject: {
           placeholder: string;
           label: string;
+          errors: {
+            min: string;
+            max: string;
+          };
         };
         message: {
           placeholder: string;
           label: string;
+          errors: {
+            min: string;
+            max: string;
+          };
         };
       };
       submitButton: {
@@ -100,19 +113,32 @@ export const ui = {
         fields: {
           name: {
             placeholder: "Nom",
-            label: "Nom"
+            label: "Nom",
+            errors: {
+              min: "Le Nom doit avoir minimun 2 charactères",
+              max: "Le Nom doit avoir maximum 15 charactères"
+            }
           },
           email: {
             placeholder: "Email",
-            label: "Email"
+            label: "Email",
+            error: "L'Email est invalide"
           },
           subject: {
             placeholder: "Objet",
-            label: "Objet"
+            label: "Objet",
+            errors: {
+              min: "L'Objet doit avoir minimun 5 charactères",
+              max: "L'Objet doit avoir maximum 100 charactères"
+            }
           },
           message: {
             placeholder: "Message",
-            label: "Message"
+            label: "Message",
+            errors: {
+              min: "Le Message doit avoir minimun 10 charactères",
+              max: "Le Message doit avoir maximum 1500 charactères"
+            }
           }
         },
         submitButton: {
@@ -168,19 +194,32 @@ export const ui = {
         fields: {
           name: {
             placeholder: "Name",
-            label: "Name"
+            label: "Name",
+            errors: {
+              min: "Name must be at least 2 char",
+              max: "Name must be at most 15 char"
+            }
           },
           email: {
             placeholder: "Email",
-            label: "Email"
+            label: "Email",
+            error: "Email is invalid"
           },
           subject: {
             placeholder: "Subject",
-            label: "Subject"
+            label: "Subject",
+            errors: {
+              min: "Subject must be at least 5 char",
+              max: "Name must be at most 100 char"
+            }
           },
           message: {
             placeholder: "Message",
-            label: "Message"
+            label: "Message",
+            errors: {
+              min: "Message must be at least 10 char",
+              max: "Message must be at most 1500 char"
+            }
           }
         },
         submitButton: {
