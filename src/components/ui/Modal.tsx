@@ -75,9 +75,8 @@ function Content({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 backdrop-blur-sm ${
-        show ? "flex" : "hidden"
-      } items-center justify-center`}
+      hidden={!show}
+      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
     >
       {/* modal content */}
       <div

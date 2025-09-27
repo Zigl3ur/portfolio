@@ -108,7 +108,7 @@ const tools: Skill[] = [
       <!-- Programing Languages -->
       <div class="flex flex-col space-y-3">
         <h3 class="text-lg font-semibold">{t.proglang}</h3>
-        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 px-8 py-6">
+        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8">
           {
             programingLang.map((s: Skill) => (
               <div class="flex items-center gap-3">
@@ -127,7 +127,7 @@ const tools: Skill[] = [
       <!-- Frameworks -->
       <div class="flex flex-col space-y-3">
         <h3 class="text-lg font-semibold">Frameworks</h3>
-        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 px-8 py-6">
+        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8">
           {
             frameworks.map((f: Skill) => (
               <div class="flex items-center gap-3">
@@ -141,15 +141,13 @@ const tools: Skill[] = [
             ))
           }
         </Card>
-      </div>
+      </div>p
     </div>
 
     <!-- Tools & Others -->
     <div class="space-y-3">
       <h3 class="text-lg font-semibold">{t.tools}</h3>
-      <Card
-        class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 px-8 py-6 lg:grid-cols-3"
-      >
+      <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 lg:grid-cols-3">
         {
           tools.map((t: Skill) => (
             <div class="flex items-center gap-3">

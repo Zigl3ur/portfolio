@@ -58,10 +58,10 @@ function Trigger({
 
 function Content({
   children,
-  position
+  position = "left"
 }: {
   children: ReactNode;
-  position: "left" | "right";
+  position?: "left" | "right";
 }) {
   const { visible, setVisible, triggerRef } = usePopover();
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -105,11 +105,12 @@ function Content({
 
   return (
     <div
+      hidden={!visible}
       ref={popoverRef}
-      className={`absolute top-full z-49 mt-1 ${visible ? "block" : "hidden"} ${position === "left" ? "left-0" : "right-0"}`}
+      className={`absolute top-full z-49 mt-1 ${position === "left" ? "left-0" : "right-0"}`}
     >
       {/* Popover content */}
-      <div className="bg-background border-gray relative max-w-xs border border-dashed p-6 shadow-lg">
+      <div className="bg-background flex w-fit border-gray relative border border-dashed px-6 py-4 shadow-lg">
         <PlusIcon
           width={15}
           height={15}

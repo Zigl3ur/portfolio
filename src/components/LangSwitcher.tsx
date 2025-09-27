@@ -15,7 +15,7 @@ export default function LangSwitcher({
       <PopoverTrigger className="transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
         <h3>{actual.toUpperCase()}</h3>
       </PopoverTrigger>
-      <PopoverContent position="left">
+      <PopoverContent>
         <div className="flex flex-col gap-1">
           {localesUrls.map((l) => (
             <a
