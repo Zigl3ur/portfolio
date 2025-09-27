@@ -111,5 +111,5 @@ function Content({ children }: { children: ReactNode }) {
   );
 }
 
-Modal.Trigger = Trigger;
-Modal.Content = Content;
+export const ModalTrigger = Trigger;
+export const ModalContent = Content;

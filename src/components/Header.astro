@@ -2,18 +2,22 @@
 import GithubIcon from "../icons/github-logo.svg";
 import LinkedInIcon from "../icons/linkedin-logo.svg";
 import DiscordIcon from "../icons/discord-logo.svg";
-import { getLangFromUrl } from "../i18n/utils";
+import { getLangFromUrl, getLocalesUrl } from "../i18n/utils";
+import LangSwitcher from "./LangSwitcher";
+import SocialsPopover from "./SocialsPopover";
 
 const lang = getLangFromUrl(Astro.url);
+const langListUrl = getLocalesUrl();
 ---
 
 <header
   class="bg-background border-gray sticky top-0 z-10 w-full border-b border-dashed px-6 py-4"
 >
   <div class="flex items-center justify-between">
-    <h3>{lang.toUpperCase()}</h3>
-    <nav class="flex items-center gap-4">
+    <LangSwitcher client:load actual={lang} localesUrls={langListUrl} />
+    <nav class="xs:flex hidden items-center gap-4">
       <a
+        title="Discord"
         href="https://discordapp.com/users/384053588042711040"
         target="_blank"
         aria-label="Discord"
@@ -22,6 +26,7 @@ const lang = getLangFromUrl(Astro.url);
         <DiscordIcon width={25} height={25} />
       </a>
       <a
+        title="GitHub"
         href="https://github.com/Zigl3ur"
         target="_blank"
         aria-label="GitHub"
@@ -30,6 +35,7 @@ const lang = getLangFromUrl(Astro.url);
         <GithubIcon width={25} height={25} />
       </a>
       <a
+        title="LinkedIn"
         href="https://www.linkedin.com/in/eden-douru/"
         target="_blank"
         aria-label="LinkedIn"
@@ -38,5 +44,8 @@ const lang = getLangFromUrl(Astro.url);
         <LinkedInIcon width={25} height={25} />
       </a>
     </nav>
+    <div class="xs:hidden flex">
+      <SocialsPopover client:load />
+    </div>
   </div>
 </header>

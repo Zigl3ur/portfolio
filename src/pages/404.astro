@@ -1,6 +1,10 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "../layouts/Layout.astro";
+import { getLangFromUrl, translate } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { notfound: t } = translate(lang);
 ---
 
 <Layout>
@@ -10,10 +14,12 @@ import Layout from "../layouts/Layout.astro";
     <div
       class="text-foreground border-gray w-full space-y-4 border-y border-dashed p-10 text-center"
     >
-      <h1 class="font-mono text-4xl">404 - Pas Trouvé</h1>
+      <h1 class="font-mono text-4xl">404 - {t.statusName}</h1>
       <a
-        href={getRelativeLocaleUrl("fr", "/")}
-        class="text-md underline hover:text-gray-400">Accueil</a
+        href={getRelativeLocaleUrl(lang, "/")}
+        class="text-md underline hover:text-gray-400"
+      >
+        {t.home}</a
       >
     </div>
   </div>

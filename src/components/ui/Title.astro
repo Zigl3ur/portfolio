@@ -1,5 +1,12 @@
 ---
 const { id, text } = Astro.props;
+
+if (!id) {
+  throw new Error("Props 'id' missing");
+}
+if (!text) {
+  throw new Error("Props 'text' missing");
+}
 ---
 
 <h1

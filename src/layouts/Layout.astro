@@ -26,9 +26,7 @@ const lang = getLangFromUrl(Astro.url);
     class="bg-background border-gray text-foreground mx-auto min-h-screen max-w-4xl border-x border-dashed font-sans wrap-break-word"
   >
     <Header />
-    <div class="space-y-32 px-6">
-      <slot />
-    </div>
+    <slot />
     <Footer />
   </body>
 </html>

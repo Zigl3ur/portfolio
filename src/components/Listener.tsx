@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { LangProps, MusicDataType } from "../types";
-import Modal from "./ui/Modal";
+import Modal, { ModalContent, ModalTrigger } from "./ui/Modal";
 import Image from "./ui/Image";
 
 export default function Listener({ t }: LangProps<"listener">) {
@@ -38,12 +38,12 @@ export default function Listener({ t }: LangProps<"listener">) {
           <div className="text-sm">
             <span className="font-semibold">{musicData.track.artist}</span> -{" "}
             <Modal>
-              <Modal.Trigger>
-                <span className="italice transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
+              <ModalTrigger>
+                <span className="italic transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
                   {musicData.track.name}
                 </span>
-              </Modal.Trigger>
-              <Modal.Content>
+              </ModalTrigger>
+              <ModalContent>
                 <div className="flex flex-col items-center">
                   {musicData.track.image && (
                     <Image
@@ -57,7 +57,6 @@ export default function Listener({ t }: LangProps<"listener">) {
                       className="text-white transition-opacity duration-200 hover:cursor-pointer hover:opacity-70"
                       href={musicData.track.url}
                       target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <p className="text-lg font-semibold">
                         {musicData.track.name}
@@ -72,7 +71,7 @@ export default function Listener({ t }: LangProps<"listener">) {
                     </div>
                   </div>
                 </div>
-              </Modal.Content>
+              </ModalContent>
             </Modal>
           </div>
         </div>

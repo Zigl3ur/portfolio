@@ -69,6 +69,10 @@ export type uiLangSchema = {
       };
     };
   };
+  notfound: {
+    statusName: string;
+    home: string;
+  };
   listener: {
     artistBy: string;
   };
@@ -152,6 +156,10 @@ export const ui = {
         }
       }
     },
+    notfound: {
+      statusName: "Pas Trouvé",
+      home: "Accueil"
+    },
     listener: {
       artistBy: "De"
     }
@@ -232,6 +240,10 @@ export const ui = {
           error: "Failed to send message, try again later."
         }
       }
+    },
+    notfound: {
+      statusName: "Not Found",
+      home: "Home"
     },
     listener: {
       artistBy: "By"
