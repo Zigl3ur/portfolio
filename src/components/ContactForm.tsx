@@ -87,7 +87,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
       }
     } catch {
       setSubmitMessage({
-        type: "success",
+        type: "error",
         message: ft.submitMessages.error
       });
     }
