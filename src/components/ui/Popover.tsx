@@ -78,26 +78,26 @@ function Content({
   };
 
   const handleEscapeKey = (event: KeyboardEvent) => {
-    if (event.key === "Escape") {
-      setVisible(false);
-    }
+    if (event.key === "Escape") setVisible(false);
   };
 
-  const handleMouseLeave = () => {
+  const closePopover = () => {
     setVisible(false);
   };
 
   useEffect(() => {
     if (visible) {
       popoverRef.current &&
-        popoverRef.current.addEventListener("mouseleave", handleMouseLeave);
+        popoverRef.current.addEventListener("mouseleave", closePopover);
+      document.addEventListener("scroll", closePopover);
       document.addEventListener("mousedown", shouldClose);
       document.addEventListener("keydown", handleEscapeKey);
     }
 
     return () => {
       popoverRef.current &&
-        popoverRef.current.addEventListener("mouseleave", handleMouseLeave);
+        popoverRef.current.removeEventListener("mouseleave", closePopover);
+      document.removeEventListener("scroll", closePopover);
       document.removeEventListener("mousedown", shouldClose);
       document.removeEventListener("keydown", handleEscapeKey);
     };
@@ -107,10 +107,10 @@ function Content({
     <div
       hidden={!visible}
       ref={popoverRef}
-      className={`absolute top-full z-49 mt-1 ${position === "left" ? "left-0" : "right-0"}`}
+      className={`absolute top-full z-49 mt-1 max-w-[calc(100vw-2rem)] ${position === "left" ? "left-0" : "right-0"}`}
     >
       {/* Popover content */}
-      <div className="bg-background flex w-fit border-gray relative border border-dashed px-6 py-4 shadow-lg">
+      <div className="bg-background border-gray relative border border-dashed px-6 py-4 shadow-lg">
         <PlusIcon
           width={15}
           height={15}
@@ -131,8 +131,7 @@ function Content({
           height={15}
           className="text-gray absolute right-0 bottom-0 mr-1 mb-1"
         />
-
-        {children}
+        <div className="overflow-x-auto">{children}</div>
       </div>
     </div>
   );

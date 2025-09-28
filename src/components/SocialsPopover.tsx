@@ -18,7 +18,7 @@ export default function SocialsPopover() {
             aria-label="Discord"
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
           >
-            <DiscordIcon width={20} height={20} />
+            <DiscordIcon width={20} height={20} className="flex-shrink-0" />
             Discord
           </a>
           <a
@@ -27,7 +27,7 @@ export default function SocialsPopover() {
             aria-label="GitHub"
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
           >
-            <GithubIcon width={20} height={20} />
+            <GithubIcon width={20} height={20} className="flex-shrink-0" />
             GitHub
           </a>
           <a
@@ -36,7 +36,7 @@ export default function SocialsPopover() {
             aria-label="LinkedIn"
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
           >
-            <LinkedInIcon width={20} height={20} />
+            <LinkedInIcon width={20} height={20} className="flex-shrink-0" />
             LinkedIn
           </a>
         </div>
