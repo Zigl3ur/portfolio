@@ -16,7 +16,5 @@ const { aboutme: t } = translate(lang);
       Eden
     </span>
   </p>
-  <p>
-    {t.description}
-  </p>
+  <p set:html={t.description} />
 </div>

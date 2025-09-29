@@ -86,23 +86,16 @@ export const ui = {
     aboutme: {
       title: "À propos de moi",
       hi: "Salut, moi c'est",
-      description: `
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquet
-    cursus turpis non rutrum. Morbi magna lacus, elementum et quam ac, ultrices
-    interdum urna. Nunc lacinia risus vitae bibendum iaculis. Maecenas massa
-    nibh, convallis quis ultrices nec, pharetra eget sem. In lectus urna, mollis
-    at auctor ac, pretium id felis. Aenean vehicula sit amet neque ac venenatis.
-    Vestibulum suscipit laoreet mauris a mattis. Proin et augue neque. Proin
-    scelerisque mauris lacus, eget tempus velit laoreet vel. Nam pellentesque
-    dui vel metus commodo, vitae sodales magna elementum. Aenean id malesuada
-    lectus. Nunc a justo scelerisque, iaculis est sed, aliquam tortor. Sed
-    pellentesque egestas dui, in ullamcorper dui. Nulla fringilla, arcu sed
-    mollis bibendum, orci urna fermentum orci, vel viverra enim dui ut lacus.`
+      description: `Passioné par l'informatique depuis plusieurs années, j'ai commencé à m'intéresser au côté "hardware" pour ensuite me tourner vers la partie "software".<br />
+      Voulant en apprendre plus dans ce domaine je me suis orienté vers un <strong>BUT Réalisation d'applications conception, développement, validation</strong>
+      me permettant de me spécialiser dans le développement web ainsi que logiciel.<br/><br/>
+      En parallèle de mes études, je consacre du temps à des projets personnels qui me permettent d’expérimenter de nouvelles technologies et d’élargir mes connaissances.<br/>
+      Je maintiens également un homelab, dans lequel j’auto-héberge différents services et explore des domaines tels que le réseau, la virtualisation et l’administration système.`
     },
     skills: {
       title: "Ce que j'aime utiliser",
       proglang: "Languages de Programmation",
-      tools: "Outils et Autres"
+      tools: "Outils & Autres"
     },
     projects: {
       title: "Projets",
@@ -171,18 +164,10 @@ export const ui = {
     aboutme: {
       title: "About me",
       hi: "Hi, I'm",
-      description: `
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquet
-    cursus turpis non rutrum. Morbi magna lacus, elementum et quam ac, ultrices
-    interdum urna. Nunc lacinia risus vitae bibendum iaculis. Maecenas massa
-    nibh, convallis quis ultrices nec, pharetra eget sem. In lectus urna, mollis
-    at auctor ac, pretium id felis. Aenean vehicula sit amet neque ac venenatis.
-    Vestibulum suscipit laoreet mauris a mattis. Proin et augue neque. Proin
-    scelerisque mauris lacus, eget tempus velit laoreet vel. Nam pellentesque
-    dui vel metus commodo, vitae sodales magna elementum. Aenean id malesuada
-    lectus. Nunc a justo scelerisque, iaculis est sed, aliquam tortor. Sed
-    pellentesque egestas dui, in ullamcorper dui. Nulla fringilla, arcu sed
-    mollis bibendum, orci urna fermentum orci, vel viverra enim dui ut lacus.`
+      description: `Passionate about IT for several years, I first became interested in the hardware side before moving on to software.<br />
+      Eager to learn more in this field, I chose a Bachelor’s degree in Application Development, Design, and Validation, which allows me to specialize in both web and software development.<br/><br/>
+      Alongside my studies, I dedicate time to personal projects that give me the opportunity to experiment with new technologies and broaden my knowledge.<br />
+      I also maintain a homelab, where I self-host various services and explore areas such as networking, virtualization, and system administration.`
     },
     skills: {
       title: "What i like to use",
