@@ -136,7 +136,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
             onClick={() => setSubmitMessage({ type: "error", message: "" })}
             className="hover:cursor-pointer hover:underline"
           >
-            Dismiss
+            {t.form.submitMessages.dismiss}
           </button>
         </div>
       )}

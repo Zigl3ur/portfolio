@@ -19,7 +19,7 @@ export default function SocialsPopover() {
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
           >
             <DiscordIcon width={20} height={20} className="flex-shrink-0" />
-            Discord
+            <span className="xxs:flex hidden">Discord</span>
           </a>
           <a
             href="https://github.com/Zigl3ur"
@@ -28,7 +28,7 @@ export default function SocialsPopover() {
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
           >
             <GithubIcon width={20} height={20} className="flex-shrink-0" />
-            GitHub
+            <span className="xxs:flex hidden">GitHub</span>
           </a>
           <a
             href="https://www.linkedin.com/in/eden-douru/"
@@ -37,7 +37,7 @@ export default function SocialsPopover() {
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
           >
             <LinkedInIcon width={20} height={20} className="flex-shrink-0" />
-            LinkedIn
+            <span className="xxs:flex hidden">LinkedIn</span>
           </a>
         </div>
       </PopoverContent>

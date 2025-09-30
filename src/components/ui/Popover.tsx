@@ -131,7 +131,7 @@ function Content({
           height={15}
           className="text-gray absolute right-0 bottom-0 mr-1 mb-1"
         />
-        <div className="overflow-x-auto">{children}</div>
+        {children}
       </div>
     </div>
   );

@@ -66,6 +66,7 @@ export type uiLangSchema = {
         ok: string;
         rateLimit: string;
         error: string;
+        dismiss: string;
       };
     };
   };
@@ -145,7 +146,8 @@ export const ui = {
         submitMessages: {
           ok: "Message envoyé avec succés !",
           rateLimit: "Trop de messages envoyés, réessayez plus tard.",
-          error: "Impossible d'envoyer le message, réessayez plus tard."
+          error: "Impossible d'envoyer le message, réessayez plus tard.",
+          dismiss: "Fermer"
         }
       }
     },
@@ -222,7 +224,8 @@ export const ui = {
         submitMessages: {
           ok: "Successfully send message !",
           rateLimit: "Too much messages send, try again later !",
-          error: "Failed to send message, try again later."
+          error: "Failed to send message, try again later.",
+          dismiss: "Dismiss"
         }
       }
     },

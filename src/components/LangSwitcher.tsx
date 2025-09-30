@@ -27,8 +27,10 @@ export default function LangSwitcher({
               }
             >
               <h3>{l.locale.toUpperCase()}</h3>
-              <span className="mx-2">-</span>
-              <span>{l.label}</span>
+              <span className="xxs:flex hidden">
+                <span className="mx-2">-</span>
+                <span>{l.label}</span>
+              </span>
             </a>
           ))}
         </div>

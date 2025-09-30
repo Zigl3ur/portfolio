@@ -22,6 +22,7 @@
   --color-destructive: #ff4c4c;
   --color-destructive-muted: #8b1a1a;
   --breakpoint-xs: 25rem;
+  --breakpoint-xxs: 15rem;
 }
 
 html {
