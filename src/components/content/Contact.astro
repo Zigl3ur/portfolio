@@ -7,7 +7,7 @@ const lang = getLangFromUrl(Astro.url);
 const { contact: t } = translate(lang);
 ---
 
-<>
+<section>
   <Title id="contact" text={t.title} />
   <ContactForm t={t} client:load />
-</>
+</section>

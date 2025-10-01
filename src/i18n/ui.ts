@@ -113,29 +113,29 @@ export const ui = {
             placeholder: "Nom",
             label: "Nom",
             errors: {
-              min: "Le Nom doit avoir minimun 2 charactères",
-              max: "Le Nom doit avoir maximum 15 charactères"
+              min: "Le nom doit avoir minimun 2 charactères",
+              max: "Le nom doit avoir maximum 15 charactères"
             }
           },
           email: {
             placeholder: "Email",
             label: "Email",
-            error: "L'Email est invalide"
+            error: "L'email est invalide"
           },
           subject: {
             placeholder: "Objet",
             label: "Objet",
             errors: {
-              min: "L'Objet doit avoir minimun 5 charactères",
-              max: "L'Objet doit avoir maximum 100 charactères"
+              min: "L'objet doit avoir minimun 5 charactères",
+              max: "L'objet doit avoir maximum 100 charactères"
             }
           },
           message: {
             placeholder: "Message",
             label: "Message",
             errors: {
-              min: "Le Message doit avoir minimun 10 charactères",
-              max: "Le Message doit avoir maximum 1500 charactères"
+              min: "Le message doit avoir minimun 10 charactères",
+              max: "Le message doit avoir maximum 1500 charactères"
             }
           }
         },

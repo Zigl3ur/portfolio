@@ -6,7 +6,7 @@ const lang = getLangFromUrl(Astro.url);
 const { aboutme: t } = translate(lang);
 ---
 
-<div class="space-y-8">
+<section class="space-y-8">
   <Title id="about-me" text={t.title} />
   <p class="flex flex-wrap gap-1.5 font-sans text-xl break-all">
     <span>{t.hi}</span>
@@ -17,4 +17,4 @@ const { aboutme: t } = translate(lang);
     </span>
   </p>
   <p set:html={t.description} />
-</div>
+</section>
