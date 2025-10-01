@@ -19,6 +19,24 @@
   --color-lime-pale: #bdee63;
   --color-gray: #393835;
   --color-muted: #262626;
+  --color-destructive: #ff4c4c;
+  --color-destructive-muted: #8b1a1a;
+  --breakpoint-xs: 25rem;
+  --breakpoint-xxs: 15rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding: 6rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-mono);
 }
 
 ::selection {

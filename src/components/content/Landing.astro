@@ -1,0 +1,21 @@
+---
+import ChevronDown from "../../icons/chevron-down.svg";
+import { getLangFromUrl, translate } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { landing: t } = translate(lang);
+---
+
+<section class="flex min-h-[calc(100vh-4rem)] flex-col">
+  <div class="my-auto space-y-2">
+    <h1 class="xs:text-5xl w-fit text-4xl font-bold md:text-6xl lg:text-7xl">
+      Eden Douru
+    </h1>
+    <p class="text-md md:text-lg">{t.work}</p>
+  </div>
+  <div class="mb-20 flex items-center justify-center">
+    <a href="#about-me" class="transition duration-200 hover:-translate-y-1.5">
+      <ChevronDown width={40} height={40} />
+    </a>
+  </div>
+</section>

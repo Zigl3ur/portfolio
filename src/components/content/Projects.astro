@@ -1,0 +1,49 @@
+---
+import type { ProjectType } from "../../types";
+import Card from "../ui/Card.astro";
+import Title from "../ui/Title.astro";
+
+import { getLangFromUrl, translate } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { projects: t } = translate(lang);
+
+const projects: ProjectType[] = [
+  {
+    name: "Jellyhub",
+    description: t.jellyhubdesc,
+    url: "https://github.com/Zigl3ur/jellyhub"
+  },
+  {
+    name: "McJar",
+    description: t.mcjardesc,
+    url: "https://github.com/Zigl3ur/mcjar"
+  }
+];
+---
+
+<section>
+  <Title id="projects" text={t.title} />
+  <div class="space-y-6 overflow-x-hidden">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {
+        projects.map((p: ProjectType) => {
+          return (
+            <Card class="flex-1 space-y-4">
+              <h3 class="text-lg">
+                <a
+                  href={p.url}
+                  class="transition-opacity duration-200 hover:opacity-70"
+                  target="_blank"
+                >
+                  {p.name}
+                </a>
+              </h3>
+              <p>{p.description}</p>
+            </Card>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

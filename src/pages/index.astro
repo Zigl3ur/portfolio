@@ -1,43 +1,18 @@
 ---
+import AboutMe from "../components/content/AboutMe.astro";
+import Contact from "../components/content/Contact.astro";
+import Landing from "../components/content/Landing.astro";
+import Projects from "../components/content/Projects.astro";
+import Skills from "../components/content/Skills.astro";
 import Layout from "../layouts/Layout.astro";
-import GithubIcon from "../icons/github-logo.svg";
-import LinkedInIcon from "../icons/linkedin-logo.svg";
-import DiscordIcon from "../icons/discord-logo.svg";
 ---
 
 <Layout>
-  <div
-    class="flex min-h-[calc(100vh-5rem)] items-center justify-center sm:min-h-[calc(100vh-4rem)]"
-  >
-    <div
-      class="text-foreground border-gray w-full space-y-7 border-y border-dashed p-10 text-center"
-    >
-      <h1 class="font-mono text-4xl">Work In Progress</h1>
-      <p>Come back later</p>
-
-      <div class="flex justify-center gap-2">
-        <a
-          href="https://discordapp.com/users/384053588042711040"
-          target="_blank"
-          aria-label="Discord"
-        >
-          <DiscordIcon width={"25"} height={"25"} />
-        </a>
-        <a
-          href="https://github.com/Zigl3ur"
-          target="_blank"
-          aria-label="GitHub"
-        >
-          <GithubIcon width={"25"} height={"25"} />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/eden-douru/"
-          target="_blank"
-          aria-label="LinkedIn"
-        >
-          <LinkedInIcon width={"25"} height={"25"} />
-        </a>
-      </div>
-    </div>
+  <div class="space-y-32 px-6">
+    <Landing />
+    <AboutMe />
+    <Skills />
+    <Projects />
+    <Contact />
   </div>
 </Layout>

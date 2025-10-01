@@ -6,10 +6,12 @@ dist/
 # generated types
 .astro/
 
+.wrangler/
+
 # dependencies
 node_modules/
 
 # environment variables
 .env
 .env.production
-
+.env.development

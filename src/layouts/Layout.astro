@@ -1,21 +1,32 @@
 ---
-import Header from "../components/header.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { getLangFromUrl } from "../i18n/utils";
 import "../styles/global.css";
+
+const lang = getLangFromUrl(Astro.url);
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
+    {
+      import.meta.env.DEV && (
+        <script
+          is:inline
+          src="https://unpkg.com/react-scan/dist/auto.global.js"
+        />
+      )
+    }
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Work In Progress - Eden Douru</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Eden Douru</title>
   </head>
-
   <body
-    class="bg-background border-gray text-foreground mx-4 min-h-screen border-x border-dashed transition-all duration-300 ease-in-out sm:mx-16 md:mx-32 lg:mx-48 xl:mx-64 2xl:mx-80"
+    class="bg-background border-gray text-foreground mx-auto min-h-screen max-w-4xl border-x border-dashed font-sans wrap-break-word"
   >
     <Header />
     <slot />
+    <Footer />
   </body>
 </html>

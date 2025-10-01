@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import type { MusicJsonType } from "../types";
-import Modal from "./ui/Modal";
+import type { LangProps, MusicDataType } from "../types";
+import Modal, { ModalContent, ModalTrigger } from "./ui/Modal";
 import Image from "./ui/Image";
 
-export default function Listener() {
-  const [musicData, setMusicData] = useState<MusicJsonType>({
+export default function Listener({ t }: LangProps<"listener">) {
+  const [musicData, setMusicData] = useState<MusicDataType>({
     isListening: false
   });
 
   useEffect(() => {
     const fetchMusic = async () => {
-      const res = await fetch("https://api.douru.fr/music");
-      const data = (await res.json()) as MusicJsonType;
+      const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/music`);
+      const data = (await res.json()) as MusicDataType;
       setMusicData(data);
     };
 
@@ -38,12 +38,12 @@ export default function Listener() {
           <div className="text-sm">
             <span className="font-semibold">{musicData.track.artist}</span> -{" "}
             <Modal>
-              <Modal.Trigger>
-                <span className="italice hover:cursor-pointer hover:underline">
+              <ModalTrigger>
+                <span className="italic transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
                   {musicData.track.name}
                 </span>
-              </Modal.Trigger>
-              <Modal.Content>
+              </ModalTrigger>
+              <ModalContent>
                 <div className="flex flex-col items-center">
                   {musicData.track.image && (
                     <Image
@@ -54,25 +54,24 @@ export default function Listener() {
                   )}
                   <div className="flex flex-col">
                     <a
-                      className="text-white hover:underline"
+                      className="text-white transition-opacity duration-200 hover:cursor-pointer hover:opacity-70"
                       href={musicData.track.url}
                       target="_blank"
-                      rel="noopener noreferrer"
                     >
-                      <h2 className="text-lg font-semibold">
+                      <p className="text-lg font-semibold">
                         {musicData.track.name}
-                      </h2>
+                      </p>
                     </a>
                     <div className="flex flex-col gap-2">
                       <p>{musicData.track.album}</p>
                       <p className="text-sm italic">
-                        <span className="font-semibold">By</span>{" "}
+                        <span className="font-semibold">{t.artistBy}</span>{" "}
                         {musicData.track.artist}
                       </p>
                     </div>
                   </div>
                 </div>
-              </Modal.Content>
+              </ModalContent>
             </Modal>
           </div>
         </div>

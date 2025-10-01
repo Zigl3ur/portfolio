@@ -1,0 +1,17 @@
+---
+const { id, text } = Astro.props;
+
+if (!id) {
+  throw new Error("Props 'id' missing");
+}
+if (!text) {
+  throw new Error("Props 'text' missing");
+}
+---
+
+<h1
+  id={id}
+  class="decoration-gray mb-8 text-2xl font-semibold underline decoration-2 underline-offset-10 sm:text-3xl"
+>
+  {text}
+</h1>

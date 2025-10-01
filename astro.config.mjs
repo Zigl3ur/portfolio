@@ -1,8 +1,9 @@
 import { defineConfig, envField } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
-
+import svgr from 'vite-plugin-svgr';
 import react from "@astrojs/react";
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,16 +11,19 @@ export default defineConfig({
     port: 3000
   },
 
-  output: "static",
-
-  env: {
-    schema: {
-      LASTFM_API_KEY: envField.string({ context: "server", access: "secret" })
-    }
+  devToolbar: {
+    enabled: false
   },
 
+  i18n: {
+    locales: ["en", "fr"],
+    defaultLocale: "fr"
+  },
+
+  output: "static",
+
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), svgr()],
     resolve: {
       // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
       // Without this, MessageChannel from node:worker_threads needs to be polyfilled.

@@ -1,0 +1,20 @@
+---
+import Title from "../../components/ui/Title.astro";
+import { getLangFromUrl, translate } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { aboutme: t } = translate(lang);
+---
+
+<section class="space-y-8">
+  <Title id="about-me" text={t.title} />
+  <p class="flex flex-wrap gap-1.5 font-sans text-xl break-all">
+    <span>{t.hi}</span>
+    <span
+      class="bg-lime-bright text-gray h-fit w-fit -skew-x-8 transform px-1 font-mono font-bold"
+    >
+      Eden
+    </span>
+  </p>
+  <p set:html={t.description} />
+</section>

@@ -1,0 +1,13 @@
+---
+import ContactForm from "../ContactForm";
+import Title from "../ui/Title.astro";
+import { getLangFromUrl, translate } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { contact: t } = translate(lang);
+---
+
+<section>
+  <Title id="contact" text={t.title} />
+  <ContactForm t={t} client:load />
+</section>

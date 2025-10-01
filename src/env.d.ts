@@ -1,5 +1,7 @@
-type Runtime = import("@astrojs/cloudflare").Runtime<Env>;
+interface ImportMetaEnv {
+  readonly PUBLIC_API_URL: string;
+}
 
-declare namespace App {
-  interface Locals extends Runtime {}
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }

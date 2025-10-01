@@ -1,0 +1,166 @@
+---
+import Card from "../../components/ui/Card.astro";
+
+import JavascriptIcon from "../../icons/skills/progLang/javascript.svg";
+import TypescriptIcon from "../../icons/skills/progLang/typescript.svg";
+import HtmlIcon from "../../icons/skills/progLang/HTML5.svg";
+import GolangIcon from "../../icons/skills/progLang/golang.svg";
+import CsharpIcon from "../../icons/skills/progLang/csharp.svg";
+import CssIcon from "../../icons/skills/progLang/css.svg";
+
+import ReactIcon from "../../icons/skills/frameworks/react.svg";
+import TailwindIcon from "../../icons/skills/frameworks/tailwindcss.svg";
+import NextIcon from "../../icons/skills/frameworks/nextjs.svg";
+import AstroIcon from "../../icons/skills/frameworks/astro.svg";
+
+import VScodeIcon from "../../icons/skills/tools/vscode.svg";
+import GitIcon from "../../icons/skills/tools/git.svg";
+import DockerIcon from "../../icons/skills/tools/docker.svg";
+import LinuxIcon from "../../icons/skills/tools/linux.svg";
+import PostgresIcon from "../../icons/skills/tools/postgresql.svg";
+import FigmaIcon from "../../icons/skills/tools/figma.svg";
+import Title from "../ui/Title.astro";
+import type { Skill } from "../../types";
+
+import { getLangFromUrl, translate } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { skills: t } = translate(lang);
+
+const programingLang: Skill[] = [
+  {
+    name: "JavaScript",
+    icon: JavascriptIcon
+  },
+  {
+    name: "TypeScript",
+    icon: TypescriptIcon
+  },
+  {
+    name: "HTML",
+    icon: HtmlIcon
+  },
+  {
+    name: "CSS",
+    icon: CssIcon
+  },
+  {
+    name: "Golang",
+    icon: GolangIcon
+  },
+  {
+    name: "CSharp",
+    icon: CsharpIcon
+  }
+];
+
+const frameworks: Skill[] = [
+  {
+    name: "React",
+    icon: ReactIcon
+  },
+  {
+    name: "Tailwind CSS",
+    icon: TailwindIcon
+  },
+  {
+    name: "NextJS",
+    icon: NextIcon
+  },
+  {
+    name: "Astro",
+    icon: AstroIcon
+  }
+];
+
+const tools: Skill[] = [
+  {
+    name: "Visual Studio Code",
+    icon: VScodeIcon
+  },
+  {
+    name: "Git",
+    icon: GitIcon
+  },
+  {
+    name: "Docker",
+    icon: DockerIcon
+  },
+  {
+    name: "Linux",
+    icon: LinuxIcon
+  },
+  {
+    name: "Postgres",
+    icon: PostgresIcon
+  },
+  {
+    name: "Figma",
+    icon: FigmaIcon
+  }
+];
+---
+
+<section>
+  <Title id="skills" text={t.title} />
+  <div class="space-y-6 overflow-x-hidden">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <!-- Programing Languages -->
+      <div class="flex flex-col space-y-3">
+        <h3 class="text-lg font-semibold">{t.proglang}</h3>
+        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8">
+          {
+            programingLang.map((s: Skill) => (
+              <div class="flex items-center gap-3">
+                <img
+                  src={s.icon.src}
+                  alt={s.name}
+                  class="h-6 w-6 flex-shrink-0"
+                />
+                <p class="truncate text-sm sm:text-base">{s.name}</p>
+              </div>
+            ))
+          }
+        </Card>
+      </div>
+
+      <!-- Frameworks -->
+      <div class="flex flex-col space-y-3">
+        <h3 class="text-lg font-semibold">Frameworks</h3>
+        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8">
+          {
+            frameworks.map((f: Skill) => (
+              <div class="flex items-center gap-3">
+                <img
+                  src={f.icon.src}
+                  alt={f.name}
+                  class="h-6 w-6 flex-shrink-0"
+                />
+                <p class="truncate text-sm sm:text-base">{f.name}</p>
+              </div>
+            ))
+          }
+        </Card>
+      </div>
+    </div>
+
+    <!-- Tools & Others -->
+    <div class="space-y-3">
+      <h3 class="text-lg font-semibold">{t.tools}</h3>
+      <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 lg:grid-cols-3">
+        {
+          tools.map((t: Skill) => (
+            <div class="flex items-center gap-3">
+              <img
+                src={t.icon.src}
+                alt={t.name}
+                class="h-6 w-6 flex-shrink-0"
+              />
+              <p class="truncate text-sm sm:text-base">{t.name}</p>
+            </div>
+          ))
+        }
+      </Card>
+    </div>
+  </div>
+</section>

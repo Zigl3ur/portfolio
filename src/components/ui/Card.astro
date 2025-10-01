@@ -1,0 +1,35 @@
+---
+import Plus from "../../icons/plus.svg";
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div
+  class:list={[
+    "border-gray bg-background relative border border-dashed px-8 py-6",
+    className
+  ]}
+  {...props}
+>
+  <Plus
+    width={15}
+    height={15}
+    class="text-gray absolute top-0 left-0 mt-1 ml-1"
+  />
+  <Plus
+    width={15}
+    height={15}
+    class="text-gray absolute top-0 right-0 mt-1 mr-1"
+  />
+  <Plus
+    width={15}
+    height={15}
+    class="text-gray absolute bottom-0 left-0 mb-1 ml-1"
+  />
+  <Plus
+    width={15}
+    height={15}
+    class="text-gray absolute right-0 bottom-0 mr-1 mb-1"
+  />
+  <slot />
+</div>
