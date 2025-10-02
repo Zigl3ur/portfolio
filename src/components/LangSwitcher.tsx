@@ -16,7 +16,7 @@ export default function LangSwitcher({
         <h3>{actual.toUpperCase()}</h3>
       </PopoverTrigger>
       <PopoverContent>
-        <div className="flex flex-col gap-1">
+        <div className="xxs:items-start flex flex-col items-center gap-1">
           {localesUrls.map((l) => (
             <a
               href={l.url}

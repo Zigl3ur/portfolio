@@ -129,12 +129,12 @@ export default function ContactForm({ t }: LangProps<"contact">) {
       </div>
       {submitMessage.message && (
         <div
-          className={`xs:flex-row xs:justify-between flex flex-col text-sm ${submitMessage.type === "error" ? "text-destructive-muted hover:text-destructive" : "text-lime-pale/80 hover:text-lime-bright"}`}
+          className={`xs:flex-row xs:justify-between flex flex-col text-center text-sm transition-colors duration-200 ${submitMessage.type === "error" ? "text-destructive-muted hover:text-destructive" : "text-lime-pale/80 hover:text-lime-bright"}`}
         >
           <span>{submitMessage.message}</span>
           <button
             onClick={() => setSubmitMessage({ type: "error", message: "" })}
-            className="hover:cursor-pointer hover:underline"
+            className="self-center hover:cursor-pointer hover:underline"
           >
             {t.form.submitMessages.dismiss}
           </button>
