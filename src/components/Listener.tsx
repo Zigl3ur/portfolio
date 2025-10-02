@@ -15,7 +15,6 @@ export default function Listener({ t }: LangProps<"listener">) {
       setMusicData(data);
     };
 
-    // Initial fetch
     fetchMusic();
 
     // fetch every 30s
