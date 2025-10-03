@@ -3,7 +3,7 @@ import TextArea from "./ui/TextArea";
 import { z } from "zod/mini";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { LangProps } from "../types";
 
 const messageMaxChars: number = 1500;
@@ -45,6 +45,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { isSubmitting, isValid, errors }
   } = useForm<ContactFormSchemaType>({
     resolver: zodResolver(contactFormSchema),
@@ -55,6 +56,17 @@ export default function ContactForm({ t }: LangProps<"contact">) {
     type: "success" | "error";
     message: string;
   }>({ type: "error", message: "" });
+
+  useEffect(() => {
+    if (submitMessage.message) {
+      const timeoutId = setTimeout(
+        () => setSubmitMessage({ type: "error", message: "" }),
+        4000
+      );
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [submitMessage.message]);
 
   const onSubmit: SubmitHandler<ContactFormSchemaType> = async (data) => {
     try {
@@ -74,11 +86,13 @@ export default function ContactForm({ t }: LangProps<"contact">) {
           type: "success",
           message: ft.submitMessages.ok
         });
+        reset();
       } else if (response.status === 429) {
         setSubmitMessage({
           type: "error",
           message: ft.submitMessages.rateLimit
         });
+        reset();
       } else {
         setSubmitMessage({
           type: "error",
