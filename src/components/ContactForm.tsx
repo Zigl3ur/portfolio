@@ -46,6 +46,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { isSubmitting, isValid, errors }
   } = useForm<ContactFormSchemaType>({
     resolver: zodResolver(contactFormSchema),
@@ -134,6 +135,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
           {...register("subject")}
         />
         <TextArea
+          value={watch("message") || ""}
           placeholder={ft.fields.message.placeholder}
           label={ft.fields.message.label}
           maxChars={messageMaxChars}
