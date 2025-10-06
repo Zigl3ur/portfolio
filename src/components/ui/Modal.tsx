@@ -43,45 +43,61 @@ function Trigger({ children }: { children: ReactNode }) {
 function Content({ children }: { children: ReactNode }) {
   const { show, shouldShow } = useModal();
   const modalRef = useRef<HTMLDivElement>(null);
+  const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
+
+  const shouldClose = (event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      shouldShow(false);
+    }
+  };
+
+  const handleEscapeKey = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      shouldShow(false);
+    }
+  };
 
   useEffect(() => {
-    const shouldClose = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        shouldShow(false);
-      }
-    };
+    if (!show) return;
 
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        shouldShow(false);
-      }
-    };
-
-    if (show) {
-      document.body.classList.add("overflow-hidden"); // disable scrolling on modal open
-      document.addEventListener("mousedown", shouldClose);
-      document.addEventListener("keydown", handleEscapeKey);
-    }
+    document.body.classList.add("overflow-hidden"); // disable scrolling on modal open
+    document.addEventListener("mousedown", shouldClose);
+    document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
       document.body.classList.remove("overflow-hidden");
       document.removeEventListener("mousedown", shouldClose);
       document.removeEventListener("keydown", handleEscapeKey);
     };
-  }, [shouldShow, show]);
+  }, [show]);
+
+  useEffect(() => {
+    if (show) {
+      setShouldAnimate(true);
+    } else {
+      const timeout = setTimeout(() => setShouldAnimate(false), 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [show]);
+
+  if (!show && !shouldAnimate) return null;
 
   return (
     <div
-      hidden={!show}
-      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+      className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-300 ${
+        show && shouldAnimate
+          ? "bg-black/20 backdrop-blur-sm"
+          : "bg-black/0 backdrop-blur-none"
+      }`}
     >
-      {/* modal content */}
+      {/* Modal content */}
       <div
         ref={modalRef}
-        className="bg-background border-gray xs:mx-0 relative mx-4 max-w-xs border border-dashed p-6 shadow-lg"
+        className={`bg-background border-gray xs:mx-0 relative mx-4 max-w-xs border border-dashed p-6 shadow-lg transition-all duration-300 ${
+          show && shouldAnimate
+            ? "translate-y-0 scale-100 opacity-100"
+            : "translate-y-4 scale-95 opacity-0"
+        }`}
       >
         <PlusIcon
           width={15}

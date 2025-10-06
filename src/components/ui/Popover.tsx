@@ -65,6 +65,7 @@ function Content({
 }) {
   const { visible, setVisible, triggerRef } = usePopover();
   const popoverRef = useRef<HTMLDivElement>(null);
+  const [shouldAnimate, setShouldAnimate] = useState<boolean>(false);
 
   const shouldClose = (event: MouseEvent) => {
     if (
@@ -86,13 +87,13 @@ function Content({
   };
 
   useEffect(() => {
-    if (visible) {
-      popoverRef.current &&
-        popoverRef.current.addEventListener("mouseleave", closePopover);
-      document.addEventListener("scroll", closePopover);
-      document.addEventListener("mousedown", shouldClose);
-      document.addEventListener("keydown", handleEscapeKey);
-    }
+    if (!visible) return;
+
+    popoverRef.current &&
+      popoverRef.current.addEventListener("mouseleave", closePopover);
+    document.addEventListener("scroll", closePopover);
+    document.addEventListener("mousedown", shouldClose);
+    document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
       popoverRef.current &&
@@ -103,11 +104,21 @@ function Content({
     };
   }, [visible]);
 
+  useEffect(() => {
+    if (visible) {
+      setShouldAnimate(true);
+    } else {
+      const timeout = setTimeout(() => setShouldAnimate(false), 200);
+      return () => clearTimeout(timeout);
+    }
+  }, [visible]);
+
+  if (!visible && !shouldAnimate) return null;
+
   return (
     <div
-      hidden={!visible}
       ref={popoverRef}
-      className={`absolute top-full z-49 mt-1 max-w-[calc(100vw-2rem)] ${position === "left" ? "left-0" : "right-0"}`}
+      className={`absolute top-full z-49 mt-1 max-w-[calc(100vw-2rem)] transition-all duration-200 ${position === "left" ? "left-0" : "right-0"} ${visible && shouldAnimate ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
     >
       {/* Popover content */}
       <div className="bg-background border-gray relative border border-dashed px-6 py-4 shadow-lg">
