@@ -35,11 +35,10 @@ export default function Listener({ t }: LangProps<"listener">) {
             <span className="bg-lime-bright animate-bar-outter h-3 w-1 rounded-sm"></span>
           </div>
           <div className="text-sm">
-            <span className="font-semibold">{musicData.track.artist}</span> -{" "}
             <Modal>
               <ModalTrigger>
                 <span className="italic transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
-                  {musicData.track.name}
+                  {musicData.track.artist} - {musicData.track.name}
                 </span>
               </ModalTrigger>
               <ModalContent>
