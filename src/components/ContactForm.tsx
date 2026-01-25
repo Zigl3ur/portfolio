@@ -113,6 +113,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
       <div className="space-y-4">
         <div className="xs:flex-row flex flex-col gap-2">
           <Input
+            id="contact-name"
             type="text"
             placeholder={ft.fields.name.placeholder}
             label={ft.fields.name.label}
@@ -120,6 +121,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
             {...register("name")}
           />
           <Input
+            id="contact-email"
             type="email"
             placeholder={ft.fields.email.placeholder}
             label={ft.fields.email.label}
@@ -128,6 +130,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
           />
         </div>
         <Input
+          id="contact-subject"
           type="text"
           placeholder={ft.fields.subject.placeholder}
           label={ft.fields.subject.label}
@@ -135,6 +138,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
           {...register("subject")}
         />
         <TextArea
+          id="contact-message"
           value={watch("message") || ""}
           placeholder={ft.fields.message.placeholder}
           label={ft.fields.message.label}
