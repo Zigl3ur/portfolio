@@ -172,7 +172,7 @@ export const ui = {
       I also maintain a homelab, where I self-host various services and explore areas such as networking, virtualization, and system administration.`
     },
     skills: {
-      title: "What i like to use",
+      title: "What I like to use",
       proglang: "Programming Languages",
       tools: "Tools & Others"
     },

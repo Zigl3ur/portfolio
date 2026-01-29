@@ -122,11 +122,7 @@ const tools: Skill[] = [
           {
             programingLang.map((s: Skill) => (
               <div class="flex items-center gap-3">
-                <img
-                  src={s.icon.src}
-                  alt={s.name}
-                  class="h-6 w-6 flex-shrink-0"
-                />
+                <img src={s.icon.src} alt={s.name} class="h-6 w-6 shrink-0" />
                 <p class="truncate text-sm sm:text-base">{s.name}</p>
               </div>
             ))
@@ -141,11 +137,7 @@ const tools: Skill[] = [
           {
             frameworks.map((f: Skill) => (
               <div class="flex items-center gap-3">
-                <img
-                  src={f.icon.src}
-                  alt={f.name}
-                  class="h-6 w-6 flex-shrink-0"
-                />
+                <img src={f.icon.src} alt={f.name} class="h-6 w-6 shrink-0" />
                 <p class="truncate text-sm sm:text-base">{f.name}</p>
               </div>
             ))
@@ -161,11 +153,7 @@ const tools: Skill[] = [
         {
           tools.map((t: Skill) => (
             <div class="flex items-center gap-3">
-              <img
-                src={t.icon.src}
-                alt={t.name}
-                class="h-6 w-6 flex-shrink-0"
-              />
+              <img src={t.icon.src} alt={t.name} class="h-6 w-6 shrink-0" />
               <p class="truncate text-sm sm:text-base">{t.name}</p>
             </div>
           ))
