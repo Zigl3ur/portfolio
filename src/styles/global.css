@@ -30,6 +30,14 @@ html {
   scroll-padding: 6rem;
 }
 
+.root {
+  isolation: isolate;
+}
+
+body {
+  position: relative;
+}
+
 h1,
 h2,
 h3,
@@ -85,5 +93,16 @@ h6 {
 
   .animate-bar-outter {
     animation: bar-bounce-outter 0.9s infinite alternate ease-in-out;
+  }
+}
+
+.popup {
+  transform-origin: var(--transform-origin);
+  transition: transform 150ms, opacity 150ms;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.98);
   }
 }
