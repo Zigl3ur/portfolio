@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import type { LangProps, MusicDataType } from "../types";
-import Modal, { ModalContent, ModalTrigger } from "./ui/Modal";
 import Image from "./ui/Image";
+import { Dialog } from "@base-ui/react";
+import DialogContent from "./ui/DialogContent";
 
 export default function Listener({ t }: LangProps<"listener">) {
   const [musicData, setMusicData] = useState<MusicDataType>({
@@ -35,13 +36,13 @@ export default function Listener({ t }: LangProps<"listener">) {
             <span className="bg-lime-bright animate-bar-outter h-3 w-1 rounded-sm"></span>
           </div>
           <div className="text-sm">
-            <Modal>
-              <ModalTrigger>
+            <Dialog.Root>
+              <Dialog.Trigger>
                 <span className="italic transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
                   {musicData.track.artist} - {musicData.track.name}
                 </span>
-              </ModalTrigger>
-              <ModalContent>
+              </Dialog.Trigger>
+              <DialogContent>
                 <div className="flex flex-col items-center">
                   {musicData.track.image && (
                     <Image
@@ -69,8 +70,8 @@ export default function Listener({ t }: LangProps<"listener">) {
                     </div>
                   </div>
                 </div>
-              </ModalContent>
-            </Modal>
+              </DialogContent>
+            </Dialog.Root>
           </div>
         </div>
       )}

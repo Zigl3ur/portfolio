@@ -30,7 +30,7 @@ export default function PopoverContent({
         className="mt-2"
       >
         {/* Popover content */}
-        <Popover.Popup className="bg-background border-gray popup relative border border-dashed px-6 py-4 shadow-lg">
+        <Popover.Popup className="bg-background border-gray relative origin-[--transform-origin] border border-dashed px-6 py-4 shadow-lg transition-all duration-150 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:scale-98 data-starting-style:opacity-0">
           <PlusIcon
             width={15}
             height={15}
