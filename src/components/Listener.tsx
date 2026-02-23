@@ -46,29 +46,23 @@ export default function Listener({ t }: LangProps<"listener">) {
                 <div className="flex flex-col items-center">
                   {musicData.track.image && (
                     <Image
-                      className="mb-4 h-43.5 w-43.5 rounded-md object-cover"
+                      className="mb-2.5 h-43.5 w-43.5 rounded-md object-cover select-none"
                       src={musicData.track.image}
                       alt={`${musicData.track.name} cover`}
                     />
                   )}
-                  <div className="flex flex-col">
-                    <a
-                      className="text-white transition-opacity duration-200 hover:cursor-pointer hover:opacity-70"
-                      href={musicData.track.url}
-                      target="_blank"
-                    >
-                      <p className="text-lg font-semibold">
-                        {musicData.track.name}
-                      </p>
-                    </a>
-                    <div className="flex flex-col gap-2">
-                      <p>{musicData.track.album}</p>
-                      <p className="text-sm italic">
-                        <span className="font-semibold">{t.artistBy}</span>{" "}
-                        {musicData.track.artist}
-                      </p>
-                    </div>
-                  </div>
+                  <a
+                    className="mb-1.5 font-mono text-lg font-semibold text-white transition-opacity duration-200 hover:cursor-pointer hover:opacity-70"
+                    href={musicData.track.url}
+                    target="_blank"
+                  >
+                    {musicData.track.name}
+                  </a>
+                  <span className="mb-1">{musicData.track.album}</span>
+                  <span className="text-sm italic">
+                    <span className="font-semibold">{t.artistBy}</span>{" "}
+                    {musicData.track.artist}
+                  </span>
                 </div>
               </DialogContent>
             </Dialog.Root>

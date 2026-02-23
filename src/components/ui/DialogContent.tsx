@@ -2,7 +2,6 @@ import { type ReactNode } from "react";
 import PlusIcon from "../../icons/plus.svg?react";
 import CrossIcon from "../../icons/cross.svg?react";
 import { Dialog } from "@base-ui/react";
-import { Button } from "@base-ui/react/button";
 
 export default function DialogContent({ children }: { children: ReactNode }) {
   return (
@@ -24,10 +23,8 @@ export default function DialogContent({ children }: { children: ReactNode }) {
           height={15}
           className="text-gray absolute right-0 bottom-0 mr-1 mb-1"
         />
-        <Dialog.Close className="absolute top-0 right-0 mt-1 mr-1">
-          <Button className="hover:bg-gray active:bg-gray/80 flex h-5 w-5 items-center justify-center rounded-sm">
-            <CrossIcon width={15} height={15} className="text-white" />
-          </Button>
+        <Dialog.Close className="hover:bg-gray active:bg-gray/80 focus:ring-2 focus:ring-gray absolute top-0 right-0 mt-1 mr-1 flex h-5 w-5 items-center justify-center rounded-sm focus:outline-none">
+          <CrossIcon width={15} height={15} className="text-white" />
         </Dialog.Close>
         {children}
       </Dialog.Popup>

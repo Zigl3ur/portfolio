@@ -52,6 +52,31 @@ h6 {
   color: var(--color-background);
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #333;
+}
+
+* {
+  scrollbar-color: var(--color-gray) transparent;
+}
+
 @layer utilities {
   @keyframes bar-bounce-inner {
     0% {
