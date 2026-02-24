@@ -4,15 +4,13 @@ import Contact from "../../components/content/Contact.astro";
 import Landing from "../../components/content/Landing.astro";
 import Projects from "../../components/content/Projects.astro";
 import Skills from "../../components/content/Skills.astro";
-import Layout from "../../layouts/Layout.astro";
+import Main from "../../layouts/Main.astro";
 ---
 
-<Layout>
-  <div class="space-y-32 px-6 pb-6">
-    <Landing />
-    <AboutMe />
-    <Skills />
-    <Projects />
-    <Contact />
-  </div>
-</Layout>
+<Main>
+  <Landing />
+  <AboutMe />
+  <Skills />
+  <Projects />
+  <Contact />
+</Main>
