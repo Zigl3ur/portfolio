@@ -23,7 +23,7 @@ export default function DialogContent({ children }: { children: ReactNode }) {
           height={15}
           className="text-gray absolute right-0 bottom-0 mr-1 mb-1"
         />
-        <Dialog.Close className="hover:bg-gray active:bg-gray/80 focus:ring-2 focus:ring-gray absolute top-0 right-0 mt-1 mr-1 flex h-5 w-5 items-center justify-center rounded-sm focus:outline-none">
+        <Dialog.Close className="hover:bg-gray active:bg-gray/80 focus:ring-gray absolute top-0 right-0 mt-1 mr-1 rounded-sm p-0.5 focus:ring-2 focus:outline-none">
           <CrossIcon width={15} height={15} className="text-white" />
         </Dialog.Close>
         {children}

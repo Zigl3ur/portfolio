@@ -1,10 +1,10 @@
-import Input from "./ui/Input";
-import TextArea from "./ui/TextArea";
 import { z } from "zod/mini";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo, useState } from "react";
 import type { LangProps } from "../types";
+import { Field, Form } from "@base-ui/react";
+import { FieldControl, FieldError, FieldRoot, FieldTextArea } from "./ui/Field";
 
 const messageMaxChars: number = 1500;
 
@@ -22,17 +22,21 @@ export default function ContactForm({ t }: LangProps<"contact">) {
             z.trim()
           ),
         email: z.string().check(z.email({ error: ft.fields.email.error })),
-        subject: z
-          .string()
-          .check(
-            z.minLength(5, { error: ft.fields.subject.errors.min }),
-            z.maxLength(100, { error: ft.fields.subject.errors.max }),
-            z.trim()
-          ),
-        message: z.string().check(
-          z.minLength(10, { error: ft.fields.message.errors.min }),
-          z.maxLength(messageMaxChars, {
+        subject: z.string().check(
+          z.refine((val) => val.replace(/\s/g, "").length >= 5, {
+            error: ft.fields.subject.errors.min
+          }),
+          z.refine((val) => val.replace(/\s/g, "").length <= 100, {
             error: ft.fields.subject.errors.max
+          }),
+          z.trim()
+        ),
+        message: z.string().check(
+          z.refine((val) => val.replace(/\s/g, "").length >= 10, {
+            error: ft.fields.message.errors.min
+          }),
+          z.refine((val) => val.replace(/\s/g, "").length <= messageMaxChars, {
+            error: ft.fields.message.errors.max
           }),
           z.trim()
         )
@@ -43,11 +47,10 @@ export default function ContactForm({ t }: LangProps<"contact">) {
   type ContactFormSchemaType = z.infer<typeof contactFormSchema>;
 
   const {
-    register,
+    control,
     handleSubmit,
     reset,
-    watch,
-    formState: { isSubmitting, isValid, errors }
+    formState: { isSubmitting, isValid }
   } = useForm<ContactFormSchemaType>({
     resolver: zodResolver(contactFormSchema),
     mode: "onChange"
@@ -109,42 +112,125 @@ export default function ContactForm({ t }: LangProps<"contact">) {
   };
 
   return (
-    <form className="mx-auto max-w-xl" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="mx-auto max-w-xl" onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-4">
         <div className="xs:flex-row flex flex-col gap-2">
-          <Input
-            id="contact-name"
-            type="text"
-            placeholder={ft.fields.name.placeholder}
-            label={ft.fields.name.label}
-            error={errors.name?.message}
-            {...register("name")}
+          <Controller
+            name="name"
+            control={control}
+            render={({
+              field: { ref, name, value, onBlur, onChange },
+              fieldState: { invalid, isTouched, isDirty, error }
+            }) => (
+              <FieldRoot
+                name={name}
+                invalid={invalid}
+                touched={isTouched}
+                dirty={isDirty}
+              >
+                <Field.Label htmlFor="contact-name">
+                  {ft.fields.name.label}
+                </Field.Label>
+                <FieldControl
+                  id="contact-name"
+                  ref={ref}
+                  value={value}
+                  onBlur={onBlur}
+                  onValueChange={onChange}
+                  placeholder={ft.fields.name.placeholder}
+                />
+                <FieldError match={!!error}>{error?.message}</FieldError>
+              </FieldRoot>
+            )}
           />
-          <Input
-            id="contact-email"
-            type="email"
-            placeholder={ft.fields.email.placeholder}
-            label={ft.fields.email.label}
-            error={errors.email?.message}
-            {...register("email")}
+
+          <Controller
+            name="email"
+            control={control}
+            render={({
+              field: { ref, name, value, onBlur, onChange },
+              fieldState: { invalid, isTouched, isDirty, error }
+            }) => (
+              <FieldRoot
+                name={name}
+                invalid={invalid}
+                touched={isTouched}
+                dirty={isDirty}
+              >
+                <Field.Label htmlFor="contact-email">
+                  {ft.fields.email.label}
+                </Field.Label>
+                <FieldControl
+                  id="contact-email"
+                  ref={ref}
+                  value={value}
+                  onBlur={onBlur}
+                  onValueChange={onChange}
+                  placeholder={ft.fields.email.placeholder}
+                />
+                <FieldError match={!!error}>{error?.message}</FieldError>
+              </FieldRoot>
+            )}
           />
         </div>
-        <Input
-          id="contact-subject"
-          type="text"
-          placeholder={ft.fields.subject.placeholder}
-          label={ft.fields.subject.label}
-          error={errors.subject?.message}
-          {...register("subject")}
+
+        <Controller
+          name="subject"
+          control={control}
+          render={({
+            field: { ref, name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty, error }
+          }) => (
+            <FieldRoot
+              name={name}
+              invalid={invalid}
+              touched={isTouched}
+              dirty={isDirty}
+            >
+              <Field.Label htmlFor="contact-subject">
+                {ft.fields.subject.label}
+              </Field.Label>
+              <FieldControl
+                id="contact-subject"
+                ref={ref}
+                value={value}
+                onBlur={onBlur}
+                onValueChange={onChange}
+                placeholder={ft.fields.subject.placeholder}
+              />
+              <FieldError match={!!error}>{error?.message}</FieldError>
+            </FieldRoot>
+          )}
         />
-        <TextArea
-          id="contact-message"
-          value={watch("message") || ""}
-          placeholder={ft.fields.message.placeholder}
-          label={ft.fields.message.label}
-          maxChars={messageMaxChars}
-          error={errors.message?.message}
-          {...register("message")}
+
+        <Controller
+          name="message"
+          control={control}
+          render={({
+            field: { ref, name, value, onBlur, onChange },
+            fieldState: { invalid, isTouched, isDirty, error }
+          }) => (
+            <FieldRoot
+              name={name}
+              invalid={invalid}
+              touched={isTouched}
+              dirty={isDirty}
+            >
+              <Field.Label htmlFor="contact-message">
+                {ft.fields.message.label}
+              </Field.Label>
+              <FieldTextArea
+                id="contact-message"
+                ref={ref}
+                value={value}
+                onBlur={onBlur}
+                onValueChange={onChange}
+                placeholder={ft.fields.message.placeholder}
+                maxChars={messageMaxChars}
+              />
+              <FieldError match={!!error}>{error?.message}</FieldError>
+            </FieldRoot>
+          )}
         />
       </div>
       {submitMessage.message && (
@@ -163,10 +249,10 @@ export default function ContactForm({ t }: LangProps<"contact">) {
       <button
         type="submit"
         disabled={!isValid || isSubmitting}
-        className="bg-lime-bright text-gray hover:bg-lime-pale disabled:bg-muted mt-2 w-full rounded-md px-2 py-1 text-sm font-semibold transition-colors duration-200 hover:cursor-pointer disabled:cursor-default"
+        className="bg-lime-bright text-gray hover:bg-lime-pale disabled:bg-muted mt-2 w-full rounded-md p-2 text-sm font-semibold transition-colors duration-200 hover:cursor-pointer disabled:cursor-default"
       >
         {isSubmitting ? ft.submitButton.submitting : ft.submitButton.base}
       </button>
-    </form>
+    </Form>
   );
 }

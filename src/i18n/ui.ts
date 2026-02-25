@@ -191,8 +191,8 @@ export const ui = {
             placeholder: "Name",
             label: "Name",
             errors: {
-              min: "Name must be at least 2 char",
-              max: "Name must be at most 15 char"
+              min: "Name must be at least 2 characters",
+              max: "Name must be at most 15 characters"
             }
           },
           email: {
@@ -204,16 +204,16 @@ export const ui = {
             placeholder: "Subject",
             label: "Subject",
             errors: {
-              min: "Subject must be at least 5 char",
-              max: "Name must be at most 100 char"
+              min: "Subject must be at least 5 characters",
+              max: "Subject must be at most 100 characters"
             }
           },
           message: {
             placeholder: "Message",
             label: "Message",
             errors: {
-              min: "Message must be at least 10 char",
-              max: "Message must be at most 1500 char"
+              min: "Message must be at least 10 characters",
+              max: "Message must be at most 1500 characters"
             }
           }
         },
