@@ -1,9 +1,9 @@
-import { type ReactNode } from "react";
+import { type PropsWithChildren } from "react";
 import PlusIcon from "../../icons/plus.svg?react";
 import CrossIcon from "../../icons/cross.svg?react";
 import { Dialog } from "@base-ui/react";
 
-export default function DialogContent({ children }: { children: ReactNode }) {
+export default function DialogContent({ children }: PropsWithChildren) {
   return (
     <Dialog.Portal>
       <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-70 transition-all duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-[-webkit-touch-callout:none]:absolute" />
