@@ -2,6 +2,7 @@
 import type { ProjectType } from "../../types";
 import Card from "../ui/Card.astro";
 import Title from "../ui/Title.astro";
+import Arrow from "../../icons/arrow.svg";
 
 import { getLangFromUrl, translate } from "../../i18n/utils";
 
@@ -18,6 +19,11 @@ const projects: ProjectType[] = [
     name: "McJar",
     description: t.mcjardesc,
     url: "https://github.com/Zigl3ur/mcjar"
+  },
+  {
+    name: "Portfolio",
+    description: t.portfolio,
+    url: "https://github.com/Zigl3ur/portfolio"
   }
 ];
 ---
@@ -29,18 +35,19 @@ const projects: ProjectType[] = [
       {
         projects.map((p: ProjectType) => {
           return (
-            <Card class="flex-1 space-y-4">
-              <h3 class="text-lg">
-                <a
-                  href={p.url}
-                  class="transition-opacity duration-200 hover:opacity-70"
-                  target="_blank"
-                >
+            <a href={p.url} target="_blank">
+              <Card class="group h-full space-y-4">
+                <h3 class="flex items-center justify-between text-xl">
                   {p.name}
-                </a>
-              </h3>
-              <p>{p.description}</p>
-            </Card>
+                  <Arrow
+                    width={23}
+                    height={23}
+                    class="opacity-0 transition-opacity duration-300 group-hover:opacity-80"
+                  />
+                </h3>
+                <p>{p.description}</p>
+              </Card>
+            </a>
           );
         })
       }

@@ -78,46 +78,61 @@ h6 {
 }
 
 @layer utilities {
-  @keyframes bar-bounce-inner {
+@keyframes bar-bounce-left {
     0% {
       transform: scaleY(0.7);
-      transform-origin: center;
     }
 
     50% {
       transform: scaleY(1.2);
-      transform-origin: center;
     }
 
     100% {
       transform: scaleY(0.7);
-      transform-origin: center;
     }
   }
 
-  @keyframes bar-bounce-outter {
+  @keyframes bar-bounce-center {
     0% {
-      transform: scaleY(0.8);
-      transform-origin: center;
+      transform: scaleY(0.65);
     }
 
     50% {
-      transform: scaleY(1.4);
-      transform-origin: center;
+      transform: scaleY(1.35);
     }
 
     100% {
-      transform: scaleY(0.8);
-      transform-origin: center;
+      transform: scaleY(0.65);
     }
   }
 
-  .animate-bar-inner {
-    animation: bar-bounce-inner 1.1s infinite alternate ease-in-out;
+  @keyframes bar-bounce-right {
+    0% {
+      transform: scaleY(0.75);
+    }
+
+    50% {
+      transform: scaleY(1.25);
+    }
+
+    100% {
+      transform: scaleY(0.75);
+    }
   }
 
-  .animate-bar-outter {
-    animation: bar-bounce-outter 0.9s infinite alternate ease-in-out;
+  .animate-bar-left {
+    animation: bar-bounce-left 1.1s -0.00s infinite alternate ease-in-out;
+    transform-origin: center;
+  }
+
+  .animate-bar-center {
+    animation: bar-bounce-center 1.4s -0.55s infinite alternate ease-in-out;
+    transform-origin: center;
+  }
+
+  .animate-bar-right {
+    animation: bar-bounce-right 0.95s -0.30s infinite alternate ease-in-out;
+    transform-origin: center;
   }
 }
 
