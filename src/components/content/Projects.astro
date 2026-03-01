@@ -37,14 +37,15 @@ const projects: ProjectType[] = [
           return (
             <a href={p.url} target="_blank">
               <Card class="group h-full space-y-4">
-                <h3 class="flex items-center justify-between text-xl">
-                  {p.name}
+                <div class="flex items-center justify-between">
+                  {/* prettier-ignore */}
+                  <h3 class="text-xl">{p.name}</h3>
                   <Arrow
                     width={23}
                     height={23}
                     class="opacity-0 transition-opacity duration-300 group-hover:opacity-80"
                   />
-                </h3>
+                </div>
                 <p>{p.description}</p>
               </Card>
             </a>

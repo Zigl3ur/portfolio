@@ -4,7 +4,6 @@ import {
   type FieldErrorProps as BaseFieldErrorProps,
   type FieldRootProps as BaseFieldRootProps
 } from "@base-ui/react/field";
-import { useState } from "react";
 
 const inputStyle =
   "peer bg-background data-invalid:placeholder:text-destructive-muted data-invalid:border-destructive-muted data-invalid:focus:border-destructive data-invalid:focus:placeholder:text-destructive placeholder:text-muted border-muted focus:border-gray focus:placeholder:text-gray w-full rounded-md border-2 px-2 py-1 transition-colors duration-200 focus:outline-0";
@@ -35,16 +34,17 @@ interface FieldTextAreaProps extends BaseFieldControlProps {
 }
 
 export function FieldTextArea({ maxChars, ...props }: FieldTextAreaProps) {
-  const [charCount, setCharCount] = useState<number>(0);
+  const charCount = ((props.value as string) ?? "").replace(/\s+/g, "").length;
 
   return (
     <>
       <Field.Control
         render={<textarea rows={5} className={`min-h-33 ${inputStyle}`} />}
         {...props}
+        // avoid error with cant pass children to text area
+        children={undefined}
         onValueChange={(e, evt) => {
           if (props.onValueChange) props.onValueChange(e, evt);
-          setCharCount(e.replace(/\s+/g, "").length);
         }}
       />
       <div className="peer-data-invalid:text-destructive-muted peer-focus:peer-data-invalid:text-destructive flex text-sm">

@@ -3,8 +3,10 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo, useState } from "react";
 import type { LangProps } from "../types";
-import { Field, Form } from "@base-ui/react";
+import { Field } from "@base-ui/react";
+import { Form } from "@base-ui/react/form";
 import { FieldControl, FieldError, FieldRoot, FieldTextArea } from "./ui/Field";
+import Alert, { type AlertVariant } from "./ui/Alert";
 
 const messageMaxChars: number = 1500;
 
@@ -52,21 +54,27 @@ export default function ContactForm({ t }: LangProps<"contact">) {
     reset,
     formState: { isSubmitting, isValid }
   } = useForm<ContactFormSchemaType>({
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: ""
+    },
     resolver: zodResolver(contactFormSchema),
     mode: "onChange"
   });
 
   const [submitMessage, setSubmitMessage] = useState<{
-    type: "success" | "error";
+    type: AlertVariant;
     message: string;
   }>({ type: "error", message: "" });
 
   useEffect(() => {
     if (submitMessage.message) {
-      const timeoutId = setTimeout(
-        () => setSubmitMessage({ type: "error", message: "" }),
-        4000
-      );
+      const timeoutId = setTimeout(() => {
+        setSubmitMessage({ type: "error", message: "" });
+        console.log("expired");
+      }, 4_000);
 
       return () => clearTimeout(timeoutId);
     }
@@ -233,20 +241,15 @@ export default function ContactForm({ t }: LangProps<"contact">) {
             </FieldRoot>
           )}
         />
-      </div>
-      {submitMessage.message && (
-        <div
-          className={`xs:flex-row xs:justify-between flex flex-col text-center text-sm transition-colors duration-200 ${submitMessage.type === "error" ? "text-destructive-muted hover:text-destructive" : "text-lime-pale/80 hover:text-lime-bright"}`}
-        >
-          <span>{submitMessage.message}</span>
-          <button
-            onClick={() => setSubmitMessage({ type: "error", message: "" })}
-            className="self-center hover:cursor-pointer hover:underline"
+        {submitMessage.message && (
+          <Alert
+            variant={submitMessage.type}
+            onClose={() => setSubmitMessage({ type: "error", message: "" })}
           >
-            {t.form.submitMessages.dismiss}
-          </button>
-        </div>
-      )}
+            <span>{submitMessage.message}</span>
+          </Alert>
+        )}
+      </div>
       <button
         type="submit"
         disabled={!isValid || isSubmitting}

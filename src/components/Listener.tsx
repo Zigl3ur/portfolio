@@ -31,7 +31,7 @@ export default function Listener({ t }: LangProps<"listener">) {
       {musicData.isListening && musicData.track?.artist && (
         <div className="text-sm">
           <Dialog.Root>
-            <Dialog.Trigger className="hover:bg-gray/30 inline-flex gap-2 rounded-3xl px-2.5 py-1.5 transition-colors duration-300 hover:cursor-pointer">
+            <Dialog.Trigger className="hover:bg-gray/30 focus:ring-gray inline-flex gap-2 rounded-3xl px-2.5 py-1.5 transition-colors duration-300 hover:cursor-pointer focus:ring-2 focus:outline-none">
               <div className="flex flex-row items-center gap-0.5">
                 <span className="bg-lime-bright animate-bar-left h-3 w-1 rounded-sm"></span>
                 <span className="bg-lime-bright animate-bar-center h-4 w-1 rounded-sm"></span>
@@ -45,7 +45,7 @@ export default function Listener({ t }: LangProps<"listener">) {
               <div className="flex flex-col items-center">
                 {musicData.track.image && (
                   <Image
-                    className="mb-2.5"
+                    className="mb-2.5 h-55 w-55 transition-discrete duration-300 xs:h-65 xs:w-65 sm:h-75 sm:w-75"
                     src={musicData.track.image}
                     alt={`${musicData.track.name} cover`}
                   />
