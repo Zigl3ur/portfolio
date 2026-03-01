@@ -6,6 +6,9 @@ export const languages = {
 export const defaultLang = "fr";
 
 export type uiLangSchema = {
+  header: {
+    socials: string;
+  };
   landing: {
     work: string;
   };
@@ -82,6 +85,9 @@ export type uiLangSchema = {
 
 export const ui = {
   fr: {
+    header: {
+      socials: "Réseaux"
+    },
     landing: {
       work: "Étudiant en Informatique"
     },
@@ -162,6 +168,9 @@ export const ui = {
     }
   } satisfies uiLangSchema,
   en: {
+    header: {
+      socials: "Socials"
+    },
     landing: {
       work: "Computer Science Student"
     },

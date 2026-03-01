@@ -1,15 +1,15 @@
-import SocialsIcon from "../icons/globe.svg?react";
 import { Popover } from "@base-ui/react";
 import PopoverContent from "./ui/PopoverContent";
 import { useState } from "react";
+import type { LangProps } from "../types";
 
-export default function SocialsPopover() {
+export default function SocialsPopover({ t }: LangProps<"header">) {
   const [open, setOpen] = useState(false);
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
-      <Popover.Trigger className="flex transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
-        <SocialsIcon color="white" />
+      <Popover.Trigger className="inline-flex font-mono transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
+        {t.socials}
       </Popover.Trigger>
       <PopoverContent align="end" closeOnScroll={setOpen}>
         <div className="flex flex-col gap-2 font-mono">

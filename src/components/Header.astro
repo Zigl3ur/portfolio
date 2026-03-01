@@ -1,10 +1,11 @@
 ---
-import { getLangFromUrl, getLocalesUrl } from "../i18n/utils";
+import { getLangFromUrl, getLocalesUrl, translate } from "../i18n/utils";
 import LangSwitcher from "./LangSwitcher";
 import SocialsPopover from "./SocialsPopover";
 
 const lang = getLangFromUrl(Astro.url);
 const langListUrl = getLocalesUrl();
+const { header: t } = translate(lang);
 ---
 
 <header
@@ -32,6 +33,6 @@ const langListUrl = getLocalesUrl();
     >
   </nav>
   <div class="xs:hidden inline">
-    <SocialsPopover client:load />
+    <SocialsPopover client:load t={t} />
   </div>
 </header>
