@@ -45,7 +45,7 @@ export default function Listener({ t }: LangProps<"listener">) {
               <div className="flex flex-col items-center">
                 {musicData.track.image && (
                   <Image
-                    className="mb-2.5 h-55 w-55 transition-discrete duration-300 xs:h-65 xs:w-65 sm:h-75 sm:w-75"
+                    className="xs:h-65 xs:w-65 mb-2.5 h-55 w-55 transition-discrete duration-300 sm:h-75 sm:w-75"
                     src={musicData.track.image}
                     alt={`${musicData.track.name} cover`}
                   />
