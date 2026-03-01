@@ -1,5 +1,7 @@
+import { Popover } from "@base-ui/react";
 import type { languages } from "../i18n/ui";
-import Popover, { PopoverContent, PopoverTrigger } from "./ui/Popover";
+import PopoverContent from "./ui/PopoverContent";
+import { useState } from "react";
 
 interface LangSwitcherProps {
   actual: keyof typeof languages;
@@ -10,12 +12,14 @@ export default function LangSwitcher({
   actual,
   localesUrls
 }: LangSwitcherProps) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Popover>
-      <PopoverTrigger className="transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
+    <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Trigger className="transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
         <h3>{actual.toUpperCase()}</h3>
-      </PopoverTrigger>
-      <PopoverContent>
+      </Popover.Trigger>
+      <PopoverContent align="start" closeOnScroll={setOpen}>
         <div className="xxs:items-start flex flex-col items-center gap-1">
           {localesUrls.map((l) => (
             <a
@@ -35,6 +39,6 @@ export default function LangSwitcher({
           ))}
         </div>
       </PopoverContent>
-    </Popover>
+    </Popover.Root>
   );
 }

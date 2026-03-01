@@ -6,6 +6,9 @@ export const languages = {
 export const defaultLang = "fr";
 
 export type uiLangSchema = {
+  header: {
+    socials: string;
+  };
   landing: {
     work: string;
   };
@@ -23,6 +26,7 @@ export type uiLangSchema = {
     title: string;
     jellyhubdesc: string;
     mcjardesc: string;
+    portfolio: string;
   };
   contact: {
     title: string;
@@ -81,6 +85,9 @@ export type uiLangSchema = {
 
 export const ui = {
   fr: {
+    header: {
+      socials: "Réseaux"
+    },
     landing: {
       work: "Étudiant en Informatique"
     },
@@ -103,7 +110,8 @@ export const ui = {
       jellyhubdesc:
         "Une application web qui indexe les médias de plusieurs serveurs Jellyfin dans un seul et unique endroit, vous permettant de voir quel serveur héberge le contenu que vous recherchez.",
       mcjardesc:
-        "Un outil en CLI permettant de télécharger facilement des JAR pour Minecraft, comme les serveurs ou des addons (plugins, mods, modpacks, datapacks)."
+        "Un outil en CLI permettant de télécharger facilement des JAR pour Minecraft, comme les serveurs ou des addons (plugins, mods, modpacks, datapacks).",
+      portfolio: "Mon portfolio personnel, que vous etes en train de visiter."
     },
     contact: {
       title: "Contact",
@@ -160,6 +168,9 @@ export const ui = {
     }
   } satisfies uiLangSchema,
   en: {
+    header: {
+      socials: "Socials"
+    },
     landing: {
       work: "Computer Science Student"
     },
@@ -181,7 +192,8 @@ export const ui = {
       jellyhubdesc:
         "A web app that indexes media from multiple Jellyfin servers into a single searchable hub, letting you see which server hosts the content you're looking for.",
       mcjardesc:
-        "A cli tool that allow you to easily download jar for minecraft as server software and addons (plugins, mods, modpacks, datapacks)"
+        "A cli tool that allow you to easily download jar for minecraft as server software and addons (plugins, mods, modpacks, datapacks)",
+      portfolio: "My personal portfolio, that you are currently visiting."
     },
     contact: {
       title: "Contact",
@@ -191,8 +203,8 @@ export const ui = {
             placeholder: "Name",
             label: "Name",
             errors: {
-              min: "Name must be at least 2 char",
-              max: "Name must be at most 15 char"
+              min: "Name must be at least 2 characters",
+              max: "Name must be at most 15 characters"
             }
           },
           email: {
@@ -204,16 +216,16 @@ export const ui = {
             placeholder: "Subject",
             label: "Subject",
             errors: {
-              min: "Subject must be at least 5 char",
-              max: "Name must be at most 100 char"
+              min: "Subject must be at least 5 characters",
+              max: "Subject must be at most 100 characters"
             }
           },
           message: {
             placeholder: "Message",
             label: "Message",
             errors: {
-              min: "Message must be at least 10 char",
-              max: "Message must be at most 1500 char"
+              min: "Message must be at least 10 characters",
+              max: "Message must be at most 1500 characters"
             }
           }
         },

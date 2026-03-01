@@ -1,43 +1,41 @@
-import Popover, { PopoverTrigger, PopoverContent } from "./ui/Popover";
-import SocialsIcon from "../icons/globe.svg?react";
-import GithubIcon from "../icons/github-logo.svg?react";
-import LinkedInIcon from "../icons/linkedin-logo.svg?react";
-import DiscordIcon from "../icons/discord-logo.svg?react";
+import { Popover } from "@base-ui/react";
+import PopoverContent from "./ui/PopoverContent";
+import { useState } from "react";
+import type { LangProps } from "../types";
 
-export default function SocialsPopover() {
+export default function SocialsPopover({ t }: LangProps<"header">) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Popover>
-      <PopoverTrigger className="flex transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
-        <SocialsIcon color="white" />
-      </PopoverTrigger>
-      <PopoverContent position="right">
-        <div className="flex flex-col items-center gap-2">
+    <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Trigger className="inline-flex font-mono transition-opacity duration-200 hover:cursor-pointer hover:opacity-70">
+        {t.socials}
+      </Popover.Trigger>
+      <PopoverContent align="end" closeOnScroll={setOpen}>
+        <div className="flex flex-col gap-2 font-mono">
           <a
             href="https://discordapp.com/users/384053588042711040"
             target="_blank"
-            aria-label="Discord"
-            className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
+            className="transition-opacity duration-200 hover:opacity-70"
           >
-            <DiscordIcon width={20} height={20} className="flex-shrink-0" />
+            Discord
           </a>
           <a
             href="https://github.com/Zigl3ur"
             target="_blank"
-            aria-label="GitHub"
-            className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
+            className="transition-opacity duration-200 hover:opacity-70"
           >
-            <GithubIcon width={20} height={20} className="flex-shrink-0" />
+            GitHub
           </a>
           <a
             href="https://www.linkedin.com/in/eden-douru/"
             target="_blank"
-            aria-label="LinkedIn"
-            className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
+            className="transition-opacity duration-200 hover:opacity-70"
           >
-            <LinkedInIcon width={20} height={20} className="flex-shrink-0" />
+            LinkedIn
           </a>
         </div>
       </PopoverContent>
-    </Popover>
+    </Popover.Root>
   );
 }
