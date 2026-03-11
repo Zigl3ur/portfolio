@@ -9,12 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
+      # astro build need node >= 22.12 apparently enven with bun
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
       - name: Deps
-        run: bun i
+        run: bun i --frozen-lockfile
 
       - name: Lint
         run: bun run lint
