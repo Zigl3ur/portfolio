@@ -31,7 +31,10 @@ export default function Listener({ t }: LangProps<"listener">) {
       {musicData.isListening && musicData.track?.artist && (
         <div className="text-sm">
           <Dialog.Root>
-            <Dialog.Trigger className="hover:bg-gray/30 focus:ring-gray inline-flex gap-2 rounded-3xl px-2.5 py-1.5 transition-colors duration-300 hover:cursor-pointer focus:ring-2 focus:outline-none">
+            <Dialog.Trigger
+              autoFocus={false}
+              className="hover:bg-gray/30 focus-visible:ring-gray inline-flex gap-2 rounded-3xl px-2.5 py-1.5 transition-colors duration-300 hover:cursor-pointer focus-visible:ring-2 focus-visible:outline-none"
+            >
               <div className="flex flex-row items-center gap-0.5">
                 <span className="bg-lime-bright animate-bar-left h-3 w-1 rounded-sm"></span>
                 <span className="bg-lime-bright animate-bar-center h-4 w-1 rounded-sm"></span>

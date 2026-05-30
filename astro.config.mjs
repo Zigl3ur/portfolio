@@ -9,6 +9,11 @@ export default defineConfig({
     port: 3000
   },
 
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport"
+  },
+
   devToolbar: {
     enabled: false
   },

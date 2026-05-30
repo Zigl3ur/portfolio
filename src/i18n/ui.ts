@@ -27,6 +27,7 @@ export type uiLangSchema = {
     jellyhubdesc: string;
     mcjardesc: string;
     portfolio: string;
+    lebonmatos: string;
   };
   contact: {
     title: string;
@@ -111,7 +112,9 @@ export const ui = {
         "Une application web qui indexe les médias de plusieurs serveurs Jellyfin dans un seul et unique endroit, vous permettant de voir quel serveur héberge le contenu que vous recherchez.",
       mcjardesc:
         "Un outil en CLI permettant de télécharger facilement des JAR pour Minecraft, comme les serveurs ou des addons (plugins, mods, modpacks, datapacks).",
-      portfolio: "Mon portfolio personnel, que vous etes en train de visiter."
+      portfolio: "Mon portfolio personnel, que vous etes en train de visiter.",
+      lebonmatos:
+        "Une plateforme destinée à acheter des pièces d'ordinateur d'occasion tout en garantissant la compatibilité entre celles-ci. Idéal pour les personnes cherchant à monter un PC à petit budget sans avoir de connaissances en la matière."
     },
     contact: {
       title: "Contact",
@@ -193,7 +196,9 @@ export const ui = {
         "A web app that indexes media from multiple Jellyfin servers into a single searchable hub, letting you see which server hosts the content you're looking for.",
       mcjardesc:
         "A cli tool that allow you to easily download jar for minecraft as server software and addons (plugins, mods, modpacks, datapacks)",
-      portfolio: "My personal portfolio, that you are currently visiting."
+      portfolio: "My personal portfolio, that you are currently visiting.",
+      lebonmatos:
+        "A platform made to shop used pc parts while assuring a compatibility between them, ideal for people looking to build a pc on a budget without much knowledge in the domain."
     },
     contact: {
       title: "Contact",
