@@ -14,6 +14,7 @@ export type MusicDataType = {
 export type ProjectType = {
   name: string;
   description: string;
+  stack: string[];
   url: string;
 };
 

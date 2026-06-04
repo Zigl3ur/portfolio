@@ -253,7 +253,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
       <button
         type="submit"
         disabled={!isValid || isSubmitting}
-        className="bg-lime-bright text-gray hover:bg-lime-pale disabled:bg-muted mt-4 w-full rounded-md p-2 text-sm font-semibold transition-colors duration-200 hover:cursor-pointer disabled:cursor-default"
+        className="bg-lime-bright text-gray hover:bg-lime-pale disabled:bg-muted mt-4 w-full p-2 text-sm font-semibold transition-colors duration-200 hover:cursor-pointer disabled:cursor-default"
       >
         {isSubmitting ? ft.submitButton.submitting : ft.submitButton.base}
       </button>

@@ -26,7 +26,7 @@ export default function DialogContent({ children }: PropsWithChildren) {
           height={15}
           className="text-gray absolute right-0 bottom-0 mr-1 mb-1"
         />
-        <Dialog.Close className="hover:bg-gray active:bg-gray/80 focus-visible:ring-gray absolute top-0 right-0 mt-1 mr-1 rounded-sm p-0.5 focus-visible:ring-2 focus-visible:outline-none">
+        <Dialog.Close className="hover:bg-gray active:bg-gray/80 focus-visible:ring-gray absolute top-0 right-0 mt-1 mr-1 p-0.5 focus-visible:ring-2 focus-visible:outline-none">
           <CrossIcon width={15} height={15} className="text-white" />
         </Dialog.Close>
         {children}

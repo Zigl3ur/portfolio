@@ -37,12 +37,12 @@ export default function Alert({
 
   return (
     <div
-      className={`inline-flex w-full items-center justify-between rounded-md border p-2 text-sm ${div}`}
+      className={`inline-flex w-full items-center justify-between border p-2 text-sm ${div}`}
     >
       {children}
       <button
         onClick={() => onClose()}
-        className={`rounded-md p-1 transition-colors duration-300 hover:cursor-pointer ${button}`}
+        className={`p-1 transition-colors duration-300 hover:cursor-pointer ${button}`}
       >
         <CrossIcon />
       </button>

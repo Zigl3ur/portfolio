@@ -13,21 +13,35 @@ const projects: ProjectType[] = [
   {
     name: "Jellyhub",
     description: t.jellyhubdesc,
+    stack: ["Next.js", "Prisma", "TypeScript", "TailwindCSS", "Docker"],
     url: "https://github.com/Zigl3ur/jellyhub"
   },
   {
     name: "McJar",
     description: t.mcjardesc,
+    stack: ["Golang"],
     url: "https://github.com/Zigl3ur/mcjar"
   },
   {
     name: "Portfolio",
     description: t.portfolio,
+    stack: ["Astro", "React", "TypeScript", "TailwindCSS"],
     url: "https://github.com/Zigl3ur/portfolio"
   },
   {
     name: "LeBonMatos",
     description: t.lebonmatos,
+    stack: [
+      "Next.js",
+      "Prisma",
+      "tRPC",
+      "TypeScript",
+      "TailwindCSS",
+      "PlayWright",
+      "Meilisearch",
+      "PostgreSQL",
+      "Docker"
+    ],
     url: "https://github.com/dev-du-bled/lebonmatos"
   }
 ];
@@ -39,9 +53,13 @@ const projects: ProjectType[] = [
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {
         projects.map((p: ProjectType) => {
+          const stackItems = p.stack.slice(0, 3);
+          const remainingStackItems = p.stack.slice(3).length;
+          console.log(remainingStackItems);
+
           return (
             <a href={p.url} target="_blank">
-              <Card class="group h-full space-y-4">
+              <Card class="group flex h-full flex-col space-y-4">
                 <div class="flex items-center justify-between">
                   {/* prettier-ignore */}
                   <h3 class="text-xl">{p.name}</h3>
@@ -51,7 +69,21 @@ const projects: ProjectType[] = [
                     class="opacity-0 transition-opacity duration-300 group-hover:opacity-80"
                   />
                 </div>
-                <p>{p.description}</p>
+                <div class="flex h-full flex-col justify-between gap-3">
+                  <p class="line-clamp-3">{p.description}</p>
+                  <div class="mt-2 flex items-center gap-2">
+                    {stackItems.map((s) => (
+                      <div class="border-gray text-foreground/70 border border-dashed px-1.5 py-1 font-mono text-sm">
+                        {s}
+                      </div>
+                    ))}
+                    {remainingStackItems > 0 && (
+                      <span class="text-foreground/70 font-mono text-sm">
+                        +{remainingStackItems}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </Card>
             </a>
           );

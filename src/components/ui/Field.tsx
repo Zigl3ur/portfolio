@@ -6,7 +6,7 @@ import {
 } from "@base-ui/react/field";
 
 const inputStyle =
-  "peer bg-background data-invalid:placeholder:text-destructive-muted data-invalid:border-destructive-muted data-invalid:focus:border-destructive data-invalid:focus:placeholder:text-destructive placeholder:text-muted border-muted focus:border-gray focus:placeholder:text-gray w-full rounded-md border-2 px-2 py-1 transition-colors duration-200 focus:outline-0";
+  "peer bg-transparent data-invalid:placeholder:text-destructive-muted data-invalid:border-destructive-muted data-invalid:focus:border-destructive data-invalid:focus:placeholder:text-destructive placeholder:text-muted border-muted focus:border-gray focus:placeholder:text-gray w-full border-2 px-2 py-1 transition-colors duration-200 focus:outline-0";
 
 export function FieldRoot({ ...props }: BaseFieldRootProps) {
   return (
