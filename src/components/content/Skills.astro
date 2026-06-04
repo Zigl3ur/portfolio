@@ -113,52 +113,59 @@ const tools: Skill[] = [
 
 <section>
   <Title id="skills" text={t.title} />
-  <div class="space-y-8 overflow-x-hidden">
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <!-- Programing Languages -->
-      <div class="flex flex-col space-y-3">
+  <div class="space-y-14 overflow-x-hidden">
+    <!-- Programing Languages -->
+    <div class="flex flex-col space-y-4">
+      <div class="flex items-center gap-2">
+        <div class="bg-lime-bright size-2"></div>
         <h3 class="text-lg font-semibold">{t.proglang}</h3>
-        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8">
-          {
-            programingLang.map((s: Skill) => (
-              <div class="flex items-center gap-3">
-                <img src={s.icon.src} alt={s.name} class="h-6 w-6 shrink-0" />
-                <p class="truncate text-sm sm:text-base">{s.name}</p>
-              </div>
-            ))
-          }
-        </Card>
       </div>
+      <div class="flex flex-wrap gap-4">
+        {
+          programingLang.map((s: Skill) => (
+            <div class="border-gray flex items-center gap-3 border border-dashed px-4 py-3">
+              <img src={s.icon.src} alt={s.name} class="size-6.5 shrink-0" />
+              <p class="truncate text-sm sm:text-base">{s.name}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
 
-      <!-- Frameworks -->
-      <div class="flex flex-col space-y-3">
+    <!-- Frameworks -->
+    <div class="flex flex-col space-y-4">
+      <div class="flex items-center gap-2">
+        <div class="bg-lime-bright size-2"></div>
         <h3 class="text-lg font-semibold">Frameworks</h3>
-        <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8">
-          {
-            frameworks.map((f: Skill) => (
-              <div class="flex items-center gap-3">
-                <img src={f.icon.src} alt={f.name} class="h-6 w-6 shrink-0" />
-                <p class="truncate text-sm sm:text-base">{f.name}</p>
-              </div>
-            ))
-          }
-        </Card>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        {
+          frameworks.map((f: Skill) => (
+            <div class="border-gray flex items-center gap-3 border border-dashed px-4 py-3">
+              <img src={f.icon.src} alt={f.name} class="size-6.5 shrink-0" />
+              <p class="truncate text-sm sm:text-base">{f.name}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
 
     <!-- Tools & Others -->
-    <div class="space-y-3">
-      <h3 class="text-lg font-semibold">{t.tools}</h3>
-      <Card class="xs:grid-cols-2 grid flex-1 grid-cols-1 gap-8 lg:grid-cols-3">
+    <div class="flex flex-col space-y-4">
+      <div class="flex items-center gap-2">
+        <div class="bg-lime-bright size-2"></div>
+        <h3 class="text-lg font-semibold">{t.tools}</h3>
+      </div>
+      <div class="flex flex-wrap gap-4">
         {
           tools.map((t: Skill) => (
-            <div class="flex items-center gap-3">
-              <img src={t.icon.src} alt={t.name} class="h-6 w-6 shrink-0" />
+            <div class="border-gray flex items-center gap-3 border border-dashed px-4 py-3">
+              <img src={t.icon.src} alt={t.name} class="size-6.5 shrink-0" />
               <p class="truncate text-sm sm:text-base">{t.name}</p>
             </div>
           ))
         }
-      </Card>
+      </div>
     </div>
   </div>
 </section>

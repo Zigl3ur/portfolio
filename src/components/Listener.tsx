@@ -33,12 +33,12 @@ export default function Listener({ t }: LangProps<"listener">) {
           <Dialog.Root>
             <Dialog.Trigger
               autoFocus={false}
-              className="hover:bg-gray/30 focus-visible:ring-gray inline-flex gap-2 rounded-3xl px-2.5 py-1.5 transition-colors duration-300 hover:cursor-pointer focus-visible:ring-2 focus-visible:outline-none"
+              className="focus-visible:ring-gray inline-flex gap-2 px-2.5 py-1.5 transition-colors duration-300 hover:cursor-pointer focus-visible:ring focus-visible:outline-none"
             >
               <div className="flex flex-row items-center gap-0.5">
-                <span className="bg-lime-bright animate-bar-left h-3 w-1 rounded-sm"></span>
-                <span className="bg-lime-bright animate-bar-center h-4 w-1 rounded-sm"></span>
-                <span className="bg-lime-bright animate-bar-right h-3 w-1 rounded-sm"></span>
+                <span className="bg-lime-bright animate-bar-left h-3 w-1"></span>
+                <span className="bg-lime-bright animate-bar-center h-4 w-1"></span>
+                <span className="bg-lime-bright animate-bar-right h-3 w-1"></span>
               </div>
               <span className="italic">
                 {musicData.track.artist} - {musicData.track.name}
@@ -48,7 +48,7 @@ export default function Listener({ t }: LangProps<"listener">) {
               <div className="flex flex-col items-center">
                 {musicData.track.image && (
                   <Image
-                    className="xs:h-65 xs:w-65 mb-2.5 h-55 w-55 transition-discrete duration-300 sm:h-75 sm:w-75"
+                    className="xs:size-65 mb-2.5 size-55 transition-discrete duration-300 sm:size-75"
                     src={musicData.track.image}
                     alt={`${musicData.track.name} cover`}
                   />
