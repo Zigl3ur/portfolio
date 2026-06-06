@@ -2,7 +2,31 @@
 import type { ProjectType } from "../../types";
 import Card from "../ui/Card.astro";
 import Title from "../ui/Title.astro";
-import Arrow from "../../icons/arrow.svg";
+import ProjectDialog from "../ProjectDialog";
+
+import JellyhubHomePageImage from "../../images/jellyhub/home_page.png";
+import JellyhubMoviesPageImage from "../../images/jellyhub/movies_page.png";
+import JellyhubSeriesPageImage from "../../images/jellyhub/series_page.png";
+import JellyhubAlbumsPageImage from "../../images/jellyhub/albums_page.png";
+import JellyhubDialogItemImage from "../../images/jellyhub/dialog_item.png";
+import JellyhubSettingsPageImage from "../../images/jellyhub/settings_page.png";
+import JellyhubLoginPageImage from "../../images/jellyhub/login_page.png";
+
+import McJarHelpCmd from "../../images/mcjar/help_cmd.png";
+import McJarList from "../../images/mcjar/jar_list.png";
+import McJarParperInstall from "../../images/mcjar/paper_install.png";
+import McJarForgeInstall from "../../images/mcjar/forge_install.png";
+import McJarAddonsSearchBasic from "../../images/mcjar/addons_search_basic.png";
+import McJarAddonsSearchParams from "../../images/mcjar/addons_search_params.png";
+
+import LebonmatosHomePage from "../../images/lebonmatos/home_page.png";
+import LebonmatosPostPage from "../../images/lebonmatos/post_page.png";
+import LebonmatosPostPageMap from "../../images/lebonmatos/post_page_map.png";
+import LebonmatosConfiguratorPage from "../../images/lebonmatos/configurator_page.png";
+import LebonmatosComparatorPage from "../../images/lebonmatos/comparator_page.png";
+import LebonmatosChatPage from "../../images/lebonmatos/chat_page.png";
+import LebonmatosSearchPage from "../../images/lebonmatos/search_page.png";
+import LebonmatosUserPage from "../../images/lebonmatos/user_page.png";
 
 import { getLangFromUrl, translate } from "../../i18n/utils";
 
@@ -13,19 +37,82 @@ const projects: ProjectType[] = [
   {
     name: "Jellyhub",
     description: t.jellyhubdesc,
-    stack: ["Next.js", "Prisma", "TypeScript", "TailwindCSS", "Docker"],
-    url: "https://github.com/Zigl3ur/jellyhub"
+    stack: [
+      "Next.js",
+      "Prisma",
+      "TypeScript",
+      "TailwindCSS",
+      "SQLite",
+      "Docker"
+    ],
+    url: "https://github.com/Zigl3ur/jellyhub",
+    images: [
+      {
+        metadata: JellyhubHomePageImage,
+        alt: "Jellyhub Home Page"
+      },
+      {
+        metadata: JellyhubMoviesPageImage,
+        alt: "Jellyhub Movies Page"
+      },
+      {
+        metadata: JellyhubSeriesPageImage,
+        alt: "Jellyhub Series Page"
+      },
+      {
+        metadata: JellyhubAlbumsPageImage,
+        alt: "Jellyhub Albums Page"
+      },
+      {
+        metadata: JellyhubDialogItemImage,
+        alt: "Jellyhub Dialog Item"
+      },
+      {
+        metadata: JellyhubSettingsPageImage,
+        alt: "Jellyhub Settings Page"
+      },
+      {
+        metadata: JellyhubLoginPageImage,
+        alt: "Jellyhub Login Page"
+      }
+    ]
   },
   {
     name: "McJar",
     description: t.mcjardesc,
     stack: ["Golang"],
-    url: "https://github.com/Zigl3ur/mcjar"
+    url: "https://github.com/Zigl3ur/mcjar",
+    images: [
+      {
+        metadata: McJarHelpCmd,
+        alt: "McJar help command"
+      },
+      {
+        metadata: McJarList,
+        alt: "McJar jar list command"
+      },
+      {
+        metadata: McJarParperInstall,
+        alt: "McJar paper install command"
+      },
+      {
+        metadata: McJarForgeInstall,
+        alt: "McJar forge install command"
+      },
+      {
+        metadata: McJarAddonsSearchBasic,
+        alt: "McJar addons search basic command"
+      },
+      {
+        metadata: McJarAddonsSearchParams,
+        alt: "McJar addons search params command"
+      }
+    ]
   },
   {
     name: "Portfolio",
     description: t.portfolio,
-    stack: ["Astro", "React", "TypeScript", "TailwindCSS"],
+    stack: ["Astro", "React", "TypeScript", "TailwindCSS", "Cloudflare"],
     url: "https://github.com/Zigl3ur/portfolio"
   },
   {
@@ -37,41 +124,57 @@ const projects: ProjectType[] = [
       "tRPC",
       "TypeScript",
       "TailwindCSS",
-      "PlayWright",
+      "Playwright",
       "Meilisearch",
       "PostgreSQL",
       "Docker"
     ],
-    url: "https://github.com/dev-du-bled/lebonmatos"
+    url: "https://github.com/dev-du-bled/lebonmatos",
+    images: [
+      {
+        metadata: LebonmatosHomePage,
+        alt: "LeBonMatos Home Page"
+      },
+      { metadata: LebonmatosSearchPage, alt: "LeBonMatos Search Page" },
+      {
+        metadata: LebonmatosPostPage,
+        alt: "LeBonMatos Post Page"
+      },
+      {
+        metadata: LebonmatosPostPageMap,
+        alt: "LeBonMatos Post Page Map"
+      },
+      {
+        metadata: LebonmatosConfiguratorPage,
+        alt: "LeBonMatos Configurator Page"
+      },
+      { metadata: LebonmatosComparatorPage, alt: "LeBonMatos Comparator Page" },
+      {
+        metadata: LebonmatosChatPage,
+        alt: "LeBonMatos Chat Page"
+      },
+      { metadata: LebonmatosUserPage, alt: "LeBonMatos User Page" }
+    ]
   }
 ];
 ---
 
 <section>
   <Title id="projects" text={t.title} />
-  <div class="space-y-6 overflow-x-hidden">
+  <div class="space-y-6">
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {
         projects.map((p: ProjectType) => {
           const stackItems = p.stack.slice(0, 3);
           const remainingStackItems = p.stack.slice(3).length;
-          console.log(remainingStackItems);
 
           return (
-            <a href={p.url} target="_blank">
-              <Card class="group flex h-full flex-col space-y-4">
-                <div class="flex items-center justify-between">
-                  {/* prettier-ignore */}
-                  <h3 class="text-xl">{p.name}</h3>
-                  <Arrow
-                    width={23}
-                    height={23}
-                    class="opacity-0 transition-opacity duration-300 group-hover:opacity-80"
-                  />
-                </div>
+            <ProjectDialog project={p} t={t} client:visible>
+              <Card class="group hover:border-lime-bright/40 flex h-full flex-col space-y-4 text-start transition-colors duration-300 hover:cursor-pointer">
+                <h3 class="text-xl">{p.name}</h3>
                 <div class="flex h-full flex-col justify-between gap-3">
                   <p class="line-clamp-3">{p.description}</p>
-                  <div class="mt-2 flex items-center gap-2">
+                  <div class="mt-2 flex flex-wrap items-center gap-2">
                     {stackItems.map((s) => (
                       <div class="border-gray text-foreground/70 border border-dashed px-1.5 py-1 font-mono text-sm">
                         {s}
@@ -85,7 +188,7 @@ const projects: ProjectType[] = [
                   </div>
                 </div>
               </Card>
-            </a>
+            </ProjectDialog>
           );
         })
       }

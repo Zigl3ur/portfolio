@@ -2,14 +2,25 @@ import { type PropsWithChildren } from "react";
 import PlusIcon from "../../icons/plus.svg?react";
 import CrossIcon from "../../icons/cross.svg?react";
 import { Dialog } from "@base-ui/react";
+import { twMerge } from "tailwind-merge";
 
-export default function DialogContent({ children }: PropsWithChildren) {
+type DialogContentProps = PropsWithChildren<{
+  className?: string;
+}>;
+
+export default function DialogContent({
+  children,
+  className
+}: DialogContentProps) {
   return (
     <Dialog.Portal>
       <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-70 transition-all duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-[-webkit-touch-callout:none]:absolute" />
       <Dialog.Popup
         initialFocus={false}
-        className="bg-background border-gray fixed top-1/2 left-1/2 -mt-8 max-w-90 min-w-60 -translate-x-1/2 -translate-y-1/2 border border-dashed p-6 text-center text-sm shadow-lg transition-all duration-150 data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0"
+        className={twMerge(
+          "bg-background border-gray fixed top-1/2 left-1/2 -mt-8 min-w-60 -translate-x-1/2 -translate-y-1/2 border border-dashed p-6 text-sm shadow-lg transition-all duration-150 data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0",
+          className
+        )}
       >
         <PlusIcon
           width={15}

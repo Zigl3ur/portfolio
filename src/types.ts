@@ -16,6 +16,7 @@ export type ProjectType = {
   description: string;
   stack: string[];
   url: string;
+  images?: { metadata: ImageMetadata; alt: string }[];
 };
 
 export type Skill = {

@@ -24,6 +24,7 @@ export type uiLangSchema = {
   };
   projects: {
     title: string;
+    viewLabel: string;
     jellyhubdesc: string;
     mcjardesc: string;
     portfolio: string;
@@ -108,6 +109,7 @@ export const ui = {
     },
     projects: {
       title: "Projets",
+      viewLabel: "Voir le projet",
       jellyhubdesc:
         "Une application web qui indexe les médias de plusieurs serveurs Jellyfin dans un seul et unique endroit, vous permettant de voir quel serveur héberge le contenu que vous recherchez.",
       mcjardesc:
@@ -192,6 +194,7 @@ export const ui = {
     },
     projects: {
       title: "Projects",
+      viewLabel: "View project",
       jellyhubdesc:
         "A web app that indexes media from multiple Jellyfin servers into a single searchable hub, letting you see which server hosts the content you're looking for.",
       mcjardesc:
