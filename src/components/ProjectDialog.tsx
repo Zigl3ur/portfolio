@@ -31,7 +31,7 @@ export default function ProjectDialog({
             {project.name}
           </h3>
 
-          <Carousel images={project.images} />
+          {project.images && <Carousel images={project.images} />}
 
           <div className="space-y-2">
             <h3 className="text-foreground/50">README.md</h3>

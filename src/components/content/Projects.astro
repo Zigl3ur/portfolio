@@ -16,7 +16,7 @@ import McJarHelpCmd from "../../images/mcjar/help_cmd.png";
 import McJarList from "../../images/mcjar/jar_list.png";
 import McJarParperInstall from "../../images/mcjar/paper_install.png";
 import McJarForgeInstall from "../../images/mcjar/forge_install.png";
-import McJarSearchBasic from "../../images/mcjar/search_basic.png";
+import McJarAddonsSearchBasic from "../../images/mcjar/addons_search_basic.png";
 import McJarAddonsSearchParams from "../../images/mcjar/addons_search_params.png";
 
 import LebonmatosHomePage from "../../images/lebonmatos/home_page.png";
@@ -37,7 +37,14 @@ const projects: ProjectType[] = [
   {
     name: "Jellyhub",
     description: t.jellyhubdesc,
-    stack: ["Next.js", "Prisma", "TypeScript", "TailwindCSS", "Docker"],
+    stack: [
+      "Next.js",
+      "Prisma",
+      "TypeScript",
+      "TailwindCSS",
+      "SQLite",
+      "Docker"
+    ],
     url: "https://github.com/Zigl3ur/jellyhub",
     images: [
       {
@@ -93,8 +100,8 @@ const projects: ProjectType[] = [
         alt: "McJar forge install command"
       },
       {
-        metadata: McJarSearchBasic,
-        alt: "McJar basic search command"
+        metadata: McJarAddonsSearchBasic,
+        alt: "McJar addons search basic command"
       },
       {
         metadata: McJarAddonsSearchParams,
@@ -105,14 +112,8 @@ const projects: ProjectType[] = [
   {
     name: "Portfolio",
     description: t.portfolio,
-    stack: ["Astro", "React", "TypeScript", "TailwindCSS"],
-    url: "https://github.com/Zigl3ur/portfolio",
-    images: [
-      {
-        url: "https://raw.githubusercontent.com/Zigl3ur/portfolio/main/.github/demo.png",
-        alt: "Portfolio demo"
-      }
-    ]
+    stack: ["Astro", "React", "TypeScript", "TailwindCSS", "Cloudflare"],
+    url: "https://github.com/Zigl3ur/portfolio"
   },
   {
     name: "LeBonMatos",
@@ -123,7 +124,7 @@ const projects: ProjectType[] = [
       "tRPC",
       "TypeScript",
       "TailwindCSS",
-      "PlayWright",
+      "Playwright",
       "Meilisearch",
       "PostgreSQL",
       "Docker"
