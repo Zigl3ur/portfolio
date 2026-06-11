@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "./Image";
 import { twMerge } from "tailwind-merge";
 import ChevronIcon from "../../icons/chevron-down.svg?react";
@@ -22,6 +22,19 @@ export default function Carousel({ images }: CarouselProps) {
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        handlePrev();
+      } else if (event.key === "ArrowRight") {
+        handleNext();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [images.length]);
 
   return (
     <div className="relative overflow-hidden">

@@ -7,6 +7,7 @@ import { Field } from "@base-ui/react";
 import { Form } from "@base-ui/react/form";
 import { FieldControl, FieldError, FieldRoot, FieldTextArea } from "./ui/Field";
 import Alert, { type AlertVariant } from "./ui/Alert";
+import { useMutation } from "../hooks/useFetch";
 
 const messageMaxChars: number = 1500;
 
@@ -64,6 +65,8 @@ export default function ContactForm({ t }: LangProps<"contact">) {
     mode: "onChange"
   });
 
+  const { mutate, error, status } = useMutation("/api/message");
+
   const [submitMessage, setSubmitMessage] = useState<{
     type: AlertVariant;
     message: string;
@@ -71,51 +74,29 @@ export default function ContactForm({ t }: LangProps<"contact">) {
 
   useEffect(() => {
     if (submitMessage.message) {
-      const timeoutId = setTimeout(() => {
-        setSubmitMessage({ type: "error", message: "" });
-        console.log("expired");
-      }, 4_000);
+      const timeoutId = setTimeout(
+        () => setSubmitMessage({ type: "error", message: "" }),
+        4_000
+      );
 
       return () => clearTimeout(timeoutId);
     }
   }, [submitMessage.message]);
 
   const onSubmit: SubmitHandler<ContactFormSchemaType> = async (data) => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.PUBLIC_API_URL}/message`,
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        }
-      );
+    await mutate(data);
 
-      if (response.ok) {
-        setSubmitMessage({
-          type: "success",
-          message: ft.submitMessages.ok
-        });
-        reset();
-      } else if (response.status === 429) {
-        setSubmitMessage({
-          type: "error",
-          message: ft.submitMessages.rateLimit
-        });
-        reset();
-      } else {
-        setSubmitMessage({
-          type: "error",
-          message: ft.submitMessages.error
-        });
-      }
-    } catch {
+    if (error) {
+      setSubmitMessage({ type: "error", message: ft.submitMessages.error });
+    }
+    if (status === 429) {
+      setSubmitMessage({ type: "error", message: ft.submitMessages.rateLimit });
+    } else {
       setSubmitMessage({
-        type: "error",
-        message: ft.submitMessages.error
+        type: "success",
+        message: ft.submitMessages.ok
       });
+      reset();
     }
   };
 
