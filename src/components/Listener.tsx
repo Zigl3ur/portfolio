@@ -1,30 +1,15 @@
-import { useEffect, useState } from "react";
-import type { LangProps, MusicDataType } from "../types";
+import type { LangProps, CurrentlyListening } from "../types";
 import Image from "./ui/Image";
 import { Dialog } from "@base-ui/react";
 import DialogContent from "./ui/DialogContent";
+import { useFetch } from "../hooks/useFetch";
 
 export default function Listener({ t }: LangProps<"listener">) {
-  const [musicData, setMusicData] = useState<MusicDataType>({
-    isListening: false
-  });
+  const { data: musicData, error } = useFetch<CurrentlyListening>(
+    "/api/music/currently-listening"
+  );
 
-  useEffect(() => {
-    const fetchMusic = async () => {
-      const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/music`);
-      const data = (await res.json()) as MusicDataType;
-      setMusicData(data);
-    };
-
-    fetchMusic();
-
-    // fetch every 30s
-    const interval = setInterval(() => {
-      fetchMusic();
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, []);
+  if (!musicData || error) return null;
 
   return (
     <>

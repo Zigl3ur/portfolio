@@ -1,6 +1,6 @@
 import type { uiLangSchema } from "./i18n/ui";
 
-export type MusicDataType = {
+export type CurrentlyListening = {
   isListening: boolean;
   track?: {
     artist: string;
