@@ -19,7 +19,7 @@ export default function DialogContent({
       <Dialog.Popup
         initialFocus={false}
         className={twMerge(
-          "bg-background border-gray fixed top-4 left-1/2 z-50 w-[calc(100vw-2rem)] -translate-x-1/2 overflow-hidden border border-dashed text-sm shadow-lg transition-all duration-150 data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 sm:top-1/2 sm:w-full sm:max-w-4xl sm:-translate-y-1/2",
+          "bg-background border-gray fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-dashed text-sm shadow-lg transition-all duration-150 data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0",
           className
         )}
       >
@@ -44,7 +44,7 @@ export default function DialogContent({
             <CrossIcon width={15} height={15} className="text-white" />
           </Dialog.Close>
 
-          <div className="no-scrollbar max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain p-6 sm:max-h-[90dvh]">
+          <div className="max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain p-6 sm:max-h-[90dvh]">
             {children}
           </div>
         </div>
