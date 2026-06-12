@@ -13,7 +13,7 @@ export function getLocalesUrl() {
     return {
       locale: l,
       label: languages[l],
-      url: defaultLang === l ? "/" : `/${l}/`
+      url: defaultLang === l ? "" : `/${l}`
     };
   });
 }

@@ -7,26 +7,28 @@ export function useFetch<T>(url: string, options?: FetchOptions) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [status, setStatus] = useState<number | null>(null);
+  const [headers, setHeaders] = useState<Headers | null>(null);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(url, options);
+      setStatus(res.status);
+      setHeaders(res.headers);
+      if (!res.ok) setError(new Error(`HTTP error! status: ${res.status}`));
+      const data = (await res.json()) as T;
+      setData(data);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Unknown error"));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(url, options);
-        setStatus(res.status);
-        if (!res.ok) setError(new Error(`HTTP error! status: ${res.status}`));
-        const data = (await res.json()) as T;
-        setData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error("Unknown error"));
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, [url, options]);
 
-  return { data, loading, error, status };
+  return { data, loading, error, status, headers, refetch: fetchData };
 }
 
 export const useMutation = <T>(url: string, options?: FetchOptions) => {
@@ -34,6 +36,7 @@ export const useMutation = <T>(url: string, options?: FetchOptions) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [status, setStatus] = useState<number | null>(null);
+  const [headers, setHeaders] = useState<Headers | null>(null);
 
   const mutate = async (body: any) => {
     setLoading(true);
@@ -48,6 +51,7 @@ export const useMutation = <T>(url: string, options?: FetchOptions) => {
         body: JSON.stringify(body)
       });
       setStatus(res.status);
+      setHeaders(res.headers);
       if (!res.ok) setError(new Error(`HTTP error! status: ${res.status}`));
       const data = (await res.json()) as T;
       setData(data);
@@ -58,5 +62,5 @@ export const useMutation = <T>(url: string, options?: FetchOptions) => {
     }
   };
 
-  return { data, loading, error, status, mutate };
+  return { data, loading, error, status, headers, mutate };
 };

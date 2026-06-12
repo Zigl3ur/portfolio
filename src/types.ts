@@ -8,6 +8,44 @@ export type CurrentlyListening = {
     name: string;
     image: string;
     url: string;
+    listenedAt: string;
+  };
+};
+
+export type MusicAlbum = {
+  artist: string;
+  url: string;
+  name: string;
+  image: string;
+  playcount: string;
+  mbid: string;
+};
+
+export type AlbumInfo = {
+  album: {
+    artist: string;
+
+    tags: {
+      tag: {
+        name: string;
+        url: string;
+      }[];
+    };
+
+    tracks: {
+      track: {
+        name: string;
+        url: string;
+        duration: string;
+        "@attr": {
+          rank: string;
+        };
+        artist: {
+          name: string;
+          url: string;
+        };
+      }[];
+    };
   };
 };
 

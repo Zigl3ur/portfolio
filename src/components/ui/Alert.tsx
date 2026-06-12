@@ -5,7 +5,7 @@ export type AlertVariant = "success" | "error";
 
 interface AlertProps {
   variant: AlertVariant;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 type Styles = {
@@ -40,12 +40,14 @@ export default function Alert({
       className={`inline-flex w-full items-center justify-between border p-2 text-sm ${div}`}
     >
       {children}
-      <button
-        onClick={() => onClose()}
-        className={`p-1 transition-colors duration-300 hover:cursor-pointer ${button}`}
-      >
-        <CrossIcon />
-      </button>
+      {onClose && (
+        <button
+          onClick={() => onClose()}
+          className={`p-1 transition-colors duration-300 hover:cursor-pointer ${button}`}
+        >
+          <CrossIcon />
+        </button>
+      )}
     </div>
   );
 }

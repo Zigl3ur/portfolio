@@ -1,0 +1,16 @@
+---
+import MusicLibraryContent from "../components/MusicLibraryContent";
+import Title from "../components/ui/Title.astro";
+import { getLangFromUrl, translate } from "../i18n/utils";
+import Main from "../layouts/Main.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const { musicLibrary: t } = translate(lang);
+---
+
+<Main>
+  <div class="mt-12">
+    <Title id="music-library" text={t.title} />
+    <MusicLibraryContent t={t} client:load />
+  </div>
+</Main>
