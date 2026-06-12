@@ -138,15 +138,11 @@ h6 {
   }
 }
 
-.popup {
-  transform-origin: var(--transform-origin);
-  transition:
-    transform 150ms,
-    opacity 150ms;
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-  &[data-starting-style],
-  &[data-ending-style] {
-    opacity: 0;
-    transform: scale(0.98);
+  &::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -25,7 +25,7 @@ export default function ProjectDialog({
           </button>
         )}
       />
-      <DialogContent className="w-full max-w-4xl">
+      <DialogContent className="w-full max-w-[calc(100vw-2rem)] md:max-w-4xl">
         <div className="flex flex-col gap-6">
           <h3 className="font-mono text-2xl font-semibold text-white">
             {project.name}

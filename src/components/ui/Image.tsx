@@ -18,6 +18,7 @@ export default function Image({ src, alt, className }: ImageProps) {
         alt={alt}
         className={`h-full w-full object-cover ${imgLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-200`}
         onLoad={() => setImgLoaded(true)}
+        loading="lazy"
       />
       {!imgLoaded && <Skeleton className="absolute inset-0 h-full w-full" />}
     </div>

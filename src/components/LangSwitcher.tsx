@@ -6,11 +6,13 @@ import { useState } from "react";
 interface LangSwitcherProps {
   actual: keyof typeof languages;
   localesUrls: { locale: keyof typeof languages; label: string; url: string }[];
+  cleanPath: string;
 }
 
 export default function LangSwitcher({
   actual,
-  localesUrls
+  localesUrls,
+  cleanPath
 }: LangSwitcherProps) {
   const [open, setOpen] = useState(false);
 
@@ -23,12 +25,9 @@ export default function LangSwitcher({
         <div className="xxs:items-start flex flex-col items-center gap-1">
           {localesUrls.map((l) => (
             <a
-              href={l.url}
+              href={l.url + cleanPath}
               key={l.locale}
               className="mx-2 flex text-sm transition-opacity duration-200 hover:opacity-70"
-              onClick={(e) =>
-                l.url === window.location.pathname && e.preventDefault()
-              }
             >
               <h3>{l.locale.toUpperCase()}</h3>
               <span className="xxs:flex hidden">

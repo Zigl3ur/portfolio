@@ -82,6 +82,17 @@ export type uiLangSchema = {
   };
   listener: {
     artistBy: string;
+    listenedAt: string;
+  };
+  footer: {
+    musicLibrary: string;
+  };
+  musicLibrary: {
+    title: string;
+    description: string;
+    checkboxLabel: string;
+    plays: string;
+    errorMessage: string;
   };
 };
 
@@ -169,7 +180,19 @@ export const ui = {
       home: "Accueil"
     },
     listener: {
-      artistBy: "De"
+      artistBy: "De",
+      listenedAt: "Écouté"
+    },
+    footer: {
+      musicLibrary: "Bibliothèque musicale"
+    },
+    musicLibrary: {
+      title: "Bibliothèque Musicale",
+      checkboxLabel: "Afficher le nombre d'écoutes",
+      description:
+        "Tous les albums que j'écoute, du plus écouté au moins écouté.",
+      plays: "écoutes",
+      errorMessage: "Impossible de récupérer les albums, réessayez plus tard."
     }
   } satisfies uiLangSchema,
   en: {
@@ -254,7 +277,19 @@ export const ui = {
       home: "Home"
     },
     listener: {
-      artistBy: "By"
+      artistBy: "By",
+      listenedAt: "Listened"
+    },
+    footer: {
+      musicLibrary: "Music Library"
+    },
+    musicLibrary: {
+      title: "Music Library",
+      checkboxLabel: "Show play count",
+      description:
+        "All the music I listen to, from most listened to least listened.",
+      plays: "plays",
+      errorMessage: "Failed to fetch albums, try again later."
     }
   } satisfies uiLangSchema
 } as const;
