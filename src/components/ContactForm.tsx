@@ -65,7 +65,7 @@ export default function ContactForm({ t }: LangProps<"contact">) {
     mode: "onChange"
   });
 
-  const { mutate, error, status } = useMutation("/api/message");
+  const { mutate, error, status } = useMutation("/message");
 
   const [submitMessage, setSubmitMessage] = useState<{
     type: AlertVariant;

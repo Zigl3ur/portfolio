@@ -1,8 +1,17 @@
 import { useState, useEffect } from "react";
+import { apiUrl } from "../lib/api";
 
 type FetchOptions = Omit<RequestInit, "method">;
 
-export function useFetch<T>(url: string, options?: FetchOptions) {
+type useFetchParams = {
+  baseUrl: string;
+  options?: FetchOptions;
+};
+
+export function useFetch<T>(
+  url: string,
+  params: useFetchParams = { baseUrl: apiUrl() }
+) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -10,8 +19,10 @@ export function useFetch<T>(url: string, options?: FetchOptions) {
   const [headers, setHeaders] = useState<Headers | null>(null);
 
   const fetchData = async () => {
+    const endpoint = params.baseUrl + url;
+
     try {
-      const res = await fetch(url, options);
+      const res = await fetch(endpoint, params.options);
       setStatus(res.status);
       setHeaders(res.headers);
       if (!res.ok) setError(new Error(`HTTP error! status: ${res.status}`));
@@ -26,27 +37,32 @@ export function useFetch<T>(url: string, options?: FetchOptions) {
 
   useEffect(() => {
     fetchData();
-  }, [url, options]);
+  }, [url, params.options]);
 
   return { data, loading, error, status, headers, refetch: fetchData };
 }
 
-export const useMutation = <T>(url: string, options?: FetchOptions) => {
+export const useMutation = <T>(
+  url: string,
+  params: useFetchParams = { baseUrl: apiUrl() }
+) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [status, setStatus] = useState<number | null>(null);
   const [headers, setHeaders] = useState<Headers | null>(null);
 
+  const endpoint = params.baseUrl + url;
+
   const mutate = async (body: any) => {
     setLoading(true);
     try {
-      const res = await fetch(url, {
-        ...options,
+      const res = await fetch(endpoint, {
+        ...params.options,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...options?.headers
+          ...params.options?.headers
         },
         body: JSON.stringify(body)
       });
