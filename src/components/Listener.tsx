@@ -24,7 +24,7 @@ export default function Listener({
     data: musicData,
     error,
     refetch
-  } = useFetch<CurrentlyListening>("/api/music/currently-listening");
+  } = useFetch<CurrentlyListening>("/music/currently-listening");
 
   useEffect(() => {
     const interval = setInterval(refetch, 30_000);

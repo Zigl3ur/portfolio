@@ -16,7 +16,7 @@ export default function MusicLibraryContent({ t }: MusicLibraryContentProps) {
     error,
     loading,
     headers
-  } = useFetch<MusicAlbum[]>("/api/music/top-albums");
+  } = useFetch<MusicAlbum[]>("/music/top-albums");
 
   const updatedAtHeader = headers?.get("x-cache");
 

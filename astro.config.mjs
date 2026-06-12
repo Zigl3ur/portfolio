@@ -27,15 +27,6 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss(), svgr()],
-    server: {
-      proxy: {
-        '/api': {
-          target: process.env.PUBLIC_API_URL || 'http://localhost:8080',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        }
-      }
-    }
   },
 
   integrations: [react()]
