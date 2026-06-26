@@ -27,13 +27,16 @@ export default function LangSwitcher({
             <a
               href={l.url + path}
               key={l.locale}
-              className="mx-2 flex text-sm transition-opacity duration-200 hover:opacity-70"
+              className="flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
             >
-              <h3>{l.locale.toUpperCase()}</h3>
-              <span className="xxs:flex hidden">
-                <span className="mx-2">-</span>
+              <span className="inline-flex items-center gap-1">
+                <h3>{l.locale.toUpperCase()}</h3>
+                <span className="mx-1">-</span>
                 <span>{l.label}</span>
               </span>
+              {l.locale === actual && (
+                <span className="bg-lime-bright ml-2 size-1.5"></span>
+              )}
             </a>
           ))}
         </div>

@@ -17,13 +17,14 @@ interface PopoverTriggerProps extends BasePopoverTriggerProps {
 export function PopoverTrigger({
   children,
   className,
+  indicator,
   ...props
 }: PopoverTriggerProps) {
   return (
     <Popover.Trigger className={cn("group", className)} {...props}>
       <div className="hover:bg-gray/40 group-data-popup-open:bg-gray/80 active:bg-gray/60 flex h-full items-center px-2 py-1 transition-colors duration-200 hover:cursor-pointer">
         {children}
-        {props.indicator && (
+        {indicator && (
           <ChevronDownIcon className="ml-1 size-4 text-white/50 transition-transform duration-200 group-data-popup-open:-rotate-180" />
         )}
       </div>
@@ -34,11 +35,13 @@ export function PopoverTrigger({
 interface PopoverContentProps extends PopoverPositionerProps {
   closeOnScroll?: (open: boolean) => void;
   children: ReactNode;
+  className?: string;
 }
 
 export function PopoverContent({
   closeOnScroll,
   children,
+  className,
   ...props
 }: PopoverContentProps) {
   useEffect(() => {
@@ -52,7 +55,12 @@ export function PopoverContent({
     <Popover.Portal>
       <Popover.Positioner positionMethod="fixed" {...props} className="mt-2">
         {/* Popover content */}
-        <Popover.Popup className="bg-background border-gray relative origin-[--transform-origin] border border-dashed px-6 py-4 shadow-lg transition-all duration-150 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:scale-98 data-starting-style:opacity-0">
+        <Popover.Popup
+          className={cn(
+            "bg-background border-gray relative origin-[--transform-origin] border border-dashed px-5.5 py-4 shadow-lg transition-all duration-150 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:scale-98 data-starting-style:opacity-0",
+            className
+          )}
+        >
           <PlusIcon
             width={15}
             height={15}

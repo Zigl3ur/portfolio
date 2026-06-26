@@ -110,6 +110,7 @@ export const ui = {
       "/": {
         label: "Accueil",
         childs: [
+          { href: "/#landing", label: "Accueil" },
           { href: "/#about-me", label: "À propos" },
           { href: "/#skills", label: "Compétences" },
           { href: "/#projects", label: "Projets" },
@@ -223,6 +224,7 @@ export const ui = {
       "/": {
         label: "Home",
         childs: [
+          { href: "/#landing", label: "Landing" },
           { href: "/#about-me", label: "About Me" },
           { href: "/#skills", label: "Skills" },
           { href: "/#projects", label: "Projects" },

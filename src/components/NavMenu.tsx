@@ -41,7 +41,7 @@ export default function NavMenu({
               <a
                 href={l.url + path}
                 key={l.locale}
-                className="font-mono text-sm transition-opacity duration-200 hover:opacity-70"
+                className="text-sm transition-opacity duration-200 hover:opacity-70"
               >
                 {l.locale.toUpperCase()} - {l.label}
               </a>
@@ -50,13 +50,17 @@ export default function NavMenu({
           <TabsContent value="pages" className="flex flex-col gap-4">
             {routesList.map((route) => (
               <div className="flex flex-col gap-2" key={route.label}>
-                <a
-                  href={route.href}
-                  key={route.label}
-                  className="font-mono transition-opacity duration-200 hover:opacity-70"
-                >
-                  {route.label}
-                </a>
+                {route.href ? (
+                  <a
+                    href={route.href}
+                    key={route.label}
+                    className="font-mono transition-opacity duration-200 hover:opacity-70"
+                  >
+                    {route.label}
+                  </a>
+                ) : (
+                  <span className="font-mono">{route.label}</span>
+                )}
 
                 {route.childs && (
                   <>
@@ -68,7 +72,7 @@ export default function NavMenu({
                           key={child.label}
                           className="transition-opacity duration-200 hover:opacity-70"
                         >
-                          {child.href.includes("#") && "#"} {child.label}
+                          {child.label}
                         </a>
                       ))}
                     </div>

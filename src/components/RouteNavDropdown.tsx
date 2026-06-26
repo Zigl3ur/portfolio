@@ -22,21 +22,27 @@ export default function RouteNavDropdown({
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <PopoverTrigger indicator>{children}</PopoverTrigger>
-      <PopoverContent align="start" closeOnScroll={setOpen}>
-        {routeChilds.map((child) => {
-          const pathT = t[path as keyof typeof t];
+      <PopoverContent
+        align="start"
+        closeOnScroll={setOpen}
+        className="min-w-(--anchor-width)"
+      >
+        <div className="flex flex-col gap-1">
+          {routeChilds.map((child) => {
+            const pathT = t[path as keyof typeof t];
 
-          return (
-            <a
-              href={child.href}
-              key={child.href}
-              className="mx-2 flex text-sm transition-opacity duration-200 hover:opacity-70"
-            >
-              {pathT.childs?.find((c) => c.href === child.href)?.label ||
-                child.label.at(0)?.toUpperCase() + child.label.slice(1)}
-            </a>
-          );
-        })}
+            return (
+              <a
+                href={child.href}
+                key={child.href}
+                className="text-sm transition-opacity duration-200 hover:opacity-70"
+              >
+                {pathT?.childs?.find((c) => c.href === child.href)?.label ||
+                  child.label.at(0)?.toUpperCase() + child.label.slice(1)}
+              </a>
+            );
+          })}
+        </div>
       </PopoverContent>
     </Popover.Root>
   );
