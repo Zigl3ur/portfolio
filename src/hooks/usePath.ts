@@ -3,18 +3,18 @@ import { getLocalesUrl, translate } from "../i18n/utils";
 
 type RouteType = {
   href: string;
-  sections?: string[];
+  childs?: string[];
 };
 
 const routes = [
-  { href: "/", sections: ["#about-me", "#skills", "#projects", "#contact"] },
-  { href: "/library" }
-] as RouteType[];
+  { href: "/", childs: ["#about-me", "#skills", "#projects", "#contact"] },
+  { href: "/library", childs: ["/music", "/shows"] }
+] satisfies RouteType[];
 
 export type RouteWithLabel = {
   href: string;
   label: string;
-  sections?: { href: string; label: string }[];
+  childs?: { href: string; label: string }[];
 };
 
 const locals = getLocalesUrl();
@@ -31,15 +31,15 @@ export function usePath(
   const routesWithLang = routes.map((route) => ({
     href: localPath + route.href,
     label: t[route.href as keyof typeof t].label,
-    sections: route.sections?.map((section) => {
-      const sectionName = section.split("#")[1];
+    childs: route.childs?.map((child) => {
+      const childName = child.slice(1);
 
       return {
-        href: localPath + route.href + section,
+        href: localPath + route.href + child,
         label:
-          t[route.href as keyof typeof t].sections?.find(
-            (s) => s.id === sectionName
-          )?.label || sectionName.at(0)?.toUpperCase() + sectionName.slice(1)
+          t[route.href as keyof typeof t].childs?.find(
+            (c) => c.id === childName
+          )?.label || childName.at(0)?.toUpperCase() + childName.slice(1)
       };
     })
   }));

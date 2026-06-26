@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Skeleton from "./Skeleton";
-import { twMerge } from "tailwind-merge";
+import { cn } from "../../lib/cn";
 
 interface ImageProps {
   src: string;
@@ -12,7 +12,7 @@ export default function Image({ src, alt, className }: ImageProps) {
   const [imgLoaded, setImgLoaded] = useState<boolean>(false);
 
   return (
-    <div className={twMerge("relative", className)}>
+    <div className={cn("relative", className)}>
       <img
         src={src}
         alt={alt}

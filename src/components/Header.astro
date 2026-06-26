@@ -3,15 +3,15 @@ import { usePath } from "../hooks/usePath";
 import { getLangFromUrl, getLocalesUrl, translate } from "../i18n/utils";
 import LangSwitcher from "./LangSwitcher";
 import NavMenu from "./NavMenu";
+import RouteNavDropdown from "./RouteNavDropdown";
 import SocialsPopover from "./SocialsPopover";
 
 const lang = getLangFromUrl(Astro.url);
 const langListUrl = getLocalesUrl();
-const { header: t } = translate(lang);
+const { header: tHeader, pages: tPages } = translate(lang);
 
 const { routes, path } = usePath(Astro.url, lang);
 
-console.log("Header lang:", t);
 const socials = [
   {
     label: "Discord",
@@ -46,7 +46,17 @@ const socials = [
         routes.map((route) => {
           const isActive = route.href === path;
 
-          return (
+          return route.childs ? (
+            <RouteNavDropdown
+              routeChilds={route.childs}
+              t={tPages}
+              path={path}
+              className="group"
+              client:load
+            >
+              <span>{route.label}</span>
+            </RouteNavDropdown>
+          ) : (
             <a
               href={route.href}
               class={`active:bg-gray/60 px-2 py-1 font-mono text-sm transition-colors duration-200 hover:cursor-pointer ${isActive ? "bg-gray/80" : "hover:bg-gray/40"}`}
@@ -59,7 +69,13 @@ const socials = [
     </nav>
   </div>
   <div class="inline-flex sm:hidden">
-    <NavMenu client:load t={t} routesList={routes} langsList={langListUrl} />
+    <NavMenu
+      client:load
+      path={path}
+      routesList={routes}
+      langsList={langListUrl}
+      t={tHeader}
+    />
   </div>
 
   <nav
@@ -79,6 +95,6 @@ const socials = [
     }
   </nav>
   <div class="inline sm:hidden">
-    <SocialsPopover client:load t={t} />
+    <SocialsPopover client:load t={tHeader} />
   </div>
 </header>

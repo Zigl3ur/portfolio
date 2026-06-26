@@ -5,8 +5,8 @@ export const languages = {
 
 export const defaultLang = "fr";
 
-type sectionUiTrad = { id: string; label: string };
-type pageUiTrad = { label: string; sections?: sectionUiTrad[] };
+type sectionUiTrad = { href: string; label: string };
+type pageUiTrad = { label: string; childs?: sectionUiTrad[] };
 
 export type uiLangSchema = {
   pages: {
@@ -109,11 +109,11 @@ export const ui = {
     pages: {
       "/": {
         label: "Accueil",
-        sections: [
-          { id: "about-me", label: "À propos" },
-          { id: "skills", label: "Compétences" },
-          { id: "projects", label: "Projets" },
-          { id: "contact", label: "Contact" }
+        childs: [
+          { href: "/#about-me", label: "À propos" },
+          { href: "/#skills", label: "Compétences" },
+          { href: "/#projects", label: "Projets" },
+          { href: "/#contact", label: "Contact" }
         ]
       },
       "/library": {
@@ -124,7 +124,7 @@ export const ui = {
       socials: "Réseaux",
       menu: {
         pages: "Pages",
-        lang: "Langue"
+        lang: "Langues"
       }
     },
     landing: {
@@ -222,11 +222,11 @@ export const ui = {
     pages: {
       "/": {
         label: "Home",
-        sections: [
-          { id: "about-me", label: "About Me" },
-          { id: "skills", label: "Skills" },
-          { id: "projects", label: "Projects" },
-          { id: "contact", label: "Contact" }
+        childs: [
+          { href: "/#about-me", label: "About Me" },
+          { href: "/#skills", label: "Skills" },
+          { href: "/#projects", label: "Projects" },
+          { href: "/#contact", label: "Contact" }
         ]
       },
       "/library": {
@@ -237,7 +237,7 @@ export const ui = {
       socials: "Socials",
       menu: {
         pages: "Pages",
-        lang: "Language"
+        lang: "Languages"
       }
     },
     landing: {

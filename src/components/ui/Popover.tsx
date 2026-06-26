@@ -6,10 +6,12 @@ import type {
 import PlusIcon from "../../icons/plus.svg?react";
 import { Popover } from "@base-ui/react";
 import { cn } from "../../lib/cn";
+import ChevronDownIcon from "../../icons/chevron-down.svg?react";
 
 interface PopoverTriggerProps extends BasePopoverTriggerProps {
   children: ReactNode;
   className?: string;
+  indicator?: boolean;
 }
 
 export function PopoverTrigger({
@@ -19,8 +21,11 @@ export function PopoverTrigger({
 }: PopoverTriggerProps) {
   return (
     <Popover.Trigger className={cn("group", className)} {...props}>
-      <div className="hover:bg-gray/40 group-data-popup-open:bg-gray/80 active:bg-gray/60 active: h-full px-2 py-1 transition-colors duration-200 hover:cursor-pointer">
+      <div className="hover:bg-gray/40 group-data-popup-open:bg-gray/80 active:bg-gray/60 flex h-full items-center px-2 py-1 transition-colors duration-200 hover:cursor-pointer">
         {children}
+        {props.indicator && (
+          <ChevronDownIcon className="ml-1 size-4 text-white/50 transition-transform duration-200 group-data-popup-open:-rotate-180" />
+        )}
       </div>
     </Popover.Trigger>
   );
