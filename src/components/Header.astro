@@ -2,9 +2,10 @@
 import { usePath } from "../hooks/usePath";
 import { getLangFromUrl, getLocalesUrl, translate } from "../i18n/utils";
 import LangSwitcher from "./LangSwitcher";
-import NavMenu from "./NavMenu";
+import NavMenu, { NavMenuSkeleton } from "./NavMenu";
 import RouteNavDropdown from "./RouteNavDropdown";
 import SocialsPopover from "./SocialsPopover";
+import { PopoverTriggerSkeleton } from "./ui/Popover";
 
 const lang = getLangFromUrl(Astro.url);
 const langListUrl = getLocalesUrl();
@@ -48,12 +49,13 @@ const socials = [
 
           return route.childs ? (
             <RouteNavDropdown
+              client:only="react"
               routeChilds={route.childs}
               t={tPages}
-              path={path}
-              className="group"
-              client:load
             >
+              <PopoverTriggerSkeleton slot="fallback" indicator>
+                <span class="font-mono text-sm">{route.label}</span>
+              </PopoverTriggerSkeleton>
               <span class="font-mono text-sm">{route.label}</span>
             </RouteNavDropdown>
           ) : (
@@ -70,12 +72,14 @@ const socials = [
   </div>
   <div class="inline-flex sm:hidden">
     <NavMenu
-      client:load
-      path={path}
+      client:only="react"
       routesList={routes}
       langsList={langListUrl}
+      currentLang={lang}
       t={tHeader}
-    />
+    >
+      <NavMenuSkeleton slot="fallback" />
+    </NavMenu>
   </div>
 
   <nav

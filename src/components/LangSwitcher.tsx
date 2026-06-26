@@ -16,6 +16,8 @@ export default function LangSwitcher({
 }: LangSwitcherProps) {
   const [open, setOpen] = useState(false);
 
+  const pathWithoutLocale = path.replace(`/${actual}`, "");
+
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
@@ -25,7 +27,7 @@ export default function LangSwitcher({
         <div className="xxs:items-start flex flex-col items-center gap-1">
           {localesUrls.map((l) => (
             <a
-              href={l.url + path}
+              href={l.url + pathWithoutLocale}
               key={l.locale}
               className="flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
             >

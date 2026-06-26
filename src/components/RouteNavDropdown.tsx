@@ -5,19 +5,19 @@ import { Popover } from "@base-ui/react/popover";
 import { PopoverContent, PopoverTrigger } from "./ui/Popover";
 
 interface RouteNavDropdownProps extends PropsWithChildren {
-  path: string;
   routeChilds: NonNullable<RouteWithLabel["childs"]>;
   t: LangProps<"pages">["t"];
   className?: string;
 }
 
 export default function RouteNavDropdown({
-  path,
   routeChilds,
   t,
   children
 }: RouteNavDropdownProps) {
   const [open, setOpen] = useState(false);
+
+  const path = window.location.pathname + window.location.hash;
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -35,10 +35,13 @@ export default function RouteNavDropdown({
               <a
                 href={child.href}
                 key={child.href}
-                className="text-sm transition-opacity duration-200 hover:opacity-70"
+                className="flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
               >
                 {pathT?.childs?.find((c) => c.href === child.href)?.label ||
                   child.label.at(0)?.toUpperCase() + child.label.slice(1)}
+                {child.href === path && (
+                  <span className="bg-lime-bright ml-2 size-1.5"></span>
+                )}
               </a>
             );
           })}

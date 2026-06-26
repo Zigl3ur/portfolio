@@ -32,6 +32,18 @@ export function PopoverTrigger({
   );
 }
 
+export function PopoverTriggerSkeleton({
+  children,
+  indicator
+}: Pick<PopoverTriggerProps, "children" | "indicator">) {
+  return (
+    <div className="flex h-full items-center px-2 py-1">
+      {children}
+      {indicator && <ChevronDownIcon className="ml-1 size-4 text-white/50" />}
+    </div>
+  );
+}
+
 interface PopoverContentProps extends PopoverPositionerProps {
   closeOnScroll?: (open: boolean) => void;
   children: ReactNode;

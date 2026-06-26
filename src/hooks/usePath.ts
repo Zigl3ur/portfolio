@@ -29,7 +29,6 @@ export function usePath(
 ): { routes: RouteWithLabel[]; path: string } {
   const { pages: t } = translate(lang);
 
-  const path = url.pathname.replace(`/${lang}`, "") || "/";
   const localPath = locals.find((local) => local.locale === lang)?.url;
 
   const routesWithLang = routes.map((route) => ({
@@ -47,5 +46,5 @@ export function usePath(
     })
   }));
 
-  return { routes: routesWithLang, path };
+  return { routes: routesWithLang, path: url.pathname + url.hash };
 }

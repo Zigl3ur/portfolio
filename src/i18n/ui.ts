@@ -111,7 +111,7 @@ export const ui = {
         label: "Accueil",
         childs: [
           { href: "/#landing", label: "Accueil" },
-          { href: "/#about-me", label: "À propos" },
+          { href: "/#about-me", label: "À propos de moi" },
           { href: "/#skills", label: "Compétences" },
           { href: "/#projects", label: "Projets" },
           { href: "/#contact", label: "Contact" }
