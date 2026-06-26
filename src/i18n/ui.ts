@@ -5,9 +5,20 @@ export const languages = {
 
 export const defaultLang = "fr";
 
+type sectionUiTrad = { id: string; label: string };
+type pageUiTrad = { label: string; sections?: sectionUiTrad[] };
+
 export type uiLangSchema = {
+  pages: {
+    "/": pageUiTrad;
+    "/library": pageUiTrad;
+  };
   header: {
     socials: string;
+    menu: {
+      pages: string;
+      lang: string;
+    };
   };
   landing: {
     work: string;
@@ -84,9 +95,6 @@ export type uiLangSchema = {
     artistBy: string;
     listenedAt: string;
   };
-  footer: {
-    musicLibrary: string;
-  };
   musicLibrary: {
     title: string;
     description: string;
@@ -98,8 +106,26 @@ export type uiLangSchema = {
 
 export const ui = {
   fr: {
+    pages: {
+      "/": {
+        label: "Accueil",
+        sections: [
+          { id: "about-me", label: "À propos" },
+          { id: "skills", label: "Compétences" },
+          { id: "projects", label: "Projets" },
+          { id: "contact", label: "Contact" }
+        ]
+      },
+      "/library": {
+        label: "Bibliothèque"
+      }
+    },
     header: {
-      socials: "Réseaux"
+      socials: "Réseaux",
+      menu: {
+        pages: "Pages",
+        lang: "Langue"
+      }
     },
     landing: {
       work: "Étudiant en Informatique"
@@ -183,9 +209,6 @@ export const ui = {
       artistBy: "De",
       listenedAt: "Écouté"
     },
-    footer: {
-      musicLibrary: "Bibliothèque musicale"
-    },
     musicLibrary: {
       title: "Bibliothèque Musicale",
       checkboxLabel: "Afficher le nombre d'écoutes",
@@ -196,8 +219,26 @@ export const ui = {
     }
   } satisfies uiLangSchema,
   en: {
+    pages: {
+      "/": {
+        label: "Home",
+        sections: [
+          { id: "about-me", label: "About Me" },
+          { id: "skills", label: "Skills" },
+          { id: "projects", label: "Projects" },
+          { id: "contact", label: "Contact" }
+        ]
+      },
+      "/library": {
+        label: "Library"
+      }
+    },
     header: {
-      socials: "Socials"
+      socials: "Socials",
+      menu: {
+        pages: "Pages",
+        lang: "Language"
+      }
     },
     landing: {
       work: "Computer Science Student"
@@ -279,9 +320,6 @@ export const ui = {
     listener: {
       artistBy: "By",
       listenedAt: "Listened"
-    },
-    footer: {
-      musicLibrary: "Music Library"
     },
     musicLibrary: {
       title: "Music Library",

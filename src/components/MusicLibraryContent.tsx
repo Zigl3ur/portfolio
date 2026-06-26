@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useFetch } from "../hooks/useFetch";
 import type { LangProps, MusicAlbum } from "../types";
 import Image from "./ui/Image";
-import Checkbox from "./ui/checkbox";
+import Checkbox from "./ui/Checkbox";
 import Skeleton from "./ui/Skeleton";
 import Alert from "./ui/Alert";
 
