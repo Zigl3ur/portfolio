@@ -12,7 +12,11 @@ const routes = [
     href: "/",
     childs: ["#landing", "#about-me", "#skills", "#projects", "#contact"]
   },
-  { href: "/library", isPlaceholder: true, childs: ["/music", "/shows"] }
+  {
+    href: "/library",
+    isPlaceholder: true,
+    childs: ["/music", "/shows"]
+  }
 ] satisfies RouteType[];
 
 export type RouteWithLabel = {
@@ -36,7 +40,6 @@ export function usePath(
     label: t[route.href as keyof typeof t].label,
     childs: route.childs?.map((child) => {
       const childName = child.slice(1);
-
       return {
         href: localPath + route.href + child,
         label:

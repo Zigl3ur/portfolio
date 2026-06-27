@@ -35,7 +35,7 @@ export default function NavMenu({
           </div>
         </PopoverTrigger>
       </div>
-      <PopoverContent align="start" closeOnScroll={setOpen}>
+      <PopoverContent align="start" closeOnScroll={setOpen} alignOffset={-5}>
         <TabsRoot className="w-42 max-w-[calc(100vw-4rem)]">
           <TabsList>
             <TabsTrigger value="pages">{t.menu.pages}</TabsTrigger>

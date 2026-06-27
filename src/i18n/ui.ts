@@ -110,15 +110,19 @@ export const ui = {
       "/": {
         label: "Accueil",
         childs: [
-          { href: "/#landing", label: "Accueil" },
-          { href: "/#about-me", label: "À propos de moi" },
-          { href: "/#skills", label: "Compétences" },
-          { href: "/#projects", label: "Projets" },
-          { href: "/#contact", label: "Contact" }
+          { href: "#landing", label: "Accueil" },
+          { href: "#about-me", label: "À propos de moi" },
+          { href: "#skills", label: "Compétences" },
+          { href: "#projects", label: "Projets" },
+          { href: "#contact", label: "Contact" }
         ]
       },
       "/library": {
-        label: "Bibliothèque"
+        label: "Bibliothèque",
+        childs: [
+          { href: "/music", label: "Musique" },
+          { href: "/shows", label: "Concerts" }
+        ]
       }
     },
     header: {
@@ -224,15 +228,19 @@ export const ui = {
       "/": {
         label: "Home",
         childs: [
-          { href: "/#landing", label: "Landing" },
-          { href: "/#about-me", label: "About Me" },
-          { href: "/#skills", label: "Skills" },
-          { href: "/#projects", label: "Projects" },
-          { href: "/#contact", label: "Contact" }
+          { href: "#landing", label: "Landing" },
+          { href: "#about-me", label: "About Me" },
+          { href: "#skills", label: "Skills" },
+          { href: "#projects", label: "Projects" },
+          { href: "#contact", label: "Contact" }
         ]
       },
       "/library": {
-        label: "Library"
+        label: "Library",
+        childs: [
+          { href: "/library/music", label: "Music" },
+          { href: "/library/shows", label: "Shows" }
+        ]
       }
     },
     header: {
