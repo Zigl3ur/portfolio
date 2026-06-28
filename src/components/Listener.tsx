@@ -4,9 +4,8 @@ import { Dialog } from "@base-ui/react";
 import DialogContent from "./ui/DialogContent";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect } from "react";
-import MusicLibrary from "../icons/music-library.svg?react";
 import MusicRecent from "../icons/music-recent.svg?react";
-import { format } from "../lib/timeago";
+import { format } from "../lib/time";
 import type { languages } from "../i18n/ui";
 
 interface ListenerProps {
@@ -15,11 +14,7 @@ interface ListenerProps {
   tMusicLibrary: LangProps<"musicLibrary">["t"];
 }
 
-export default function Listener({
-  locale,
-  tListener,
-  tMusicLibrary
-}: ListenerProps) {
+export default function Listener({ locale, tListener }: ListenerProps) {
   const {
     data: musicData,
     error,
@@ -33,8 +28,6 @@ export default function Listener({
   }, [refetch]);
 
   if (!musicData || error) return null;
-
-  const isMusicLibrary = window.location.pathname.includes("/music-library");
 
   return (
     musicData.track && (
@@ -105,15 +98,6 @@ export default function Listener({
                 </div>
               )}
             </div>
-            {!isMusicLibrary && (
-              <a
-                href={"/music-library"}
-                className="bg-lime-bright text-muted mt-4 flex w-full items-center justify-center gap-1 py-1.5 text-center"
-              >
-                <MusicLibrary className="size-5" />
-                {tMusicLibrary.title}
-              </a>
-            )}
           </div>
         </DialogContent>
       </Dialog.Root>

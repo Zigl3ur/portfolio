@@ -1,11 +1,13 @@
 import type { PropsWithChildren } from "react";
 import CrossIcon from "../../icons/cross.svg?react";
+import { cn } from "../../lib/cn";
 
 export type AlertVariant = "success" | "error";
 
 interface AlertProps {
   variant: AlertVariant;
   onClose?: () => void;
+  className?: string;
 }
 
 type Styles = {
@@ -31,13 +33,17 @@ function style(variant: AlertVariant): Styles {
 export default function Alert({
   variant,
   onClose,
+  className,
   children
 }: PropsWithChildren<AlertProps>) {
   const { div, button } = style(variant);
 
   return (
     <div
-      className={`inline-flex w-full items-center justify-between border p-2 text-sm ${div}`}
+      className={cn(
+        `inline-flex w-full items-center justify-between border p-2 text-sm ${div}`,
+        className
+      )}
     >
       {children}
       {onClose && (

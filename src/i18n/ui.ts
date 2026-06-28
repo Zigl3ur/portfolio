@@ -5,9 +5,20 @@ export const languages = {
 
 export const defaultLang = "fr";
 
+type sectionUiTrad = { href: string; label: string };
+type pageUiTrad = { label: string; childs?: sectionUiTrad[] };
+
 export type uiLangSchema = {
+  pages: {
+    "/": pageUiTrad;
+    "/library": pageUiTrad;
+  };
   header: {
     socials: string;
+    menu: {
+      pages: string;
+      lang: string;
+    };
   };
   landing: {
     work: string;
@@ -84,9 +95,6 @@ export type uiLangSchema = {
     artistBy: string;
     listenedAt: string;
   };
-  footer: {
-    musicLibrary: string;
-  };
   musicLibrary: {
     title: string;
     description: string;
@@ -94,12 +102,39 @@ export type uiLangSchema = {
     plays: string;
     errorMessage: string;
   };
+  underConstruction: {
+    title: string;
+    description: string;
+  };
 };
 
 export const ui = {
   fr: {
+    pages: {
+      "/": {
+        label: "Accueil",
+        childs: [
+          { href: "#landing", label: "Accueil" },
+          { href: "#about-me", label: "À propos de moi" },
+          { href: "#skills", label: "Compétences" },
+          { href: "#projects", label: "Projets" },
+          { href: "#contact", label: "Contact" }
+        ]
+      },
+      "/library": {
+        label: "Bibliothèque",
+        childs: [
+          { href: "/music", label: "Musique" },
+          { href: "/shows", label: "Concerts" }
+        ]
+      }
+    },
     header: {
-      socials: "Réseaux"
+      socials: "Réseaux",
+      menu: {
+        pages: "Pages",
+        lang: "Langues"
+      }
     },
     landing: {
       work: "Étudiant en Informatique"
@@ -183,9 +218,6 @@ export const ui = {
       artistBy: "De",
       listenedAt: "Écouté"
     },
-    footer: {
-      musicLibrary: "Bibliothèque musicale"
-    },
     musicLibrary: {
       title: "Bibliothèque Musicale",
       checkboxLabel: "Afficher le nombre d'écoutes",
@@ -193,11 +225,39 @@ export const ui = {
         "Tous les albums que j'écoute, du plus écouté au moins écouté.",
       plays: "écoutes",
       errorMessage: "Impossible de récupérer les albums, réessayez plus tard."
+    },
+    underConstruction: {
+      title: "Page en développement",
+      description:
+        "Cette page est actuellement en développement, revenez plus tard !"
     }
   } satisfies uiLangSchema,
   en: {
+    pages: {
+      "/": {
+        label: "Home",
+        childs: [
+          { href: "#landing", label: "Landing" },
+          { href: "#about-me", label: "About Me" },
+          { href: "#skills", label: "Skills" },
+          { href: "#projects", label: "Projects" },
+          { href: "#contact", label: "Contact" }
+        ]
+      },
+      "/library": {
+        label: "Library",
+        childs: [
+          { href: "/library/music", label: "Music" },
+          { href: "/library/shows", label: "Shows" }
+        ]
+      }
+    },
     header: {
-      socials: "Socials"
+      socials: "Socials",
+      menu: {
+        pages: "Pages",
+        lang: "Languages"
+      }
     },
     landing: {
       work: "Computer Science Student"
@@ -280,9 +340,6 @@ export const ui = {
       artistBy: "By",
       listenedAt: "Listened"
     },
-    footer: {
-      musicLibrary: "Music Library"
-    },
     musicLibrary: {
       title: "Music Library",
       checkboxLabel: "Show play count",
@@ -290,6 +347,11 @@ export const ui = {
         "All the music I listen to, from most listened to least listened.",
       plays: "plays",
       errorMessage: "Failed to fetch albums, try again later."
+    },
+    underConstruction: {
+      title: "Page in Development",
+      description:
+        "This page is currently under development, please check back later !"
     }
   } satisfies uiLangSchema
 } as const;

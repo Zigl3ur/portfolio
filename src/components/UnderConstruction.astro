@@ -1,0 +1,16 @@
+---
+import { getLangFromUrl, translate } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { underConstruction: t } = translate(lang);
+
+import ConstructionIcon from "../icons/construction.svg";
+---
+
+<div
+  class="flex min-h-[calc(100vh-13.25rem)] flex-col items-center justify-center gap-4"
+>
+  <ConstructionIcon class="text-gray size-24" />
+  <h1 class="text-center text-3xl font-bold">{t.title}</h1>
+  <p class="text-center">{t.description}</p>
+</div>

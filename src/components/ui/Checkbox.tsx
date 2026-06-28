@@ -1,6 +1,9 @@
-import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
+import {
+  Checkbox as BaseCheckbox,
+  type CheckboxRootProps
+} from "@base-ui/react/checkbox";
 
-interface CheckboxProps extends React.ComponentProps<typeof BaseCheckbox.Root> {
+interface CheckboxProps extends CheckboxRootProps {
   children?: React.ReactNode;
 }
 

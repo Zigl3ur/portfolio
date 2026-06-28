@@ -2,7 +2,7 @@ import { type PropsWithChildren } from "react";
 import PlusIcon from "../../icons/plus.svg?react";
 import CrossIcon from "../../icons/cross.svg?react";
 import { Dialog } from "@base-ui/react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "../../lib/cn";
 
 type DialogContentProps = PropsWithChildren<{
   className?: string;
@@ -18,7 +18,7 @@ export default function DialogContent({
 
       <Dialog.Popup
         initialFocus={false}
-        className={twMerge(
+        className={cn(
           "bg-background border-gray fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-dashed text-sm shadow-lg transition-all duration-150 data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0",
           className
         )}

@@ -4,26 +4,35 @@ import {
   type FieldErrorProps as BaseFieldErrorProps,
   type FieldRootProps as BaseFieldRootProps
 } from "@base-ui/react/field";
+import { cn } from "../../lib/cn";
 
 const inputStyle =
   "peer bg-transparent data-invalid:placeholder:text-destructive-muted data-invalid:border-destructive-muted data-invalid:focus:border-destructive data-invalid:focus:placeholder:text-destructive placeholder:text-muted border-muted focus:border-lime-pale focus:placeholder:text-gray w-full border-2 px-2 py-1 transition-colors duration-200 focus:outline-0";
 
 export function FieldRoot({ ...props }: BaseFieldRootProps) {
   return (
-    <Field.Root className="flex w-full flex-col gap-2" {...props}>
+    <Field.Root
+      className={cn("flex w-full flex-col gap-2", props.className)}
+      {...props}
+    >
       {props.children}
     </Field.Root>
   );
 }
 
 export function FieldControl({ ...props }: BaseFieldControlProps) {
-  return <Field.Control className={inputStyle} {...props} />;
+  return (
+    <Field.Control className={cn(inputStyle, props.className)} {...props} />
+  );
 }
 
 export function FieldError({ ...props }: BaseFieldErrorProps) {
   return (
     <Field.Error
-      className="text-destructive-muted peer-focus:text-destructive text-sm"
+      className={cn(
+        "text-destructive-muted peer-focus:text-destructive text-sm",
+        props.className
+      )}
       {...props}
     />
   );
@@ -47,7 +56,12 @@ export function FieldTextArea({ maxChars, ...props }: FieldTextAreaProps) {
           if (props.onValueChange) props.onValueChange(e, evt);
         }}
       />
-      <div className="peer-data-invalid:text-destructive-muted peer-focus:peer-data-invalid:text-destructive flex text-sm">
+      <div
+        className={cn(
+          "peer-data-invalid:text-destructive-muted peer-focus:peer-data-invalid:text-destructive flex text-sm",
+          props.className
+        )}
+      >
         {props.children}
         <Field.Description className="ml-auto shrink-0">
           {charCount}/{maxChars}

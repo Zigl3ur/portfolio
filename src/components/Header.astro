@@ -1,45 +1,86 @@
 ---
+import { usePath } from "../hooks/usePath";
 import { getLangFromUrl, getLocalesUrl, translate } from "../i18n/utils";
-import LangSwitcher from "./LangSwitcher";
+import {
+  MenuNavigatorDesktop,
+  MenuNavigatorMobile,
+  MenuNavigatorDesktopSkeleton,
+  MenuNavigatorMobileSkeleton
+} from "./MenuNavigator";
 import SocialsPopover from "./SocialsPopover";
 
 const lang = getLangFromUrl(Astro.url);
 const langListUrl = getLocalesUrl();
-const { header: t } = translate(lang);
+const { header: tHeader, pages: tPages } = translate(lang);
 
-const cleanPath = Astro.url.pathname.replace(`/${lang}`, "") || "/";
+const { routes, path } = usePath(Astro.url, lang);
+
+const socials = [
+  {
+    label: "Discord",
+    href: "https://discordapp.com/users/384053588042711040"
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/Zigl3ur"
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/eden-douru/"
+  }
+];
 ---
 
 <header
-  class="bg-background border-gray sticky top-0 z-10 flex h-16 w-full items-center justify-between border-b border-dashed px-6 py-4"
+  class="bg-background border-gray sticky top-0 z-10 flex w-full items-center justify-between border-b border-dashed px-6 py-4"
 >
-  <LangSwitcher
-    client:load
-    actual={lang}
-    localesUrls={langListUrl}
-    cleanPath={cleanPath}
-  />
-  <nav class="xs:inline-flex hidden items-center gap-4">
-    <a
-      href="https://discordapp.com/users/384053588042711040"
-      target="_blank"
-      class="font-mono transition-opacity duration-200 hover:opacity-70"
-      >Discord</a
+  <div
+    class="border-gray bg-gray/20 hidden items-center gap-1 border border-dashed p-1 sm:inline-flex"
+  >
+    <MenuNavigatorDesktop
+      client:only="react"
+      routes={routes}
+      langs={langListUrl}
+      t={tPages}
+      actual={lang}
+      path={path}
     >
-    <a
-      href="https://github.com/Zigl3ur"
-      target="_blank"
-      class="font-mono transition-opacity duration-200 hover:opacity-70"
-      >GitHub</a
+      <MenuNavigatorDesktopSkeleton
+        slot="fallback"
+        local={lang}
+        triggersLabel={routes.map((route) => route.label)}
+      />
+    </MenuNavigatorDesktop>
+  </div>
+  <div class="inline-flex sm:hidden">
+    <MenuNavigatorMobile
+      client:only="react"
+      routes={routes}
+      langs={langListUrl}
+      currentLang={lang}
+      t={tHeader}
     >
-    <a
-      href="https://www.linkedin.com/in/eden-douru/"
-      target="_blank"
-      class="font-mono transition-opacity duration-200 hover:opacity-70"
-      >LinkedIn</a
-    >
+      <MenuNavigatorMobileSkeleton slot="fallback" />
+    </MenuNavigatorMobile>
+  </div>
+
+  <nav
+    class="border-gray bg-gray/20 hidden items-center gap-1 border border-dashed p-1 sm:inline-flex"
+  >
+    {
+      socials.map((social) => (
+        <a
+          href={social.href}
+          class="active:bg-gray/60 hover:bg-gray/40 px-2 py-1 font-mono text-sm transition-colors duration-200 hover:cursor-pointer"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {social.label}
+        </a>
+      ))
+    }
   </nav>
-  <div class="xs:hidden inline">
-    <SocialsPopover client:load t={t} />
+  <div class="inline sm:hidden">
+    <SocialsPopover client:load t={tHeader} />
   </div>
 </header>
