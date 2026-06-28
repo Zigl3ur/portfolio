@@ -1,11 +1,13 @@
 ---
 import { usePath } from "../hooks/usePath";
 import { getLangFromUrl, getLocalesUrl, translate } from "../i18n/utils";
-import LangSwitcher from "./LangSwitcher";
-import NavMenu, { NavMenuSkeleton } from "./NavMenu";
-import RouteNavDropdown from "./RouteNavDropdown";
+import {
+  MenuNavigatorDesktop,
+  MenuNavigatorMobile,
+  MenuNavigatorDesktopSkeleton,
+  MenuNavigatorMobileSkeleton
+} from "./MenuNavigator";
 import SocialsPopover from "./SocialsPopover";
-import { PopoverTriggerSkeleton } from "./ui/Popover";
 
 const lang = getLangFromUrl(Astro.url);
 const langListUrl = getLocalesUrl();
@@ -35,51 +37,31 @@ const socials = [
   <div
     class="border-gray bg-gray/20 hidden items-center gap-1 border border-dashed p-1 sm:inline-flex"
   >
-    <LangSwitcher
-      client:load
+    <MenuNavigatorDesktop
+      client:only="react"
+      routes={routes}
+      langs={langListUrl}
+      t={tPages}
       actual={lang}
-      localesUrls={langListUrl}
       path={path}
-    />
-    <span class="border-gray h-6 w-px border border-dashed"></span>
-    <nav class="flex gap-1">
-      {
-        routes.map((route) => {
-          const isActive = route.href === path;
-
-          return route.childs ? (
-            <RouteNavDropdown
-              client:only="react"
-              routeChilds={route.childs}
-              t={tPages}
-            >
-              <PopoverTriggerSkeleton slot="fallback" indicator>
-                <span class="font-mono text-sm">{route.label}</span>
-              </PopoverTriggerSkeleton>
-              <span class="font-mono text-sm">{route.label}</span>
-            </RouteNavDropdown>
-          ) : (
-            <a
-              href={route.href}
-              class={`active:bg-gray/60 px-2 py-1 font-mono text-sm transition-colors duration-200 hover:cursor-pointer ${isActive ? "bg-gray/80" : "hover:bg-gray/40"}`}
-            >
-              {route.label}
-            </a>
-          );
-        })
-      }
-    </nav>
+    >
+      <MenuNavigatorDesktopSkeleton
+        slot="fallback"
+        local={lang}
+        triggersLabel={routes.map((route) => route.label)}
+      />
+    </MenuNavigatorDesktop>
   </div>
   <div class="inline-flex sm:hidden">
-    <NavMenu
+    <MenuNavigatorMobile
       client:only="react"
-      routesList={routes}
-      langsList={langListUrl}
+      routes={routes}
+      langs={langListUrl}
       currentLang={lang}
       t={tHeader}
     >
-      <NavMenuSkeleton slot="fallback" />
-    </NavMenu>
+      <MenuNavigatorMobileSkeleton slot="fallback" />
+    </MenuNavigatorMobile>
   </div>
 
   <nav

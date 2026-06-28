@@ -102,6 +102,10 @@ export type uiLangSchema = {
     plays: string;
     errorMessage: string;
   };
+  underConstruction: {
+    title: string;
+    description: string;
+  };
 };
 
 export const ui = {
@@ -221,6 +225,11 @@ export const ui = {
         "Tous les albums que j'écoute, du plus écouté au moins écouté.",
       plays: "écoutes",
       errorMessage: "Impossible de récupérer les albums, réessayez plus tard."
+    },
+    underConstruction: {
+      title: "Page en développement",
+      description:
+        "Cette page est actuellement en développement, revenez plus tard !"
     }
   } satisfies uiLangSchema,
   en: {
@@ -338,6 +347,11 @@ export const ui = {
         "All the music I listen to, from most listened to least listened.",
       plays: "plays",
       errorMessage: "Failed to fetch albums, try again later."
+    },
+    underConstruction: {
+      title: "Page in Development",
+      description:
+        "This page is currently under development, please check back later !"
     }
   } satisfies uiLangSchema
 } as const;
