@@ -8,10 +8,12 @@ export default function SocialsPopover({ t }: LangProps<"header">) {
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
-      <PopoverTrigger className="bg-gray/20 border-gray border border-dashed p-1 font-mono text-sm">
-        {t.socials}
-      </PopoverTrigger>
-      <PopoverContent align="end" closeOnScroll={setOpen}>
+      <div className="bg-gray/20 border-gray border border-dashed p-1">
+        <PopoverTrigger className="font-mono text-sm">
+          {t.socials}
+        </PopoverTrigger>
+      </div>
+      <PopoverContent align="end" alignOffset={-5} closeOnScroll={setOpen}>
         <div className="flex flex-col gap-2 font-mono">
           <a
             href="https://discordapp.com/users/384053588042711040"

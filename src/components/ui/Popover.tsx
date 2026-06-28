@@ -21,13 +21,17 @@ export function PopoverTrigger({
   ...props
 }: PopoverTriggerProps) {
   return (
-    <Popover.Trigger className={cn("group", className)} {...props}>
-      <div className="hover:bg-gray/40 group-data-popup-open:bg-gray/80 active:bg-gray/60 flex h-full items-center px-2 py-1 transition-colors duration-200 hover:cursor-pointer">
-        {children}
-        {indicator && (
-          <ChevronDownIcon className="ml-1 size-4 text-white/50 transition-transform duration-200 group-data-popup-open:-rotate-180" />
-        )}
-      </div>
+    <Popover.Trigger
+      className={cn(
+        "hover:bg-gray/40 data-popup-open:bg-gray/80 active:bg-gray/60 group flex h-full items-center px-2 py-1 transition-colors duration-200 hover:cursor-pointer",
+        className
+      )}
+      {...props}
+    >
+      {children}
+      {indicator && (
+        <ChevronDownIcon className="ml-1 size-3 shrink-0 text-white/50 transition-transform duration-200 group-data-popup-open:-rotate-180" />
+      )}
     </Popover.Trigger>
   );
 }
@@ -39,7 +43,9 @@ export function PopoverTriggerSkeleton({
   return (
     <div className="flex h-full items-center px-2 py-1">
       {children}
-      {indicator && <ChevronDownIcon className="ml-1 size-4 text-white/50" />}
+      {indicator && (
+        <ChevronDownIcon className="ml-1 size-3 shrink-0 text-white/50" />
+      )}
     </div>
   );
 }
@@ -47,6 +53,8 @@ export function PopoverTriggerSkeleton({
 interface PopoverContentProps extends PopoverPositionerProps {
   closeOnScroll?: (open: boolean) => void;
   children: ReactNode;
+  portalContainer?: HTMLElement | null;
+  sideOffset?: number;
   className?: string;
 }
 
@@ -54,22 +62,29 @@ export function PopoverContent({
   closeOnScroll,
   children,
   className,
+  portalContainer,
   ...props
 }: PopoverContentProps) {
   useEffect(() => {
     if (!closeOnScroll) return;
-    document.addEventListener("scroll", () => closeOnScroll(false));
-    return () =>
-      document.removeEventListener("scroll", () => closeOnScroll(false));
+
+    const handleScroll = () => closeOnScroll(false);
+    document.addEventListener("scroll", handleScroll);
+
+    return () => document.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <Popover.Portal>
-      <Popover.Positioner positionMethod="fixed" {...props} className="mt-2">
+    <Popover.Portal container={portalContainer}>
+      <Popover.Positioner
+        sideOffset={props.sideOffset ?? 8}
+        positionMethod="fixed"
+        {...props}
+      >
         {/* Popover content */}
         <Popover.Popup
           className={cn(
-            "bg-background border-gray relative origin-[--transform-origin] border border-dashed px-5.5 py-4 shadow-lg transition-all duration-150 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:scale-98 data-starting-style:opacity-0",
+            "bg-background border-gray pointer-events-auto relative origin-[--transform-origin] border border-dashed px-5.5 py-4 shadow-lg transition-[opacity,transform] duration-150 data-ending-style:scale-98 data-ending-style:opacity-0 data-starting-style:scale-98 data-starting-style:opacity-0",
             className
           )}
         >

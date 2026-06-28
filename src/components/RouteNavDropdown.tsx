@@ -3,6 +3,7 @@ import type { RouteWithLabel } from "../hooks/usePath";
 import type { LangProps } from "../types";
 import { Popover } from "@base-ui/react/popover";
 import { PopoverContent, PopoverTrigger } from "./ui/Popover";
+import ActiveDot from "./ui/Utils";
 
 interface RouteNavDropdownProps extends PropsWithChildren {
   routeChilds: NonNullable<RouteWithLabel["childs"]>;
@@ -21,7 +22,9 @@ export default function RouteNavDropdown({
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
-      <PopoverTrigger indicator>{children}</PopoverTrigger>
+      <PopoverTrigger indicator openOnHover>
+        {children}
+      </PopoverTrigger>
       <PopoverContent
         align="start"
         closeOnScroll={setOpen}
@@ -39,9 +42,7 @@ export default function RouteNavDropdown({
               >
                 {pathT?.childs?.find((c) => c.href === child.href)?.label ||
                   child.label.at(0)?.toUpperCase() + child.label.slice(1)}
-                {child.href === path && (
-                  <span className="bg-lime-bright ml-2 size-1.5"></span>
-                )}
+                {child.href === path && <ActiveDot />}
               </a>
             );
           })}

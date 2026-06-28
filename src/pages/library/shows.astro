@@ -1,0 +1,13 @@
+---
+import VideoPlayer from "../../components/ui/VideoPlayer";
+import Main from "../../layouts/Main.astro";
+---
+
+<Main>
+  <div class="mt-12">
+    <VideoPlayer
+      source="http://localhost:8080/videos/lp_1/playlist.m3u8"
+      client:load
+    />
+  </div>
+</Main>

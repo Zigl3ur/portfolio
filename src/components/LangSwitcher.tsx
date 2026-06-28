@@ -2,6 +2,7 @@ import { Popover } from "@base-ui/react";
 import type { languages } from "../i18n/ui";
 import { PopoverContent, PopoverTrigger } from "./ui/Popover";
 import { useState } from "react";
+import ActiveDot from "./ui/Utils";
 
 interface LangSwitcherProps {
   actual: keyof typeof languages;
@@ -36,9 +37,7 @@ export default function LangSwitcher({
                 <span className="mx-1">-</span>
                 <span>{l.label}</span>
               </span>
-              {l.locale === actual && (
-                <span className="bg-lime-bright ml-2 size-1.5"></span>
-              )}
+              {l.locale === actual && <ActiveDot />}
             </a>
           ))}
         </div>

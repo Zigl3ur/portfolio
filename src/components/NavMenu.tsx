@@ -6,6 +6,7 @@ import type { RouteWithLabel } from "../hooks/usePath";
 import type { getLocalesUrl } from "../i18n/utils";
 import type { LangProps } from "../types";
 import type { languages } from "../i18n/ui";
+import ActiveDot from "./ui/Utils";
 
 interface NavMenuProps {
   routesList: RouteWithLabel[];
@@ -23,6 +24,7 @@ export default function NavMenu({
   const [open, setOpen] = useState(false);
 
   const path = window.location.pathname + window.location.hash;
+  const pathWithoutLocale = path.replace(`/${currentLang}`, "");
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -44,16 +46,14 @@ export default function NavMenu({
           <TabsContent value="lang" className="flex flex-col gap-2">
             {langsList.map((l) => (
               <a
-                href={l.url + path}
+                href={l.url + pathWithoutLocale}
                 key={l.locale}
                 className="flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
               >
                 <span>
                   {l.locale.toUpperCase()} - {l.label}
                 </span>
-                {l.locale === currentLang && (
-                  <span className="bg-lime-bright ml-2 size-1.5"></span>
-                )}
+                {l.locale === currentLang && <ActiveDot />}
               </a>
             ))}
           </TabsContent>
@@ -67,9 +67,7 @@ export default function NavMenu({
                     className="flex items-center justify-between font-mono transition-opacity duration-200 hover:opacity-70"
                   >
                     {route.label}
-                    {route.href === path && (
-                      <span className="bg-lime-bright ml-2 size-1.5"></span>
-                    )}
+                    {route.href === path && <ActiveDot />}
                   </a>
                 ) : (
                   <span className="font-mono">{route.label}</span>
@@ -86,9 +84,7 @@ export default function NavMenu({
                           className="flex items-center justify-between transition-opacity duration-200 hover:opacity-70"
                         >
                           {child.label}
-                          {child.href === path && (
-                            <span className="bg-lime-bright ml-2 size-1.5"></span>
-                          )}
+                          {child.href === path && <ActiveDot />}
                         </a>
                       ))}
                     </div>

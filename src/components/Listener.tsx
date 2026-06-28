@@ -5,7 +5,7 @@ import DialogContent from "./ui/DialogContent";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect } from "react";
 import MusicRecent from "../icons/music-recent.svg?react";
-import { format } from "../lib/timeago";
+import { format } from "../lib/time";
 import type { languages } from "../i18n/ui";
 
 interface ListenerProps {
