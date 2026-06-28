@@ -49,7 +49,10 @@ export function NavigationMenuList({
   ...props
 }: NavigationMenuListProps) {
   return (
-    <NavigationMenu.List className={cn("flex gap-1 items-center", className)} {...props}>
+    <NavigationMenu.List
+      className={cn("flex items-center gap-1", className)}
+      {...props}
+    >
       {children}
     </NavigationMenu.List>
   );
