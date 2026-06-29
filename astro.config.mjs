@@ -2,9 +2,12 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import svgr from 'vite-plugin-svgr';
 import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://eden.douru.fr",
+
   server: {
     port: 3000
   },
@@ -29,5 +32,5 @@ export default defineConfig({
     plugins: [tailwindcss(), svgr()],
   },
 
-  integrations: [react()]
+  integrations: [react(), sitemap()]
 });
