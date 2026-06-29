@@ -7,7 +7,7 @@ type RouteType = {
   childs?: string[];
 };
 
-const routes = [
+const routesList = [
   {
     href: "/",
     childs: ["#landing", "#about-me", "#skills", "#projects", "#contact"]
@@ -27,15 +27,15 @@ export type RouteWithLabel = {
 
 const locals = getLocalesUrl();
 
-export function usePath(
+export function routes(
   url: URL,
   lang: keyof typeof languages
-): { routes: RouteWithLabel[]; path: string } {
+): { routesList: RouteWithLabel[] } {
   const { pages: t } = translate(lang);
 
   const localPath = locals.find((local) => local.locale === lang)?.url;
 
-  const routesWithLang = routes.map((route) => ({
+  const routesWithLang = routesList.map((route) => ({
     href: !route.isPlaceholder ? localPath + route.href : undefined,
     label: t[route.href as keyof typeof t].label,
     childs: route.childs?.map((child) => {
@@ -49,5 +49,26 @@ export function usePath(
     })
   }));
 
-  return { routes: routesWithLang, path: url.pathname + url.hash };
+  return { routesList: routesWithLang };
+}
+
+export function getPathWithoutLocale(
+  path: string,
+  locale: keyof typeof languages
+) {
+  const localePrefix = `/${locale}`;
+
+  if (path === localePrefix) return "/";
+
+  if (
+    path.startsWith(`${localePrefix}/`) ||
+    path.startsWith(`${localePrefix}#`)
+  ) {
+    const pathWithoutLocale = path.slice(localePrefix.length);
+    return pathWithoutLocale.startsWith("#")
+      ? `/${pathWithoutLocale}`
+      : pathWithoutLocale;
+  }
+
+  return path || "/";
 }

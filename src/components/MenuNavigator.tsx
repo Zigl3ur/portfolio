@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { RouteWithLabel } from "../hooks/usePath";
+import { getPathWithoutLocale, type RouteWithLabel } from "../lib/path";
 import type { languages } from "../i18n/ui";
 import type { LangProps } from "../types";
 import {
@@ -37,7 +37,7 @@ export function MenuNavigatorDesktop({
   path
 }: RouteNavDropdownProps) {
   const actualPath = window.location.pathname + window.location.hash;
-  const pathWithoutLocale = path.replace(`/${actual}`, "");
+  const pathWithoutLocale = getPathWithoutLocale(actualPath, actual);
 
   const [value, setValue] = useState<string | null>(null);
 
@@ -161,7 +161,7 @@ export function MenuNavigatorMobile({
   const [open, setOpen] = useState(false);
 
   const path = window.location.pathname + window.location.hash;
-  const pathWithoutLocale = path.replace(`/${currentLang}`, "");
+  const pathWithoutLocale = getPathWithoutLocale(path, currentLang);
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>

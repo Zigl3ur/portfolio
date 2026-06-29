@@ -1,6 +1,6 @@
 ---
-import { usePath } from "../hooks/usePath";
 import { getLangFromUrl, getLocalesUrl, translate } from "../i18n/utils";
+import { routes } from "../lib/path";
 import {
   MenuNavigatorDesktop,
   MenuNavigatorMobile,
@@ -13,7 +13,7 @@ const lang = getLangFromUrl(Astro.url);
 const langListUrl = getLocalesUrl();
 const { header: tHeader, pages: tPages } = translate(lang);
 
-const { routes, path } = usePath(Astro.url, lang);
+const { routesList } = routes(Astro.url, lang);
 
 const socials = [
   {
@@ -39,23 +39,23 @@ const socials = [
   >
     <MenuNavigatorDesktop
       client:only="react"
-      routes={routes}
+      routes={routesList}
       langs={langListUrl}
-      t={tPages}
       actual={lang}
-      path={path}
+      path={Astro.url.pathname}
+      t={tPages}
     >
       <MenuNavigatorDesktopSkeleton
         slot="fallback"
         local={lang}
-        triggersLabel={routes.map((route) => route.label)}
+        triggersLabel={routesList.map((route) => route.label)}
       />
     </MenuNavigatorDesktop>
   </div>
   <div class="inline-flex sm:hidden">
     <MenuNavigatorMobile
       client:only="react"
-      routes={routes}
+      routes={routesList}
       langs={langListUrl}
       currentLang={lang}
       t={tHeader}
