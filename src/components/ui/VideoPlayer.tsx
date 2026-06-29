@@ -203,7 +203,7 @@ function VideoControls({
             "pointer-events-none",
             "cursor-none"
           );
-        }, 3000);
+        }, 2500);
       }
     };
 
@@ -348,6 +348,7 @@ function VideoControls({
           selectedResolution={selectedResolution}
           resAutoLvl={resAutoLvl}
           changeResolution={changeResolution}
+          popoverPortalRef={popoverPortalRef}
         />
         <FullscreenControl
           containerRef={containerRef}
@@ -482,6 +483,7 @@ interface QualityControlProps {
   selectedResolution: string | null;
   resAutoLvl: string | null;
   changeResolution: (res: number) => void;
+  popoverPortalRef: RefObject<HTMLElement | null>;
 }
 
 function QualityControl({
@@ -490,7 +492,8 @@ function QualityControl({
   resolutions,
   selectedResolution,
   resAutoLvl,
-  changeResolution
+  changeResolution,
+  popoverPortalRef
 }: QualityControlProps) {
   const buttonStyle = (res: number | "auto") =>
     cn(
@@ -504,6 +507,7 @@ function QualityControl({
         <QualitySettingsIcon className="size-5.5" />
       </PopoverTrigger>
       <PopoverContent
+        portalContainer={popoverPortalRef.current}
         align="end"
         side="top"
         sideOffset={8}
