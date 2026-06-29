@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { RouteWithLabel } from "../hooks/usePath";
+import { getPathWithoutLocale, type RouteWithLabel } from "../lib/path";
 import type { languages } from "../i18n/ui";
 import type { LangProps } from "../types";
 import {
@@ -37,7 +37,7 @@ export function MenuNavigatorDesktop({
   path
 }: RouteNavDropdownProps) {
   const actualPath = window.location.pathname + window.location.hash;
-  const pathWithoutLocale = path.replace(`/${actual}`, "");
+  const pathWithoutLocale = getPathWithoutLocale(actualPath, actual);
 
   const [value, setValue] = useState<string | null>(null);
 
@@ -127,7 +127,7 @@ export function MenuNavigatorDesktopSkeleton({
   triggersLabel
 }: MenuNavigatorDesktopSkeletonProps) {
   const triggerStyle =
-    " flex h-full items-center px-2 py-1 font-mono text-sm select-none ";
+    "flex h-full items-center px-2 py-1 font-mono text-sm select-none";
 
   return (
     <div className="flex items-center gap-1">
@@ -161,7 +161,7 @@ export function MenuNavigatorMobile({
   const [open, setOpen] = useState(false);
 
   const path = window.location.pathname + window.location.hash;
-  const pathWithoutLocale = path.replace(`/${currentLang}`, "");
+  const pathWithoutLocale = getPathWithoutLocale(path, currentLang);
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -185,12 +185,13 @@ export function MenuNavigatorMobile({
               <a
                 href={l.url + pathWithoutLocale}
                 key={l.locale}
-                className="flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
+                data-active={l.locale === currentLang || undefined}
+                className="group flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
               >
                 <span>
                   {l.locale.toUpperCase()} - {l.label}
                 </span>
-                {l.locale === currentLang && <ActiveDot />}
+                <ActiveDot className="opacity-0 group-data-active:opacity-100" />
               </a>
             ))}
           </TabsContent>
@@ -201,10 +202,11 @@ export function MenuNavigatorMobile({
                   <a
                     href={route.href}
                     key={route.label}
-                    className="flex items-center justify-between font-mono transition-opacity duration-200 hover:opacity-70"
+                    data-active={route.href === path || undefined}
+                    className="group flex items-center justify-between font-mono transition-opacity duration-200 hover:opacity-70"
                   >
                     {route.label}
-                    {route.href === path && <ActiveDot />}
+                    <ActiveDot className="opacity-0 group-data-active:opacity-100" />
                   </a>
                 ) : (
                   <span className="font-mono">{route.label}</span>
@@ -218,10 +220,11 @@ export function MenuNavigatorMobile({
                         <a
                           href={child.href}
                           key={child.label}
-                          className="flex items-center justify-between transition-opacity duration-200 hover:opacity-70"
+                          data-active={child.href === path || undefined}
+                          className="group flex items-center justify-between transition-opacity duration-200 hover:opacity-70"
                         >
                           {child.label}
-                          {child.href === path && <ActiveDot />}
+                          <ActiveDot className="opacity-0 group-data-active:opacity-100" />
                         </a>
                       ))}
                     </div>

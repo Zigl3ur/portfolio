@@ -1,11 +1,11 @@
-import * as timeago from "timeago.js";
-import fr from "timeago.js/lib/lang/fr";
-import en from "timeago.js/lib/lang/en_US";
+import { format, register } from "timeago.js";
+import fr from "timeago.js/esm/lang/fr.js";
+import en from "timeago.js/esm/lang/en_US.js";
 
-timeago.register("fr", fr);
-timeago.register("en", en);
+register("fr", fr);
+register("en", en);
 
-export const { format } = timeago;
+export { format };
 
 export function formatDuration(seconds: number): string {
   const h = Math.floor(seconds / 3600);
