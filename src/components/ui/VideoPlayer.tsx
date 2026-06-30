@@ -182,19 +182,20 @@ function VideoControls({
     if (!hlsRef.current) return;
     const hls = hlsRef.current;
 
-    if (
-      (res === -1 && hls.autoLevelEnabled) ||
-      (res !== -1 &&
-        !hls.autoLevelEnabled &&
-        hls.levels[hls.currentLevel]?.height === res)
-    )
+    // auto res
+    if (res === -1) {
+      hls.nextLevel = -1;
+      setSelectedResolution("auto");
       return;
+    }
 
-    // -1 = auto
-    hls.currentLevel =
-      res === -1 ? -1 : hls.levels.findIndex((level) => level.height === res);
+    const levelIndex = hls.levels.findIndex((level) => level.height === res);
+    if (levelIndex === -1) return;
 
-    setSelectedResolution(res === -1 ? "auto" : res.toString());
+    if (!hls.autoLevelEnabled && hls.nextLevel === levelIndex) return;
+
+    hls.nextLevel = levelIndex;
+    setSelectedResolution(res.toString());
   };
 
   useEffect(() => {
@@ -483,7 +484,7 @@ function ResolutionControl({
 }: ResolutionControlProps) {
   const buttonStyle = (res: number | "auto") =>
     cn(
-      "flex w-full items-center text-xs text-white/60 transition-colors duration-200 hover:text-white",
+      "flex w-full items-center text-xs text-white/60 transition-colors duration-200 hover:text-white hover:cursor-pointer",
       selectedResolution === res.toString() && "text-white"
     );
 
