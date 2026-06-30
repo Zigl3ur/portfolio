@@ -72,3 +72,14 @@ export function getPathWithoutLocale(
 
   return path || "/";
 }
+
+export function isActivePath(
+  href: string,
+  currentPath: string,
+  locale: keyof typeof languages
+) {
+  return (
+    getPathWithoutLocale(href, locale) ===
+    getPathWithoutLocale(currentPath, locale)
+  );
+}

@@ -1,3 +1,4 @@
+import type { CarouselMedia } from "./components/ui/Carousel";
 import type { uiLangSchema } from "./i18n/ui";
 
 export type CurrentlyListening = {
@@ -54,7 +55,7 @@ export type ProjectType = {
   description: string;
   stack: string[];
   url: string;
-  images?: { metadata: ImageMetadata; alt: string }[];
+  medias?: CarouselMedia[];
 };
 
 export type Skill = {
