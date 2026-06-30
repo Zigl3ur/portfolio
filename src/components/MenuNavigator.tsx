@@ -98,7 +98,12 @@ export function MenuNavigatorDesktop({
               <NavigationMenuContent className="flex flex-col gap-1">
                 {route.childs?.map((child) => (
                   <NavigationMenuLink
-                    active={isActivePath(child.href, actualPath, actual)}
+                    active={isActivePath(
+                      child.href,
+                      actualPath,
+                      actual,
+                      child.activeHrefs
+                    )}
                     closeOnClick
                     href={child.href}
                     key={child.href}
@@ -228,8 +233,12 @@ export function MenuNavigatorMobile({
                           href={child.href}
                           key={child.label}
                           data-active={
-                            isActivePath(child.href, path, currentLang) ||
-                            undefined
+                            isActivePath(
+                              child.href,
+                              path,
+                              currentLang,
+                              child.activeHrefs
+                            ) || undefined
                           }
                           className="group flex items-center justify-between transition-opacity duration-200 hover:opacity-70"
                         >

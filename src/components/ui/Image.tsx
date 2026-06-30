@@ -15,7 +15,8 @@ export default function Image({ src, alt, className }: ImageProps) {
   useEffect(() => {
     setImgLoaded(false);
 
-    if (imgRef.current?.complete) setImgLoaded(true);
+    const img = imgRef.current;
+    if (img?.complete && img.naturalWidth > 0) setImgLoaded(true);
   }, [src]);
 
   return (
@@ -24,6 +25,7 @@ export default function Image({ src, alt, className }: ImageProps) {
         ref={imgRef}
         src={src}
         alt={alt}
+        onLoad={() => setImgLoaded(true)}
         className={cn(
           "h-full w-full object-cover",
           "transition-opacity duration-200",

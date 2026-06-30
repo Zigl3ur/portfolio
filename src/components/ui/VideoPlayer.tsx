@@ -1,5 +1,6 @@
 import Hls, {
   Events,
+  type ErrorData,
   type FragLoadingData,
   type ManifestParsedData
 } from "hls.js";
@@ -24,6 +25,7 @@ import VolumeUpIcon from "../../icons/volume-up.svg?react";
 import VolumeMuteIcon from "../../icons/volume-mute.svg?react";
 import VolumeDownIcon from "../../icons/volume-down.svg?react";
 import SpinnerIcon from "../../icons/spinner.svg?react";
+import ErrorIcon from "../../icons/error.svg?react";
 import useVideoPlayer, {
   type VideoPlayerParams
 } from "../../hooks/useVideoPlayer";
@@ -44,6 +46,7 @@ export default function VideoPlayer({
   const hls = useRef<Hls | null>(null);
   const [resolutions, setResolutions] = useState<number[] | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const videoPlayer = useVideoPlayer(videoRef);
 
@@ -65,6 +68,10 @@ export default function VideoPlayer({
       if (video.duration > 0) setIsLoaded(true);
     };
 
+    const handleError = (_event: Events.ERROR, data: ErrorData) => {
+      setError(data.reason || "Unknown error");
+    };
+
     video.addEventListener("loadedmetadata", handleVideoReady);
 
     if (Hls.isSupported()) {
@@ -81,10 +88,12 @@ export default function VideoPlayer({
       };
 
       hls.current.on(Hls.Events.MANIFEST_PARSED, handleManifestParsed);
+      hls.current.on(Hls.Events.ERROR, handleError);
 
       return () => {
         video.removeEventListener("loadedmetadata", handleVideoReady);
         hls.current?.off(Hls.Events.MANIFEST_PARSED, handleManifestParsed);
+        hls.current?.off(Hls.Events.ERROR, handleError);
         hls.current?.destroy();
         hls.current = null;
       };
@@ -118,6 +127,13 @@ export default function VideoPlayer({
           resolutions={resolutions}
           videoPlayer={videoPlayer}
         />
+      ) : error ? (
+        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-2 text-sm">
+          <ErrorIcon className="size-5" />
+          <div className="flex flex-col items-center gap-1">
+            Error loading video <span className="text-xs">{error}</span>
+          </div>
+        </div>
       ) : (
         <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-2 text-sm">
           <SpinnerIcon className="size-5" />
