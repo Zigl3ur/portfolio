@@ -40,6 +40,12 @@ export type RouteWithLabel = {
 
 const locals = getLocalesUrl();
 
+export function joinPath(localeUrl: string, path: string) {
+  if (localeUrl && path.startsWith("/#")) return `${localeUrl}${path.slice(1)}`;
+
+  return `${localeUrl}${path}`;
+}
+
 export function routes(
   url: URL,
   lang: keyof typeof languages
@@ -55,7 +61,7 @@ export function routes(
       const childHref = typeof child === "string" ? child : child.href;
       const childName = childHref.slice(1);
       return {
-        href: localPath + route.href + childHref,
+        href: joinPath(localPath || "", route.href + childHref),
         label:
           t[route.href as keyof typeof t].childs?.find(
             (c) => c.href === childHref

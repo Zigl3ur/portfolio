@@ -1,10 +1,29 @@
 ---
-import UnderConstruction from "../../components/UnderConstruction.astro";
 import Main from "../../layouts/Main.astro";
+import type { CarouselMedia } from "../../components/ui/Carousel";
+import Carousel from "../../components/ui/Carousel";
+import { apiUrl } from "../../lib/api";
+
+const medias = [
+  {
+    metadata: {
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIZkcSMo8J9hWEpUcNedDy4NGICUkKq4KWokZphmXexoHaORVhuOKTB5Kx1euvilyAwPyajBo96eT0dp1yItc-LpJO_iJ63ck3i0-rMEfALQ&s=10"
+    },
+    alt: ""
+  },
+  {
+    metadata: { src: apiUrl("/videos/lp_1/playlist.m3u8") },
+    alt: "lp_1"
+  },
+  {
+    metadata: { src: apiUrl("/videos/gaga_1/playlist.m3u8") },
+    alt: "gaga_1"
+  }
+] satisfies CarouselMedia[];
 ---
 
 <Main>
-  <div class="mt-12">
-    <UnderConstruction />
+  <div class="mt-12 flex flex-col">
+    <Carousel client:load medias={medias} />
   </div>
 </Main>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getPathWithoutLocale,
   isActivePath,
+  joinPath,
   type RouteWithLabel
 } from "../lib/path";
 import type { languages } from "../i18n/ui";
@@ -65,7 +66,7 @@ export function MenuNavigatorDesktop({
               <NavigationMenuLink
                 active={l.locale === actual}
                 closeOnClick
-                href={l.url + pathWithoutLocale}
+                href={joinPath(l.url, pathWithoutLocale)}
                 key={l.locale}
                 className="group flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
               >
@@ -193,7 +194,7 @@ export function MenuNavigatorMobile({
           <TabsContent value="lang" className="flex flex-col gap-2">
             {langs.map((l) => (
               <a
-                href={l.url + pathWithoutLocale}
+                href={joinPath(l.url, pathWithoutLocale)}
                 key={l.locale}
                 data-active={l.locale === currentLang || undefined}
                 className="group flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"

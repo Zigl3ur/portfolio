@@ -69,7 +69,7 @@ export default function VideoPlayer({
     };
 
     const handleError = (_event: Events.ERROR, data: ErrorData) => {
-      setError(data.reason || "Unknown error");
+      if (data.fatal) setError(data.error.message || "Unable to load video");
     };
 
     video.addEventListener("loadedmetadata", handleVideoReady);
@@ -129,14 +129,14 @@ export default function VideoPlayer({
         />
       ) : error ? (
         <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-2 text-sm">
-          <ErrorIcon className="size-5" />
-          <div className="flex flex-col items-center gap-1">
+          <ErrorIcon className="size-5 shrink-0" />
+          <div className="flex flex-col items-center gap-1 text-center">
             Error loading video <span className="text-xs">{error}</span>
           </div>
         </div>
       ) : (
         <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-2 text-sm">
-          <SpinnerIcon className="size-5" />
+          <SpinnerIcon className="size-5 shrink-0" />
           Loading video...
         </div>
       )}
