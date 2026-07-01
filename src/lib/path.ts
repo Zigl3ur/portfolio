@@ -1,16 +1,29 @@
 import type { languages } from "../i18n/ui";
 import { getLocalesUrl, translate } from "../i18n/utils";
 
+type RouteChild =
+  | string
+  | {
+      href: string;
+      activeHrefs?: string[];
+    };
+
 type RouteType = {
   href: string;
   isPlaceholder?: boolean; // if route is not a real one but needed to route childs ones
-  childs?: string[];
+  childs?: RouteChild[];
 };
 
 const routesList = [
   {
     href: "/",
-    childs: ["#landing", "#about-me", "#skills", "#projects", "#contact"]
+    childs: [
+      { href: "#landing", activeHrefs: ["/"] },
+      "#about-me",
+      "#skills",
+      "#projects",
+      "#contact"
+    ]
   },
   {
     href: "/library",
@@ -22,7 +35,7 @@ const routesList = [
 export type RouteWithLabel = {
   href?: string;
   label: string;
-  childs?: { href: string; label: string }[];
+  childs?: { href: string; label: string; activeHrefs?: string[] }[];
 };
 
 const locals = getLocalesUrl();
@@ -39,12 +52,18 @@ export function routes(
     href: !route.isPlaceholder ? localPath + route.href : undefined,
     label: t[route.href as keyof typeof t].label,
     childs: route.childs?.map((child) => {
-      const childName = child.slice(1);
+      const childHref = typeof child === "string" ? child : child.href;
+      const childName = childHref.slice(1);
       return {
-        href: localPath + route.href + child,
+        href: localPath + route.href + childHref,
         label:
-          t[route.href as keyof typeof t].childs?.find((c) => c.href === child)
-            ?.label || childName.at(0)?.toUpperCase() + childName.slice(1)
+          t[route.href as keyof typeof t].childs?.find(
+            (c) => c.href === childHref
+          )?.label || childName.at(0)?.toUpperCase() + childName.slice(1),
+        activeHrefs:
+          typeof child === "string"
+            ? undefined
+            : child.activeHrefs?.map((href) => localPath + href)
       };
     })
   }));
@@ -71,4 +90,19 @@ export function getPathWithoutLocale(
   }
 
   return path || "/";
+}
+
+export function isActivePath(
+  href: string,
+  currentPath: string,
+  locale: keyof typeof languages,
+  activeHrefs: string[] = []
+) {
+  const hrefWithoutLocale = getPathWithoutLocale(href, locale);
+  const currentPathWithoutLocale = getPathWithoutLocale(currentPath, locale);
+
+  return [
+    hrefWithoutLocale,
+    ...activeHrefs.map((href) => getPathWithoutLocale(href, locale))
+  ].includes(currentPathWithoutLocale);
 }

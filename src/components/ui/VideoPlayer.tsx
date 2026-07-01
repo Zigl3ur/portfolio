@@ -1,5 +1,6 @@
 import Hls, {
   Events,
+  type ErrorData,
   type FragLoadingData,
   type ManifestParsedData
 } from "hls.js";
@@ -24,30 +25,58 @@ import VolumeUpIcon from "../../icons/volume-up.svg?react";
 import VolumeMuteIcon from "../../icons/volume-mute.svg?react";
 import VolumeDownIcon from "../../icons/volume-down.svg?react";
 import SpinnerIcon from "../../icons/spinner.svg?react";
+import ErrorIcon from "../../icons/error.svg?react";
+import useVideoPlayer, {
+  type VideoPlayerParams
+} from "../../hooks/useVideoPlayer";
 
 interface VideoPlayerProps {
-  source: string;
+  src: string;
+  playOnMount?: boolean;
   className?: string;
 }
 
-export default function VideoPlayer({ source, className }: VideoPlayerProps) {
+export default function VideoPlayer({
+  src,
+  playOnMount,
+  className
+}: VideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const hls = useRef<Hls | null>(null);
   const [resolutions, setResolutions] = useState<number[] | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const videoPlayer = useVideoPlayer(videoRef);
+
+  useEffect(() => {
+    if (playOnMount && isLoaded && videoRef.current) {
+      const video = videoRef.current;
+      video.play();
+    }
+  }, [playOnMount, isLoaded]);
 
   useEffect(() => {
     if (!videoRef.current) return;
     const video = videoRef.current;
 
     setIsLoaded(false);
+    setResolutions(null);
 
-    const handleVideoReady = () => setIsLoaded(true);
+    const handleVideoReady = () => {
+      if (video.duration > 0) setIsLoaded(true);
+    };
+
+    const handleError = (_event: Events.ERROR, data: ErrorData) => {
+      setError(data.reason || "Unknown error");
+    };
+
+    video.addEventListener("loadedmetadata", handleVideoReady);
 
     if (Hls.isSupported()) {
       hls.current = new Hls();
-      hls.current.loadSource(source);
+      hls.current.loadSource(src);
       hls.current.attachMedia(video);
 
       const handleManifestParsed = (
@@ -59,27 +88,29 @@ export default function VideoPlayer({ source, className }: VideoPlayerProps) {
       };
 
       hls.current.on(Hls.Events.MANIFEST_PARSED, handleManifestParsed);
-      hls.current.on(Hls.Events.LEVEL_LOADED, handleVideoReady);
+      hls.current.on(Hls.Events.ERROR, handleError);
 
       return () => {
+        video.removeEventListener("loadedmetadata", handleVideoReady);
         hls.current?.off(Hls.Events.MANIFEST_PARSED, handleManifestParsed);
-        hls.current?.off(Hls.Events.LEVEL_LOADED, handleVideoReady);
+        hls.current?.off(Hls.Events.ERROR, handleError);
         hls.current?.destroy();
+        hls.current = null;
       };
     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      video.src = source;
+      video.src = src;
 
       video.addEventListener("loadedmetadata", handleVideoReady);
       return () =>
         video.removeEventListener("loadedmetadata", handleVideoReady);
     }
-  }, [source]);
+  }, [src]);
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        "border-gray bg-gray/20 full relative flex flex-col gap-2 border border-dashed",
+        "bg-gray/20 relative flex h-full flex-col gap-2",
         className
       )}
     >
@@ -89,21 +120,22 @@ export default function VideoPlayer({ source, className }: VideoPlayerProps) {
       />
 
       {isLoaded ? (
-        <>
-          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
-            {videoRef.current?.duration === videoRef.current?.currentTime && (
-              <ReplayButton videoRef={videoRef} />
-            )}
+        <VideoControls
+          containerRef={containerRef}
+          videoRef={videoRef}
+          hlsRef={hls}
+          resolutions={resolutions}
+          videoPlayer={videoPlayer}
+        />
+      ) : error ? (
+        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-2 text-sm">
+          <ErrorIcon className="size-5" />
+          <div className="flex flex-col items-center gap-1">
+            Error loading video <span className="text-xs">{error}</span>
           </div>
-          <VideoControls
-            containerRef={containerRef}
-            videoRef={videoRef}
-            hlsRef={hls}
-            resolutions={resolutions}
-          />
-        </>
+        </div>
       ) : (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-sm">
+        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-2 text-sm">
           <SpinnerIcon className="size-5" />
           Loading video...
         </div>
@@ -113,17 +145,19 @@ export default function VideoPlayer({ source, className }: VideoPlayerProps) {
 }
 
 interface VideoControlsProps {
-  containerRef: React.RefObject<HTMLDivElement | null>;
-  videoRef: React.RefObject<HTMLVideoElement | null>;
-  hlsRef: React.RefObject<Hls | null>;
+  containerRef: RefObject<HTMLDivElement | null>;
+  videoRef: RefObject<HTMLVideoElement | null>;
+  hlsRef: RefObject<Hls | null>;
   resolutions: number[] | null;
+  videoPlayer: VideoPlayerParams;
 }
 
 function VideoControls({
   containerRef,
   videoRef,
   hlsRef,
-  resolutions
+  resolutions,
+  videoPlayer
 }: VideoControlsProps) {
   const controlsRef = useRef<HTMLDivElement | null>(null);
   // used when fullscreen to render the popover within the container
@@ -132,48 +166,36 @@ function VideoControls({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [resOpen, setResOpen] = useState(false);
   const [volumeOpen, setVolumeOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [pos, setPos] = useState(0);
-  const [duration, setDuration] = useState(
-    () => videoRef.current?.duration || 0
-  );
-  const [buffered, setBuffered] = useState<TimeRanges | null>(
-    videoRef.current?.buffered || null
-  );
   const [resAutoLvl, setResAutoLvl] = useState<string | null>(null);
   const [selectedResolution, setSelectedResolution] = useState<string | null>(
     null
   );
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isPlayingRef = useRef(false);
-  const isChangingPos = useRef(false);
+  const isPlayingRef = useRef(videoPlayer.isPlaying);
 
-  const changeState = () => {
-    if (!videoRef.current) return;
-    const video = videoRef.current;
-
-    if (video.paused) video.play();
-    else video.pause();
-  };
+  useEffect(() => {
+    isPlayingRef.current = videoPlayer.isPlaying;
+  }, [videoPlayer.isPlaying]);
 
   const changeResolution = (res: number) => {
     if (!hlsRef.current) return;
     const hls = hlsRef.current;
 
-    if (
-      (res === -1 && hls.autoLevelEnabled) ||
-      (res !== -1 &&
-        !hls.autoLevelEnabled &&
-        hls.levels[hls.currentLevel]?.height === res)
-    )
+    // auto res
+    if (res === -1) {
+      hls.nextLevel = -1;
+      setSelectedResolution("auto");
       return;
+    }
 
-    // -1 = auto
-    hls.currentLevel =
-      res === -1 ? -1 : hls.levels.findIndex((level) => level.height === res);
+    const levelIndex = hls.levels.findIndex((level) => level.height === res);
+    if (levelIndex === -1) return;
 
-    setSelectedResolution(res === -1 ? "auto" : res.toString());
+    if (!hls.autoLevelEnabled && hls.nextLevel === levelIndex) return;
+
+    hls.nextLevel = levelIndex;
+    setSelectedResolution(res.toString());
   };
 
   useEffect(() => {
@@ -183,12 +205,16 @@ function VideoControls({
     const showControls = () => {
       if (!controlsRef.current) return;
       const controls = controlsRef.current;
+      if (!videoRef.current) return;
+      const video = videoRef.current;
 
+      video.classList.remove("hover:cursor-none");
       controls.classList.remove(
         "opacity-0",
         "pointer-events-none",
         "cursor-none"
       );
+      video.classList.add("hover:cursor-pointer");
       controls.classList.add("opacity-100");
 
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -197,7 +223,9 @@ function VideoControls({
 
       if (isPlayingRef.current && !(isResPopoverOpen || isVolumePopoverOpen)) {
         timeoutRef.current = setTimeout(() => {
+          video.classList.remove("hover:cursor-pointer");
           controls.classList.remove("opacity-100");
+          video.classList.add("hover:cursor-none");
           controls.classList.add(
             "opacity-0",
             "pointer-events-none",
@@ -209,55 +237,34 @@ function VideoControls({
 
     const handlePlay = () => {
       isPlayingRef.current = true;
-      setIsPlaying(true);
       showControls();
     };
     const handlePause = () => {
       isPlayingRef.current = false;
-      setIsPlaying(false);
       showControls();
     };
     const handleSpaceDown = (e: KeyboardEvent) => {
       if (e.key === " ") {
         e.preventDefault();
-        changeState();
+        videoPlayer.togglePlay();
       }
     };
-    const handleTimeUpdate = () => {
-      if (!isChangingPos.current) setPos(video.currentTime);
-    };
-    const handleDurationChange = () => {
-      if (video.duration) setDuration(video.duration);
-    };
     const handleOver = () => showControls();
-    const handleProgress = () => setBuffered(video.buffered);
-    const handleEnded = () => {
-      video.currentTime = 0;
-      setPos(0);
-    };
 
     video.addEventListener("mouseover", handleOver);
     video.addEventListener("mousemove", handleOver);
-    video.addEventListener("click", changeState);
+    video.addEventListener("click", videoPlayer.togglePlay);
     video.addEventListener("keydown", handleSpaceDown);
-    video.addEventListener("ended", handleEnded);
     video.addEventListener("play", handlePlay);
     video.addEventListener("pause", handlePause);
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    video.addEventListener("durationchange", handleDurationChange);
-    video.addEventListener("progress", handleProgress);
 
     return () => {
       video.removeEventListener("mouseover", handleOver);
       video.removeEventListener("mousemove", handleOver);
-      video.removeEventListener("click", changeState);
+      video.removeEventListener("click", videoPlayer.togglePlay);
       video.removeEventListener("keydown", handleSpaceDown);
-      video.removeEventListener("ended", handleEnded);
       video.removeEventListener("play", handlePlay);
       video.removeEventListener("pause", handlePause);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-      video.removeEventListener("durationchange", handleDurationChange);
-      video.removeEventListener("progress", handleProgress);
     };
   }, [videoRef]);
 
@@ -282,9 +289,7 @@ function VideoControls({
       _event: Events.FRAG_LOADING,
       data: FragLoadingData
     ) => {
-      if (typeof data?.frag?.level === "number") {
-        updateResolution(data.frag.level);
-      }
+      updateResolution(data.frag.level);
     };
 
     hls.on(Hls.Events.FRAG_LOADING, handleFragLoading);
@@ -308,30 +313,19 @@ function VideoControls({
         className="pointer-events-none absolute inset-0 z-50"
       />
 
-      <button
-        className="bg-background/70 border-gray group/video-state-control flex items-center justify-center border border-dashed p-0.5 hover:cursor-pointer"
-        onClick={changeState}
-      >
-        <div className="group-hover/video-state-control:bg-gray/40 group-active/video-state-control:bg-gray/60 flex items-center justify-center">
-          {isPlaying ? (
-            <PauseIcon className="size-5.5" />
-          ) : (
-            <PlayIcon className="size-5.5" />
-          )}
-        </div>
-      </button>
+      <ControlButton onClick={videoPlayer.togglePlay}>
+        {videoPlayer.isPlaying ? (
+          <PauseIcon className="size-5.5" />
+        ) : (
+          <PlayIcon className="size-5.5" />
+        )}
+      </ControlButton>
 
-      <ProgressBar
-        pos={pos}
-        duration={duration}
-        buffered={buffered}
-        setPos={setPos}
-        isChangingPos={isChangingPos}
-        videoRef={videoRef}
-      />
+      <ProgressBar videoPlayer={videoPlayer} />
 
       <span className="font-mono text-xs">
-        {formatDuration(pos)} / {formatDuration(duration)}
+        {formatDuration(videoPlayer.pos)} /{" "}
+        {formatDuration(videoPlayer.duration)}
       </span>
 
       <div className="flex items-center gap-0.5">
@@ -341,7 +335,7 @@ function VideoControls({
           videoRef={videoRef}
           popoverPortalRef={popoverPortalRef}
         />
-        <QualityControl
+        <ResolutionControl
           open={resOpen}
           setOpen={setResOpen}
           resolutions={resolutions}
@@ -361,40 +355,31 @@ function VideoControls({
 }
 
 interface ProgressBarProps {
-  pos: number;
-  duration: number;
-  buffered: TimeRanges | null;
-  setPos: (value: number) => void;
-  isChangingPos: RefObject<boolean>;
-  videoRef: RefObject<HTMLVideoElement | null>;
+  videoPlayer: VideoPlayerParams;
 }
 
-function ProgressBar({
-  pos,
-  duration,
-  buffered,
-  setPos,
-  isChangingPos,
-  videoRef
-}: ProgressBarProps) {
+function ProgressBar({ videoPlayer }: ProgressBarProps) {
   const bufferedPercentage =
-    buffered && buffered.length > 0
-      ? (buffered.end(buffered.length - 1) / duration) * 100
+    videoPlayer.buffered &&
+    videoPlayer.buffered.length > 0 &&
+    videoPlayer.duration > 0
+      ? (videoPlayer.buffered.end(videoPlayer.buffered.length - 1) /
+          videoPlayer.duration) *
+        100
       : 0;
 
   return (
     <Slider.Root
-      value={pos}
+      value={videoPlayer.pos}
       className="mx-2 flex-1"
-      max={duration}
-      onPointerDown={() => (isChangingPos.current = true)}
-      onPointerUp={() => (isChangingPos.current = false)}
-      onPointerCancel={() => (isChangingPos.current = false)}
-      onValueChange={(value) => setPos(value as number)}
+      max={videoPlayer.duration}
+      onPointerDown={() => (videoPlayer.isChangingPos.current = true)}
+      onPointerUp={() => (videoPlayer.isChangingPos.current = false)}
+      onPointerCancel={() => (videoPlayer.isChangingPos.current = false)}
+      onValueChange={(value) => videoPlayer.setPos(value as number)}
       onValueCommitted={() => {
-        if (!videoRef.current) return;
-        videoRef.current.currentTime = pos;
-        isChangingPos.current = false;
+        videoPlayer.changePos(videoPlayer.pos);
+        videoPlayer.isChangingPos.current = false;
       }}
     >
       <SliderControl>
@@ -421,6 +406,7 @@ function VolumeControl({
   popoverPortalRef
 }: VolumeControlProps) {
   const [volume, setVolume] = useState(0.5);
+  const popoverContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const storedVolume = Number(
@@ -443,6 +429,7 @@ function VolumeControl({
       </PopoverTrigger>
       <PopoverContent
         portalContainer={popoverPortalRef.current}
+        ref={popoverContainerRef}
         align="center"
         side="top"
         sideOffset={8}
@@ -476,7 +463,7 @@ function VolumeControl({
   );
 }
 
-interface QualityControlProps {
+interface ResolutionControlProps {
   open: boolean;
   setOpen: (value: boolean) => void;
   resolutions: number[] | null;
@@ -486,7 +473,7 @@ interface QualityControlProps {
   popoverPortalRef: RefObject<HTMLElement | null>;
 }
 
-function QualityControl({
+function ResolutionControl({
   open,
   setOpen,
   resolutions,
@@ -494,10 +481,10 @@ function QualityControl({
   resAutoLvl,
   changeResolution,
   popoverPortalRef
-}: QualityControlProps) {
+}: ResolutionControlProps) {
   const buttonStyle = (res: number | "auto") =>
     cn(
-      "flex w-full items-center text-xs text-white/60 transition-colors duration-200 hover:text-white",
+      "flex w-full items-center text-xs text-white/60 transition-colors duration-200 hover:text-white hover:cursor-pointer",
       selectedResolution === res.toString() && "text-white"
     );
 
@@ -582,25 +569,24 @@ function FullscreenControl({
   );
 }
 
-interface ReplayButtonProps {
-  videoRef: RefObject<HTMLVideoElement | null>;
+interface ControlButtonProps {
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
 }
 
-function ReplayButton({ videoRef }: ReplayButtonProps) {
-  const handleReplay = () => {
-    if (!videoRef.current) return;
-    const video = videoRef.current;
-
-    video.currentTime = 0;
-    video.play();
-  };
-
+function ControlButton({ onClick, children, className }: ControlButtonProps) {
   return (
     <button
-      className="hover:bg-gray/40 active:bg-gray/60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform p-1 transition-colors duration-200 hover:cursor-pointer"
-      onClick={handleReplay}
+      className={cn(
+        "bg-background/70 border-gray group flex items-center justify-center border border-dashed p-0.5 hover:cursor-pointer",
+        className
+      )}
+      onClick={onClick}
     >
-      Replay
+      <div className="group-hover:bg-gray/40 group-active:bg-gray/60 flex h-full w-full items-center justify-center">
+        {children}
+      </div>
     </button>
   );
 }

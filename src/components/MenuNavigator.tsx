@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { getPathWithoutLocale, type RouteWithLabel } from "../lib/path";
+import {
+  getPathWithoutLocale,
+  isActivePath,
+  type RouteWithLabel
+} from "../lib/path";
 import type { languages } from "../i18n/ui";
 import type { LangProps } from "../types";
 import {
@@ -38,6 +42,7 @@ export function MenuNavigatorDesktop({
 }: RouteNavDropdownProps) {
   const actualPath = window.location.pathname + window.location.hash;
   const pathWithoutLocale = getPathWithoutLocale(actualPath, actual);
+  const pagePathWithoutLocale = getPathWithoutLocale(path, actual);
 
   const [value, setValue] = useState<string | null>(null);
 
@@ -78,7 +83,7 @@ export function MenuNavigatorDesktop({
         <span className="border-gray h-6 w-px border border-dashed"></span>
 
         {routes.map((route) => {
-          const pathT = t[path as keyof typeof t];
+          const pathT = t[pagePathWithoutLocale as keyof typeof t];
 
           return (
             <NavigationMenuItem
@@ -93,7 +98,12 @@ export function MenuNavigatorDesktop({
               <NavigationMenuContent className="flex flex-col gap-1">
                 {route.childs?.map((child) => (
                   <NavigationMenuLink
-                    active={child.href === actualPath}
+                    active={isActivePath(
+                      child.href,
+                      actualPath,
+                      actual,
+                      child.activeHrefs
+                    )}
                     closeOnClick
                     href={child.href}
                     key={child.href}
@@ -202,7 +212,9 @@ export function MenuNavigatorMobile({
                   <a
                     href={route.href}
                     key={route.label}
-                    data-active={route.href === path || undefined}
+                    data-active={
+                      isActivePath(route.href, path, currentLang) || undefined
+                    }
                     className="group flex items-center justify-between font-mono transition-opacity duration-200 hover:opacity-70"
                   >
                     {route.label}
@@ -220,7 +232,14 @@ export function MenuNavigatorMobile({
                         <a
                           href={child.href}
                           key={child.label}
-                          data-active={child.href === path || undefined}
+                          data-active={
+                            isActivePath(
+                              child.href,
+                              path,
+                              currentLang,
+                              child.activeHrefs
+                            ) || undefined
+                          }
                           className="group flex items-center justify-between transition-opacity duration-200 hover:opacity-70"
                         >
                           {child.label}
