@@ -84,7 +84,8 @@ export default function VideoPlayer({
         data: ManifestParsedData
       ) => {
         const levels = data?.levels?.map((level) => level.height);
-        setResolutions(levels || null);
+
+        setResolutions(levels);
       };
 
       hls.current.on(Hls.Events.MANIFEST_PARSED, handleManifestParsed);

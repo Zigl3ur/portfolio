@@ -13,7 +13,7 @@ const lang = getLangFromUrl(Astro.url);
 const langListUrl = getLocalesUrl();
 const { header: tHeader, pages: tPages } = translate(lang);
 
-const { routesList } = routes(Astro.url, lang);
+const { routesList } = routes(lang);
 
 const socials = [
   {
@@ -41,14 +41,14 @@ const socials = [
       client:only="react"
       routes={routesList}
       langs={langListUrl}
-      actual={lang}
+      locale={lang}
       path={Astro.url.pathname}
       t={tPages}
     >
       <MenuNavigatorDesktopSkeleton
         slot="fallback"
         local={lang}
-        triggersLabel={routesList.map((route) => route.label)}
+        routes={routesList}
       />
     </MenuNavigatorDesktop>
   </div>
@@ -57,7 +57,7 @@ const socials = [
       client:only="react"
       routes={routesList}
       langs={langListUrl}
-      currentLang={lang}
+      locale={lang}
       t={tHeader}
     >
       <MenuNavigatorMobileSkeleton slot="fallback" />

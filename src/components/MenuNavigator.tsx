@@ -28,7 +28,7 @@ import ChevronDownIcon from "../icons/chevron-down.svg?react";
 interface RouteNavDropdownProps {
   routes: NonNullable<RouteWithLabel[]>;
   t: LangProps<"pages">["t"];
-  actual: keyof typeof languages;
+  locale: keyof typeof languages;
   langs: { locale: keyof typeof languages; label: string; url: string }[];
   path: string;
   className?: string;
@@ -37,13 +37,13 @@ interface RouteNavDropdownProps {
 export function MenuNavigatorDesktop({
   routes,
   t,
-  actual,
+  locale,
   langs,
   path
 }: RouteNavDropdownProps) {
   const actualPath = window.location.pathname + window.location.hash;
-  const pathWithoutLocale = getPathWithoutLocale(actualPath, actual);
-  const pagePathWithoutLocale = getPathWithoutLocale(path, actual);
+  const pathWithoutLocale = getPathWithoutLocale(actualPath, locale);
+  const pagePathWithoutLocale = getPathWithoutLocale(path, locale);
 
   const [value, setValue] = useState<string | null>(null);
 
@@ -59,12 +59,12 @@ export function MenuNavigatorDesktop({
       <NavigationMenuList>
         <NavigationMenuItem value="lang">
           <NavigationMenuTrigger className="font-mono text-sm">
-            {actual.toUpperCase()}
+            {locale.toUpperCase()}
           </NavigationMenuTrigger>
           <NavigationMenuContent className="flex flex-col gap-1">
             {langs.map((l) => (
               <NavigationMenuLink
-                active={l.locale === actual}
+                active={l.locale === locale}
                 closeOnClick
                 href={joinPath(l.url, pathWithoutLocale)}
                 key={l.locale}
@@ -91,31 +91,44 @@ export function MenuNavigatorDesktop({
               key={route.href ?? route.label}
               className="font-mono text-sm"
             >
-              <NavigationMenuTrigger>
-                {pathT?.childs?.find((c) => c.href === route.href)?.label ||
-                  route.label.at(0)?.toUpperCase() + route.label.slice(1)}
-                {route.childs && <NavigationMenuIndicator />}
-              </NavigationMenuTrigger>
-              <NavigationMenuContent className="flex flex-col gap-1">
-                {route.childs?.map((child) => (
-                  <NavigationMenuLink
-                    active={isActivePath(
-                      child.href,
-                      actualPath,
-                      actual,
-                      child.activeHrefs
-                    )}
-                    closeOnClick
-                    href={child.href}
-                    key={child.href}
-                    className="group flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
-                  >
-                    {pathT?.childs?.find((c) => c.href === child.href)?.label ||
-                      child.label.at(0)?.toUpperCase() + child.label.slice(1)}
-                    <ActiveDot className="opacity-0 group-data-active:opacity-100" />
-                  </NavigationMenuLink>
-                ))}
-              </NavigationMenuContent>
+              {route.childs ? (
+                <>
+                  <NavigationMenuTrigger>
+                    {pathT?.childs?.find((c) => c.href === route.href)?.label ||
+                      route.label.at(0)?.toUpperCase() + route.label.slice(1)}
+                    {route.childs && <NavigationMenuIndicator />}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="flex flex-col gap-1">
+                    {route.childs?.map((child) => (
+                      <NavigationMenuLink
+                        active={isActivePath(child.href, actualPath, locale)}
+                        closeOnClick
+                        href={child.href}
+                        key={child.href}
+                        className="group flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
+                      >
+                        {pathT?.childs?.find((c) => c.href === child.href)
+                          ?.label ||
+                          child.label.at(0)?.toUpperCase() +
+                            child.label.slice(1)}
+                        <ActiveDot className="opacity-0 group-data-active:opacity-100" />
+                      </NavigationMenuLink>
+                    ))}
+                  </NavigationMenuContent>
+                </>
+              ) : (
+                <NavigationMenuLink
+                  href={route.href}
+                  active={isActivePath(
+                    route.href || pathWithoutLocale,
+                    actualPath,
+                    locale
+                  )}
+                >
+                  {pathT?.label ||
+                    route.label.at(0)?.toUpperCase() + route.label.slice(1)}
+                </NavigationMenuLink>
+              )}
             </NavigationMenuItem>
           );
         })}
@@ -130,12 +143,12 @@ export function MenuNavigatorDesktop({
 
 interface MenuNavigatorDesktopSkeletonProps {
   local: keyof typeof languages;
-  triggersLabel: string[];
+  routes: RouteWithLabel[];
 }
 
 export function MenuNavigatorDesktopSkeleton({
   local,
-  triggersLabel
+  routes
 }: MenuNavigatorDesktopSkeletonProps) {
   const triggerStyle =
     "flex h-full items-center px-2 py-1 font-mono text-sm select-none";
@@ -146,10 +159,12 @@ export function MenuNavigatorDesktopSkeleton({
 
       <span className="border-gray h-6 w-px border border-dashed"></span>
 
-      {triggersLabel.map((label, index) => (
+      {routes.map((route, index) => (
         <div key={index} className={triggerStyle}>
-          <span className="text-sm">{label}</span>
-          <ChevronDownIcon className="ml-1 size-3 shrink-0 text-white/50" />
+          <span className="text-sm">{route.label}</span>
+          {route.childs && (
+            <ChevronDownIcon className="ml-1 size-3 shrink-0 text-white/50" />
+          )}
         </div>
       ))}
     </div>
@@ -159,20 +174,20 @@ export function MenuNavigatorDesktopSkeleton({
 interface NavMenuProps {
   routes: RouteWithLabel[];
   langs: ReturnType<typeof getLocalesUrl>;
-  currentLang: keyof typeof languages;
+  locale: keyof typeof languages;
   t: LangProps<"header">["t"];
 }
 
 export function MenuNavigatorMobile({
   routes,
-  currentLang,
+  locale,
   langs,
   t
 }: NavMenuProps) {
   const [open, setOpen] = useState(false);
 
   const path = window.location.pathname + window.location.hash;
-  const pathWithoutLocale = getPathWithoutLocale(path, currentLang);
+  const pathWithoutLocale = getPathWithoutLocale(path, locale);
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -196,7 +211,7 @@ export function MenuNavigatorMobile({
               <a
                 href={joinPath(l.url, pathWithoutLocale)}
                 key={l.locale}
-                data-active={l.locale === currentLang || undefined}
+                data-active={l.locale === locale || undefined}
                 className="group flex items-center justify-between text-sm transition-opacity duration-200 hover:opacity-70"
               >
                 <span>
@@ -206,7 +221,7 @@ export function MenuNavigatorMobile({
               </a>
             ))}
           </TabsContent>
-          <TabsContent value="pages" className="flex flex-col gap-4">
+          <TabsContent value="pages" className="flex flex-col gap-2">
             {routes.map((route) => (
               <div className="flex flex-col gap-2" key={route.label}>
                 {route.href ? (
@@ -214,7 +229,7 @@ export function MenuNavigatorMobile({
                     href={route.href}
                     key={route.label}
                     data-active={
-                      isActivePath(route.href, path, currentLang) || undefined
+                      isActivePath(route.href, path, locale) || undefined
                     }
                     className="group flex items-center justify-between font-mono transition-opacity duration-200 hover:opacity-70"
                   >
@@ -222,24 +237,15 @@ export function MenuNavigatorMobile({
                     <ActiveDot className="opacity-0 group-data-active:opacity-100" />
                   </a>
                 ) : (
-                  <span className="font-mono">{route.label}</span>
-                )}
-
-                {route.childs && (
-                  <>
-                    <span className="bg-gray/75 inline-block h-px w-full" />
+                  <div className="flex flex-col gap-1 text-sm">
+                    <span className="font-mono">{route.label}</span>
                     <div className="ml-2 flex flex-col gap-1 text-sm">
-                      {route.childs.map((child) => (
+                      {route.childs?.map((child) => (
                         <a
                           href={child.href}
                           key={child.label}
                           data-active={
-                            isActivePath(
-                              child.href,
-                              path,
-                              currentLang,
-                              child.activeHrefs
-                            ) || undefined
+                            isActivePath(child.href, path, locale) || undefined
                           }
                           className="group flex items-center justify-between transition-opacity duration-200 hover:opacity-70"
                         >
@@ -248,7 +254,7 @@ export function MenuNavigatorMobile({
                         </a>
                       ))}
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             ))}

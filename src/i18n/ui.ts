@@ -112,14 +112,7 @@ export const ui = {
   fr: {
     pages: {
       "/": {
-        label: "Accueil",
-        childs: [
-          { href: "#landing", label: "Accueil" },
-          { href: "#about-me", label: "À propos de moi" },
-          { href: "#skills", label: "Compétences" },
-          { href: "#projects", label: "Projets" },
-          { href: "#contact", label: "Contact" }
-        ]
+        label: "Accueil"
       },
       "/library": {
         label: "Bibliothèque",

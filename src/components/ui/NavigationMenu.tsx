@@ -33,7 +33,7 @@ export function NavigationMenuTrigger({
   return (
     <NavigationMenu.Trigger
       className={cn(
-        "hover:bg-gray/40 data-popup-open:bg-gray/80 group/trigger active:bg-gray/60 flex h-full items-center px-2 py-1 transition-colors duration-200 hover:cursor-pointer",
+        "hover:bg-gray/40 data-popup-open:bg-gray/80 data-active:bg-gray/60 group/trigger active:bg-gray/60 flex h-full items-center px-2 py-1 transition-colors duration-200 hover:cursor-pointer",
         className
       )}
       {...props}
@@ -145,10 +145,13 @@ export function NavigationMenuIcon({
   return <NavigationMenu.Icon {...props}>{children}</NavigationMenu.Icon>;
 }
 
-export function NavigationMenuIndicator({ ...props }: NavigationMenuIconProps) {
+export function NavigationMenuIndicator({
+  className,
+  ...props
+}: NavigationMenuIconProps) {
   return (
-    <NavigationMenu.Icon {...props}>
-      <ChevronDownIcon className="ml-1 size-3 shrink-0 text-white/50 transition-transform duration-200 group-data-popup-open/trigger:-rotate-180" />
+    <NavigationMenu.Icon {...props} className={cn("ml-1", className)}>
+      <ChevronDownIcon className="size-3 shrink-0 text-white/50 transition-transform duration-200 group-data-popup-open/trigger:-rotate-180" />
     </NavigationMenu.Icon>
   );
 }
@@ -157,5 +160,13 @@ export function NavigationMenuLink({
   children,
   ...props
 }: NavigationMenuLinkProps) {
-  return <NavigationMenu.Link {...props}>{children}</NavigationMenu.Link>;
+  return (
+    <NavigationMenu.Link
+      className="hover:bg-gray/40 data-popup-open:bg-gray/80 active:bg-gray/60 flex h-full items-center px-2 py-1 transition-colors duration-200 hover:cursor-pointer"
+
+      {...props}
+    >
+      {children}
+    </NavigationMenu.Link>
+  );
 }
