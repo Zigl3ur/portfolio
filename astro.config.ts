@@ -1,6 +1,6 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-import svgr from 'vite-plugin-svgr';
+import svgr from "vite-plugin-svgr";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
@@ -29,7 +29,7 @@ export default defineConfig({
   output: "static",
 
   vite: {
-    plugins: [tailwindcss(), svgr()],
+    plugins: [tailwindcss(), svgr()]
   },
 
   integrations: [react(), sitemap()]

@@ -121,13 +121,20 @@ export default function VideoPlayer({
       />
 
       {isLoaded ? (
-        <VideoControls
-          containerRef={containerRef}
-          videoRef={videoRef}
-          hlsRef={hls}
-          resolutions={resolutions}
-          videoPlayer={videoPlayer}
-        />
+        <>
+          {videoPlayer.isLoading && (
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <SpinnerIcon className="size-7 shrink-0" />
+            </div>
+          )}
+          <VideoControls
+            containerRef={containerRef}
+            videoRef={videoRef}
+            hlsRef={hls}
+            resolutions={resolutions}
+            videoPlayer={videoPlayer}
+          />
+        </>
       ) : error ? (
         <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-2 text-sm">
           <ErrorIcon className="size-5 shrink-0" />

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 export interface VideoPlayerParams {
   isPlaying: boolean;
   isEnded: boolean;
+  isLoading: boolean;
   pos: number;
   duration: number;
   buffered: TimeRanges | null;
@@ -17,6 +18,7 @@ export default function useVideoPlayer(
 ): VideoPlayerParams {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [pos, setPos] = useState(0);
   const [duration, setDuration] = useState(0);
   const [buffered, setBuffered] = useState<TimeRanges | null>(null);
@@ -33,6 +35,7 @@ export default function useVideoPlayer(
   const changePos = (value: number) => {
     if (!videoRef.current) return;
 
+    isChangingPos.current = true;
     videoRef.current.currentTime = value;
     setPos(value);
   };
@@ -44,6 +47,7 @@ export default function useVideoPlayer(
     const handlePlay = () => {
       setIsPlaying(true);
       setIsEnded(false);
+      setIsLoading(false);
     };
     const handlePause = () => setIsPlaying(false);
     const handleEnded = () => {
@@ -61,6 +65,14 @@ export default function useVideoPlayer(
       setDuration(video.duration || 0);
       setBuffered(video.buffered);
     };
+    const handleSeeking = () => setIsLoading(true);
+    const handleWaiting = () => setIsLoading(true);
+    const handleSeeked = () => {
+      isChangingPos.current = false;
+      setIsLoading(false);
+    };
+    const handleCanPlay = () => setIsLoading(false);
+    const handlePlaying = () => setIsLoading(false);
 
     video.addEventListener("play", handlePlay);
     video.addEventListener("pause", handlePause);
@@ -69,6 +81,11 @@ export default function useVideoPlayer(
     video.addEventListener("durationchange", handleDurationChange);
     video.addEventListener("progress", handleProgress);
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
+    video.addEventListener("seeking", handleSeeking);
+    video.addEventListener("waiting", handleWaiting);
+    video.addEventListener("seeked", handleSeeked);
+    video.addEventListener("playing", handlePlaying);
+    video.addEventListener("canplay", handleCanPlay);
 
     return () => {
       video.removeEventListener("play", handlePlay);
@@ -78,12 +95,18 @@ export default function useVideoPlayer(
       video.removeEventListener("durationchange", handleDurationChange);
       video.removeEventListener("progress", handleProgress);
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("seeking", handleSeeking);
+      video.removeEventListener("waiting", handleWaiting);
+      video.removeEventListener("seeked", handleSeeked);
+      video.removeEventListener("playing", handlePlaying);
+      video.removeEventListener("canplay", handleCanPlay);
     };
   }, [videoRef]);
 
   return {
     isPlaying,
     isEnded,
+    isLoading,
     pos,
     duration,
     buffered,
