@@ -5,6 +5,7 @@ import Image from "./ui/Image";
 import Checkbox from "./ui/Checkbox";
 import Skeleton from "./ui/Skeleton";
 import Alert from "./ui/Alert";
+import MusicIcon from "../icons/music.svg?react";
 
 interface MusicLibraryContentProps {
   t: LangProps<"musicLibrary">["t"];
@@ -32,11 +33,11 @@ export default function MusicLibraryContent({ t }: MusicLibraryContentProps) {
   }, [updatedAtHeader]);
 
   return (
-    <div className="mt-4 space-y-6">
+    <div className="mt-4 flex flex-1 flex-col space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
         <p className="text-foreground/70">{t.description}</p>
         <Checkbox
-          disabled={loading || !!error}
+          disabled={loading || !!error || musicLibraryData?.length === 0}
           checked={showPlayCount}
           onCheckedChange={(checked) => setShowPlayCount(checked)}
         >
@@ -48,7 +49,7 @@ export default function MusicLibraryContent({ t }: MusicLibraryContentProps) {
 
       {error && <Alert variant="error">{t.errorMessage}</Alert>}
 
-      {musicLibraryData && (
+      {musicLibraryData && musicLibraryData.length > 0 && (
         <div className="xs:grid-cols-2 grid grid-cols-1 gap-5 md:grid-cols-3">
           {musicLibraryData.map((album) => (
             <a
@@ -86,6 +87,18 @@ export default function MusicLibraryContent({ t }: MusicLibraryContentProps) {
           ))}
         </div>
       )}
+
+      {!loading &&
+        !error &&
+        (!musicLibraryData || musicLibraryData.length === 0) && (
+          <div className="border-gray flex flex-1 flex-col items-center justify-center gap-4 border border-dashed py-6">
+            <MusicIcon className="text-gray xs:size-14 size-10" />
+            <p className="xs:text-base text-center text-sm">
+              {t.noAlbumsMessage}
+            </p>
+          </div>
+        )}
+
       <span className="text-foreground/70 font-mono text-xs">
         {musicLibraryData?.length || 0} albums &nbsp;|&nbsp; last updated at{" "}
         {updatedAt}

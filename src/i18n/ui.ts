@@ -101,6 +101,7 @@ export type uiLangSchema = {
     checkboxLabel: string;
     plays: string;
     errorMessage: string;
+    noAlbumsMessage: string;
   };
   underConstruction: {
     title: string;
@@ -217,7 +218,8 @@ export const ui = {
       description:
         "Tous les albums que j'écoute, du plus écouté au moins écouté.",
       plays: "écoutes",
-      errorMessage: "Impossible de récupérer les albums, réessayez plus tard."
+      errorMessage: "Impossible de récupérer les albums, réessayez plus tard.",
+      noAlbumsMessage: "Aucun album trouvé."
     },
     underConstruction: {
       title: "Page en développement",
@@ -339,7 +341,8 @@ export const ui = {
       description:
         "All the music I listen to, from most listened to least listened.",
       plays: "plays",
-      errorMessage: "Failed to fetch albums, try again later."
+      errorMessage: "Failed to fetch albums, try again later.",
+      noAlbumsMessage: "No albums found."
     },
     underConstruction: {
       title: "Page in Development",

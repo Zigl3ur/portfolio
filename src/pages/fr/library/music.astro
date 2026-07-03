@@ -9,8 +9,8 @@ const { musicLibrary: t } = translate(lang);
 ---
 
 <Main>
-  <div class="mt-12">
+  <section class="flex min-h-(--viewport-content-height) flex-col pt-12">
     <Title id="music-library" text={t.title} />
     <MusicLibraryContent t={t} client:load />
-  </div>
+  </section>
 </Main>
