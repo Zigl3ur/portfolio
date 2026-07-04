@@ -1,7 +1,11 @@
 ---
 import Plus from "../../icons/plus.svg";
 
-const { class: className, ...props } = Astro.props;
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
 ---
 
 <div
@@ -9,7 +13,6 @@ const { class: className, ...props } = Astro.props;
     "border-gray bg-background relative border border-dashed px-8 py-6",
     className
   ]}
-  {...props}
 >
   <Plus
     width={15}

@@ -33,7 +33,7 @@ export default function MusicLibraryContent({ t }: MusicLibraryContentProps) {
   }, [updatedAtHeader]);
 
   return (
-    <div className="mt-4 flex flex-1 flex-col space-y-6">
+    <div className="flex flex-1 flex-col space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
         <p className="text-foreground/70">{t.description}</p>
         <Checkbox

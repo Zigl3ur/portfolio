@@ -103,6 +103,15 @@ export type uiLangSchema = {
     errorMessage: string;
     noAlbumsMessage: string;
   };
+  showLibrary: {
+    title: string;
+    description: string;
+    details: string;
+    date: string;
+    location: string;
+    openers: string;
+    tracks: string;
+  };
   underConstruction: {
     title: string;
     description: string;
@@ -220,6 +229,15 @@ export const ui = {
       plays: "écoutes",
       errorMessage: "Impossible de récupérer les albums, réessayez plus tard.",
       noAlbumsMessage: "Aucun album trouvé."
+    },
+    showLibrary: {
+      title: "Bibliothèque des Concerts",
+      description: "Tous les concerts auquels j'ai assisté.",
+      details: "Détails",
+      date: "Date",
+      location: "Lieu",
+      openers: "Premières parties",
+      tracks: "Morceaux"
     },
     underConstruction: {
       title: "Page en développement",
@@ -343,6 +361,15 @@ export const ui = {
       plays: "plays",
       errorMessage: "Failed to fetch albums, try again later.",
       noAlbumsMessage: "No albums found."
+    },
+    showLibrary: {
+      title: "Show Library",
+      description: "All the gigs I've attended.",
+      details: "Details",
+      date: "Date",
+      location: "Location",
+      openers: "Openers",
+      tracks: "Tracks"
     },
     underConstruction: {
       title: "Page in Development",

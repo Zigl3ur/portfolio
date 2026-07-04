@@ -1,8 +1,10 @@
 ---
-const { id, text } = Astro.props;
+interface Props {
+  id: string;
+  text: string;
+}
 
-if (!id) throw new Error("Props 'id' missing");
-if (!text) throw new Error("Props 'text' missing");
+const { id, text } = Astro.props;
 ---
 
 <h1
