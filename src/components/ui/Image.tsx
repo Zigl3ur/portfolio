@@ -27,7 +27,7 @@ export default function Image({ src, alt, className }: ImageProps) {
         alt={alt}
         onLoad={() => setImgLoaded(true)}
         className={cn(
-          "h-full w-full object-cover",
+          "h-full w-full object-contain",
           "transition-opacity duration-200",
           imgLoaded ? "opacity-100" : "opacity-0"
         )}

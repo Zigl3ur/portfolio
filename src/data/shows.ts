@@ -1,8 +1,13 @@
 import { apiUrl } from "../lib/api";
 import type { ShowData } from "../types";
 
-import CatalystLp from "../images/shows/lp-fzwt-lyon-2026-06-16/catalyst_0.jpg";
-import EmptynessMachineLp from "../images/shows/lp-fzwt-lyon-2026-06-16/emptiness_machine_0.jpg";
+import LP0 from "../images/shows/lp-fzwt-lyon-2026-06-16/0.jpg";
+import LP1 from "../images/shows/lp-fzwt-lyon-2026-06-16/1.jpg";
+import LP2 from "../images/shows/lp-fzwt-lyon-2026-06-16/2.jpg";
+import LP3 from "../images/shows/lp-fzwt-lyon-2026-06-16/3.jpg";
+import LP4 from "../images/shows/lp-fzwt-lyon-2026-06-16/4.jpg";
+import LP5 from "../images/shows/lp-fzwt-lyon-2026-06-16/5.jpg";
+import LP6 from "../images/shows/lp-fzwt-lyon-2026-06-16/6.jpg";
 
 const shows = [
   {
@@ -200,16 +205,42 @@ const shows = [
     ],
     medias: [
       {
-        metadata: CatalystLp,
+        metadata: LP0,
         alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
       },
       {
-        metadata: EmptynessMachineLp,
+        metadata: LP1,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: LP2,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: LP3,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: LP4,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: LP5,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: LP6,
         alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
       },
       {
         metadata: {
-          src: apiUrl("/videos/lp-fzwt-lyon-2026-06-16/playlist.m3u8")
+          src: apiUrl("/videos/lp_1/playlist.m3u8")
+        },
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/lp_2/playlist.m3u8")
         },
         alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
       }

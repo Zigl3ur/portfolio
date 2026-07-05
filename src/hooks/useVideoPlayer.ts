@@ -65,8 +65,10 @@ export default function useVideoPlayer(
       setDuration(video.duration || 0);
       setBuffered(video.buffered);
     };
+    const handleLoadStart = () => setIsLoading(true);
     const handleSeeking = () => setIsLoading(true);
     const handleWaiting = () => setIsLoading(true);
+    const handleStalled = () => setIsLoading(true);
     const handleSeeked = () => {
       isChangingPos.current = false;
       setIsLoading(false);
@@ -81,8 +83,10 @@ export default function useVideoPlayer(
     video.addEventListener("durationchange", handleDurationChange);
     video.addEventListener("progress", handleProgress);
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
+    video.addEventListener("loadstart", handleLoadStart);
     video.addEventListener("seeking", handleSeeking);
     video.addEventListener("waiting", handleWaiting);
+    video.addEventListener("stalled", handleStalled);
     video.addEventListener("seeked", handleSeeked);
     video.addEventListener("playing", handlePlaying);
     video.addEventListener("canplay", handleCanPlay);
@@ -95,8 +99,10 @@ export default function useVideoPlayer(
       video.removeEventListener("durationchange", handleDurationChange);
       video.removeEventListener("progress", handleProgress);
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("loadstart", handleLoadStart);
       video.removeEventListener("seeking", handleSeeking);
       video.removeEventListener("waiting", handleWaiting);
+      video.removeEventListener("stalled", handleStalled);
       video.removeEventListener("seeked", handleSeeked);
       video.removeEventListener("playing", handlePlaying);
       video.removeEventListener("canplay", handleCanPlay);
