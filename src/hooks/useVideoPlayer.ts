@@ -18,7 +18,7 @@ export default function useVideoPlayer(
 ): VideoPlayerParams {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [pos, setPos] = useState(0);
   const [duration, setDuration] = useState(0);
   const [buffered, setBuffered] = useState<TimeRanges | null>(null);

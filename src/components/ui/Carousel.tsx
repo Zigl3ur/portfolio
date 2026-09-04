@@ -11,9 +11,10 @@ export type CarouselMedia = Image | Video;
 
 type CarouselProps = {
   medias: CarouselMedia[];
+  playVideoOnShow?: boolean;
 };
 
-export default function Carousel({ medias }: CarouselProps) {
+export default function Carousel({ medias, playVideoOnShow }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => {
@@ -47,7 +48,7 @@ export default function Carousel({ medias }: CarouselProps) {
           <VideoPlayer
             key={currentMedia.metadata.src}
             src={currentMedia.metadata.src}
-            playOnMount
+            playOnMount={playVideoOnShow}
           />
         ) : (
           <Image

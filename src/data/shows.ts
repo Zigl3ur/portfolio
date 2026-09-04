@@ -8,6 +8,13 @@ import LP3 from "../images/shows/lp-fzwt-lyon-2026-06-16/3.jpg";
 import LP4 from "../images/shows/lp-fzwt-lyon-2026-06-16/4.jpg";
 import LP5 from "../images/shows/lp-fzwt-lyon-2026-06-16/5.jpg";
 import LP6 from "../images/shows/lp-fzwt-lyon-2026-06-16/6.jpg";
+import LP7 from "../images/shows/lp-fzwt-lyon-2026-06-16/7.jpg";
+import LP8 from "../images/shows/lp-fzwt-lyon-2026-06-16/8.jpg";
+import LP9 from "../images/shows/lp-fzwt-lyon-2026-06-16/9.jpg";
+import LP10 from "../images/shows/lp-fzwt-lyon-2026-06-16/10.jpg";
+
+import GAGA0 from "../images/shows/gaga-mayhem-ball-paris-2025-11-22/0.jpg";
+import GAGA1 from "../images/shows/gaga-mayhem-ball-paris-2025-11-22/1.jpg";
 
 const shows = [
   {
@@ -233,6 +240,22 @@ const shows = [
         alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
       },
       {
+        metadata: LP7,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: LP8,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: LP9,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: LP10,
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
         metadata: {
           src: apiUrl("/videos/lp_1/playlist.m3u8")
         },
@@ -241,6 +264,30 @@ const shows = [
       {
         metadata: {
           src: apiUrl("/videos/lp_2/playlist.m3u8")
+        },
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/lp_3/playlist.m3u8")
+        },
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/lp_4/playlist.m3u8")
+        },
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/lp_5/playlist.m3u8")
+        },
+        alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/lp_6/playlist.m3u8")
         },
         alt: "Linkin Park - From Zero World Tour - Groupama Stadium, Lyon - 2026-06-16"
       }
@@ -352,7 +399,26 @@ const shows = [
         href: "https://www.last.fm/music/Yonaka/_/Seize+the+Power"
       }
     ],
-    medias: []
+    medias: [
+      {
+        metadata: {
+          src: apiUrl("/videos/yonaka_1/playlist.m3u8")
+        },
+        alt: "Yonaka - Until You're Statisfied Tour - La Maroquinerie, Paris - 2026-06-09"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/yonaka_2/playlist.m3u8")
+        },
+        alt: "Yonaka - Until You're Statisfied Tour - La Maroquinerie, Paris - 2026-06-09"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/yonaka_3/playlist.m3u8")
+        },
+        alt: "Yonaka - Until You're Statisfied Tour - La Maroquinerie, Paris - 2026-06-09"
+      }
+    ]
   },
   {
     name: "The Manic Dream Tour",
@@ -460,7 +526,26 @@ const shows = [
         href: "https://www.last.fm/music/DeathbyRomy/_/Problems"
       }
     ],
-    medias: []
+    medias: [
+      {
+        metadata: {
+          src: apiUrl("/videos/deathbyromy_1/playlist.m3u8")
+        },
+        alt: "DeathbyRomy - The Manic Dream Tour - Les Étoiles, Paris - 2026-02-15"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/deathbyromy_2/playlist.m3u8")
+        },
+        alt: "DeathbyRomy - The Manic Dream Tour - Les Étoiles, Paris - 2026-02-15"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/deathbyromy_3/playlist.m3u8")
+        },
+        alt: "DeathbyRomy - The Manic Dream Tour - Les Étoiles, Paris - 2026-02-15"
+      }
+    ]
   },
   {
     name: "The Mayhem Ball",
@@ -662,7 +747,16 @@ const shows = [
         href: "https://www.last.fm/music/Edith+Piaf/_/La+Vie+en+rose"
       }
     ],
-    medias: []
+    medias: [
+      {
+        metadata: GAGA0,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: GAGA1,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      }
+    ]
   },
   {
     name: "From Zero World Tour",
@@ -843,7 +937,16 @@ const shows = [
         href: "https://www.last.fm/music/Linkin+Park/_/Faint"
       }
     ],
-    medias: []
+    medias: [
+      {
+        metadata: { src: apiUrl("/videos/lp_1_2024/playlist.m3u8") },
+        alt: "Linkin Park - From Zero World Tour - Paris La Défense Arena, Nanterre - 2024-11-03"
+      },
+      {
+        metadata: { src: apiUrl("/videos/lp_2_2024/playlist.m3u8") },
+        alt: "Linkin Park - From Zero World Tour - Paris La Défense Arena, Nanterre - 2024-11-03"
+      }
+    ]
   }
 ] satisfies ShowData[];
 

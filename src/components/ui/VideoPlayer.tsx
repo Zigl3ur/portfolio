@@ -60,7 +60,7 @@ export default function VideoPlayer({
       if (playOnMount) video.play();
     };
 
-    const handleError = (_event: Events.ERROR, data: ErrorData) => {
+    const handleError = (event: Events.ERROR, data: ErrorData) => {
       if (data.fatal) setError(data.error.message || "Unable to load video");
     };
 
@@ -173,7 +173,9 @@ function VideoControls({
     null
   );
   const isReady =
-    Number.isFinite(videoPlayer.duration) && videoPlayer.duration > 0;
+    Number.isFinite(videoPlayer.duration) &&
+    videoPlayer.duration > 0 &&
+    !videoPlayer.isLoading;
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isPlayingRef = useRef(videoPlayer.isPlaying);
@@ -200,6 +202,8 @@ function VideoControls({
 
     hls.nextLevel = levelIndex;
     setSelectedResolution(res.toString());
+
+    setResOpen(false);
   };
 
   useEffect(() => {
@@ -225,7 +229,11 @@ function VideoControls({
       const isResPopoverOpen = controls.dataset.resPopoverOpen === "true";
       const isVolumePopoverOpen = controls.dataset.volumePopoverOpen === "true";
 
-      if (isPlayingRef.current && !(isResPopoverOpen || isVolumePopoverOpen)) {
+      if (
+        isPlayingRef.current &&
+        !(isResPopoverOpen || isVolumePopoverOpen) &&
+        !videoPlayer.isLoading
+      ) {
         timeoutRef.current = setTimeout(() => {
           video.classList.remove("hover:cursor-pointer");
           controls.classList.remove("opacity-100");
