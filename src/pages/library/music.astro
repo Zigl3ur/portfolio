@@ -11,6 +11,6 @@ const { musicLibrary: t } = translate(lang);
 <Main>
   <section class="flex min-h-(--viewport-content-height) flex-col pt-12">
     <Title id="music-library" text={t.title} />
-    <MusicLibraryContent t={t} client:load />
+    <MusicLibraryContent t={t} locale={lang} client:load />
   </section>
 </Main>

@@ -29,7 +29,10 @@ export default defineConfig({
   output: "static",
 
   vite: {
-    plugins: [tailwindcss(), svgr()]
+    plugins: [tailwindcss(), svgr()],
+    server: {
+      allowedHosts: true
+    }
   },
 
   integrations: [react(), sitemap()]

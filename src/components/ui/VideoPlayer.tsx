@@ -66,39 +66,42 @@ export default function VideoPlayer({
 
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
 
+    const handleManifestParsed = (
+      _event: Events.MANIFEST_PARSED,
+      data: ManifestParsedData
+    ) => {
+      const levels = data?.levels?.map((level) => level.height);
+
+      setResolutions(levels);
+    };
+
     if (Hls.isSupported()) {
       hls.current = new Hls();
       hls.current.loadSource(src);
       hls.current.attachMedia(video);
 
-      const handleManifestParsed = (
-        _event: Events.MANIFEST_PARSED,
-        data: ManifestParsedData
-      ) => {
-        const levels = data?.levels?.map((level) => level.height);
-
-        setResolutions(levels);
-      };
-
       hls.current.on(Hls.Events.MANIFEST_PARSED, handleManifestParsed);
       hls.current.on(Hls.Events.ERROR, handleError);
-
-      return () => {
-        video.removeEventListener("loadedmetadata", handleLoadedMetadata);
-        hls.current?.off(Hls.Events.MANIFEST_PARSED, handleManifestParsed);
-        hls.current?.off(Hls.Events.ERROR, handleError);
-        hls.current?.destroy();
-        hls.current = null;
-      };
     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = src;
-
-      return () =>
-        video.removeEventListener("loadedmetadata", handleLoadedMetadata);
     }
 
-    return () =>
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && !video.paused) video.pause();
+      },
+      { threshold: 0 }
+    );
+    observer.observe(video);
+
+    return () => {
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      observer.disconnect();
+      hls.current?.off(Hls.Events.MANIFEST_PARSED, handleManifestParsed);
+      hls.current?.off(Hls.Events.ERROR, handleError);
+      hls.current?.destroy();
+      hls.current = null;
+    };
   }, [playOnMount, src]);
 
   return (
@@ -111,6 +114,7 @@ export default function VideoPlayer({
     >
       <video
         ref={videoRef}
+        data-playing={videoPlayer.isPlaying}
         className={cn(
           "flex aspect-video h-full w-full",
           !error && "hover:cursor-pointer"

@@ -1,22 +1,345 @@
 import { apiUrl } from "../lib/api";
 import type { ShowData } from "../types";
 
-import LP0 from "../images/shows/lp-fzwt-lyon-2026-06-16/0.jpg";
-import LP1 from "../images/shows/lp-fzwt-lyon-2026-06-16/1.jpg";
-import LP2 from "../images/shows/lp-fzwt-lyon-2026-06-16/2.jpg";
-import LP3 from "../images/shows/lp-fzwt-lyon-2026-06-16/3.jpg";
-import LP4 from "../images/shows/lp-fzwt-lyon-2026-06-16/4.jpg";
-import LP5 from "../images/shows/lp-fzwt-lyon-2026-06-16/5.jpg";
-import LP6 from "../images/shows/lp-fzwt-lyon-2026-06-16/6.jpg";
-import LP7 from "../images/shows/lp-fzwt-lyon-2026-06-16/7.jpg";
-import LP8 from "../images/shows/lp-fzwt-lyon-2026-06-16/8.jpg";
-import LP9 from "../images/shows/lp-fzwt-lyon-2026-06-16/9.jpg";
-import LP10 from "../images/shows/lp-fzwt-lyon-2026-06-16/10.jpg";
+import LP0 from "../images/shows/lp-fzwt-lyon-2026/0.jpg";
+import LP1 from "../images/shows/lp-fzwt-lyon-2026/1.jpg";
+import LP2 from "../images/shows/lp-fzwt-lyon-2026/2.jpg";
+import LP3 from "../images/shows/lp-fzwt-lyon-2026/3.jpg";
+import LP4 from "../images/shows/lp-fzwt-lyon-2026/4.jpg";
+import LP5 from "../images/shows/lp-fzwt-lyon-2026/5.jpg";
+import LP6 from "../images/shows/lp-fzwt-lyon-2026/6.jpg";
+import LP7 from "../images/shows/lp-fzwt-lyon-2026/7.jpg";
+import LP8 from "../images/shows/lp-fzwt-lyon-2026/8.jpg";
+import LP9 from "../images/shows/lp-fzwt-lyon-2026/9.jpg";
+import LP10 from "../images/shows/lp-fzwt-lyon-2026/10.jpg";
 
-import GAGA0 from "../images/shows/gaga-mayhem-ball-paris-2025-11-22/0.jpg";
-import GAGA1 from "../images/shows/gaga-mayhem-ball-paris-2025-11-22/1.jpg";
+import GAGA0 from "../images/shows/gaga-mayhem-ball-paris-2025/0.jpg";
+import GAGA1 from "../images/shows/gaga-mayhem-ball-paris-2025/1.jpg";
+import GAGA2 from "../images/shows/gaga-mayhem-ball-paris-2025/2.jpg";
+import GAGA3 from "../images/shows/gaga-mayhem-ball-paris-2025/3.jpg";
+import GAGA4 from "../images/shows/gaga-mayhem-ball-paris-2025/4.jpg";
+import GAGA5 from "../images/shows/gaga-mayhem-ball-paris-2025/5.jpg";
+import GAGA6 from "../images/shows/gaga-mayhem-ball-paris-2025/6.jpg";
+import GAGA7 from "../images/shows/gaga-mayhem-ball-paris-2025/7.jpg";
+import GAGA8 from "../images/shows/gaga-mayhem-ball-paris-2025/8.jpg";
+
+import TWKND0 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/0.jpg";
+import TWKND1 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/1.jpg";
+import TWKND2 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/2.jpg";
+import TWKND3 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/3.jpg";
+import TWKND4 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/4.jpg";
+import TWKND5 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/5.jpg";
+import TWKND6 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/6.jpg";
+import TWKND7 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/7.jpg";
+import TWKND8 from "../images/shows/the-weeknd-after-hours-til-dawn-2026/8.jpg";
 
 const shows = [
+  {
+    name: "After Hours til Dawn Tour",
+    artist: {
+      name: "The Weeknd",
+      href: "https://www.last.fm/music/The+Weeknd"
+    },
+    location: "Stade de France, Saint-Denis",
+    date: new Date("2026-07-12"),
+    openers: [
+      {
+        name: "Prince 85",
+        href: "https://www.last.fm/music/Prince+85"
+      },
+      {
+        name: "Playboi Carti",
+        href: "https://www.last.fm/music/Playboi+Carti"
+      }
+    ],
+
+    setList: [
+      {
+        index: "1",
+        name: "Baptized in Fear",
+        href: "https://www.last.fm/music/The+Weeknd/_/Baptized+in+Fear"
+      },
+      {
+        index: "2",
+        name: "Open Hearts",
+        href: "https://www.last.fm/music/The+Weeknd/_/Open+Hearts"
+      },
+      {
+        index: "3",
+        name: "Wake Me Up",
+        href: "https://www.last.fm/music/The+Weeknd/_/Wake+Me+Up"
+      },
+      {
+        index: "4",
+        name: "After Hours",
+        href: "https://www.last.fm/music/The+Weeknd/_/After+Hours"
+      },
+      {
+        index: "5",
+        name: "Starboy",
+        href: "https://www.last.fm/music/The+Weeknd/_/Starboy"
+      },
+      {
+        index: "6",
+        name: "Heartless",
+        href: "https://www.last.fm/music/The+Weeknd/_/Heartless"
+      },
+      {
+        index: "7",
+        name: "Faith",
+        href: "https://www.last.fm/music/The+Weeknd/_/Faith"
+      },
+      {
+        index: "8",
+        name: "Cry for Me",
+        href: "https://www.last.fm/music/The+Weeknd/_/Cry+for+Me"
+      },
+      {
+        name: "I Can't Fucking Sing",
+        href: "https://www.last.fm/music/The+Weeknd/_/I+Can't+Fucking+Sing"
+      },
+      {
+        index: "9",
+        name: "São Paulo",
+        href: "https://www.last.fm/music/The+Weeknd/_/S%C3%A3o+Paulo"
+      },
+      {
+        index: "10",
+        name: "Until We're Skin & Bones",
+        href: "https://www.last.fm/music/The+Weeknd/_/Until+We're+Skin+%26+Bones"
+      },
+      {
+        index: "11",
+        name: "Take My Breath",
+        href: "https://www.last.fm/music/The+Weeknd/_/Take+My+Breath"
+      },
+      {
+        index: "12",
+        name: "Sacrifice",
+        href: "https://www.last.fm/music/The+Weeknd/_/Sacrifice"
+      },
+      {
+        index: "13",
+        name: "How Do I Make You Love Me?",
+        href: "https://www.last.fm/music/The+Weeknd/_/How+Do+I+Make+You+Love+Me%3F"
+      },
+      { name: "Eva", href: "https://www.last.fm/music/The+Weeknd/_/Eva" },
+      {
+        index: "14",
+        name: "Can't Feel My Face",
+        href: "https://www.last.fm/music/The+Weeknd/_/Can't+Feel+My+Face"
+      },
+      {
+        index: "15",
+        name: "Lost in the Fire",
+        href: "https://www.last.fm/music/The+Weeknd/_/Lost+in+the+Fire"
+      },
+      {
+        index: "16",
+        name: "Often",
+        href: "https://www.last.fm/music/The+Weeknd/_/Often"
+      },
+      {
+        index: "17",
+        name: "Given Up on Me",
+        href: "https://www.last.fm/music/The+Weeknd/_/Given+Up+on+Me"
+      },
+      {
+        index: "18",
+        name: "I Was Never There",
+        href: "https://www.last.fm/music/The+Weeknd/_/I+Was+Never+There+(feat.+Gesaffelstein)"
+      },
+      {
+        name: "Given Up on Me",
+        href: "https://www.last.fm/music/The+Weeknd/_/Given+Up+on+Me"
+      },
+      {
+        index: "19",
+        name: "The Hills",
+        href: "https://www.last.fm/music/The+Weeknd/_/The+Hills"
+      },
+      {
+        index: "20",
+        name: "Timeless",
+        href: "https://www.last.fm/music/The+Weeknd/_/Timeless"
+      },
+      {
+        index: "21",
+        name: "RATHER LIE",
+        href: "https://www.last.fm/music/Playboi+Carti/_/RATHER+LIE"
+      },
+      {
+        index: "22",
+        name: "Creepin'",
+        href: "https://www.last.fm/music/Metro+Boomin/_/Creepin'"
+      },
+      {
+        index: "23",
+        name: "Niagara Falls",
+        href: "https://www.last.fm/music/The+Weeknd/_/Niagara+Falls"
+      },
+      {
+        index: "24",
+        name: "One of the Girls",
+        href: "https://www.last.fm/music/The+Weeknd/_/One+of+the+Girls"
+      },
+      {
+        index: "25",
+        name: "Stargirl Interlude",
+        href: "https://www.last.fm/music/The+Weeknd/_/Stargirl+Interlude"
+      },
+      {
+        index: "26",
+        name: "Out of Time",
+        href: "https://www.last.fm/music/The+Weeknd/_/Out+of+Time"
+      },
+      {
+        index: "27",
+        name: "I Feel It Coming",
+        href: "https://www.last.fm/music/The+Weeknd/_/I+Feel+It+Coming"
+      },
+      {
+        index: "28",
+        name: "Die for You",
+        href: "https://www.last.fm/music/The+Weeknd/_/Die+for+You"
+      },
+      {
+        index: "29",
+        name: "Is There Someone Else?",
+        href: "https://www.last.fm/music/The+Weeknd/_/Is+There+Someone+Else%3F"
+      },
+      {
+        index: "30",
+        name: "Wicked Games",
+        href: "https://www.last.fm/music/The+Weeknd/_/Wicked+Games"
+      },
+      {
+        index: "31",
+        name: "Call Out My Name",
+        href: "https://www.last.fm/music/The+Weeknd/_/Call+Out+My+Name"
+      },
+      {
+        index: "32",
+        name: "The Abyss",
+        href: "https://www.last.fm/music/The+Weeknd/_/The+Abyss"
+      },
+      {
+        name: "Professional",
+        href: "https://www.last.fm/music/The+Weeknd/_/Professional"
+      },
+      {
+        index: "33",
+        name: "Save Your Tears",
+        href: "https://www.last.fm/music/The+Weeknd/_/Save+Your+Tears"
+      },
+      {
+        index: "34",
+        name: "Less Than Zero",
+        href: "https://www.last.fm/music/The+Weeknd/_/Less+Than+Zero"
+      },
+      {
+        index: "35",
+        name: "Blinding Lights",
+        href: "https://www.last.fm/music/The+Weeknd/_/Blinding+Lights"
+      },
+      {
+        index: "36",
+        name: "Without a Warning",
+        href: "https://www.last.fm/music/The+Weeknd/_/Without+a+Warning"
+      },
+      {
+        index: "37",
+        name: "House of Balloons",
+        href: "https://www.last.fm/music/The+Weeknd/_/House+of+Balloons"
+      },
+      {
+        index: "38",
+        name: "Moth to a Flame",
+        href: "https://www.last.fm/music/Swedish+House+Mafia/_/Moth+to+a+Flame"
+      }
+    ],
+
+    medias: [
+      {
+        metadata: TWKND0,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: TWKND1,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: TWKND2,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: TWKND3,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: TWKND4,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: TWKND5,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: TWKND6,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: TWKND7,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: TWKND8,
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/twknd_1/playlist.m3u8")
+        },
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/twknd_2/playlist.m3u8")
+        },
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/twknd_3/playlist.m3u8")
+        },
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/twknd_4/playlist.m3u8")
+        },
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/twknd_5/playlist.m3u8")
+        },
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/twknd_6/playlist.m3u8")
+        },
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      },
+      {
+        metadata: {
+          src: apiUrl("/videos/twknd_7/playlist.m3u8")
+        },
+        alt: "TheWeeknd - After Hours til Dawn Tour - Stade de France, Saint-Denis - 2026-07-12"
+      }
+    ]
+  },
   {
     name: "From Zero World Tour",
     artist: {
@@ -754,6 +1077,58 @@ const shows = [
       },
       {
         metadata: GAGA1,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: GAGA2,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: GAGA3,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: GAGA4,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: GAGA5,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: GAGA6,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: GAGA7,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: GAGA8,
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: { src: apiUrl("/videos/gaga_1/playlist.m3u8") },
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: { src: apiUrl("/videos/gaga_6/playlist.m3u8") },
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: { src: apiUrl("/videos/gaga_2/playlist.m3u8") },
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: { src: apiUrl("/videos/gaga_3/playlist.m3u8") },
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: { src: apiUrl("/videos/gaga_4/playlist.m3u8") },
+        alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
+      },
+      {
+        metadata: { src: apiUrl("/videos/gaga_5/playlist.m3u8") },
         alt: "Lady Gaga - The Mayhem Ball - Accor Arena, Paris - 2025-11-22"
       }
     ]

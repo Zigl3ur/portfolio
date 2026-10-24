@@ -3,7 +3,6 @@ import Image from "./ui/Image";
 import { Dialog } from "@base-ui/react";
 import DialogContent from "./ui/DialogContent";
 import { useFetch } from "../hooks/useFetch";
-import { useEffect } from "react";
 import MusicRecent from "../icons/music-recent.svg?react";
 import { format } from "../lib/time";
 import type { languages } from "../i18n/ui";
@@ -15,17 +14,12 @@ interface ListenerProps {
 }
 
 export default function Listener({ locale, tListener }: ListenerProps) {
-  const {
-    data: musicData,
-    error,
-    refetch
-  } = useFetch<CurrentlyListening>("/music/currently-listening");
-
-  useEffect(() => {
-    const interval = setInterval(refetch, 30_000);
-
-    return () => clearInterval(interval);
-  }, [refetch]);
+  const { data: musicData, error } = useFetch<CurrentlyListening>(
+    "/music/currently-listening",
+    {
+      options: { refetchInterval: 30_000 }
+    }
+  );
 
   if (!musicData || error) return null;
 

@@ -22,6 +22,16 @@ export type MusicAlbum = {
   mbid: string;
 };
 
+export type RecentTrack = {
+  artist: string;
+  album: string;
+  name: string;
+  image: string;
+  url: string;
+  isListening: boolean;
+  lastListened: string;
+};
+
 export type AlbumInfo = {
   album: {
     artist: string;

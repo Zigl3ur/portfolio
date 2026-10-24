@@ -48,6 +48,10 @@ export default function useVideoPlayer(
       setIsPlaying(true);
       setIsEnded(false);
       setIsLoading(false);
+
+      document.querySelectorAll("video").forEach((other) => {
+        if (other !== video && !other.paused) other.pause();
+      });
     };
     const handlePause = () => setIsPlaying(false);
     const handleEnded = () => {

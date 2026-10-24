@@ -29,20 +29,11 @@ export default function Carousel({ medias, playVideoOnShow }: CarouselProps) {
     );
   };
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowLeft") handlePrev();
-      else if (event.key === "ArrowRight") handleNext();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [medias.length]);
-
   const currentMedia = medias[currentIndex];
   const isVideo = currentMedia.metadata.src.endsWith(".m3u8");
 
   return (
-    <div className="border-gray flex flex-col border border-dashed">
+    <div className="border-gray @container/carousel flex flex-col border border-dashed">
       <div className="bg-gray/20 relative aspect-video w-full overflow-hidden">
         {isVideo ? (
           <VideoPlayer
@@ -68,7 +59,7 @@ export default function Carousel({ medias, playVideoOnShow }: CarouselProps) {
           <ChevronIcon className="text-gray size-4 rotate-90" />
         </button>
 
-        <div className="inline-flex items-center justify-center gap-2">
+        <div className="hidden items-center justify-center gap-2 @sm/carousel:inline-flex">
           {medias.length > 1 &&
             medias.map((_, index) => (
               <div
@@ -78,8 +69,14 @@ export default function Carousel({ medias, playVideoOnShow }: CarouselProps) {
                   index !== currentIndex ? "bg-gray" : "bg-lime-bright"
                 )}
                 onClick={() => setCurrentIndex(index)}
-              ></div>
+              />
             ))}
+        </div>
+
+        <div className="@sm/carousel:hidden">
+          <span className="font-mono text-xs">
+            {currentIndex + 1} / {medias.length}
+          </span>
         </div>
 
         <button
