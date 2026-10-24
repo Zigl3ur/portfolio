@@ -23,8 +23,10 @@ export default function MusicLibraryContent({
   return (
     <TabsRoot defaultValue="recent-tracks">
       <TabsList>
-        <TabsTrigger value="top-albums">Top Albums</TabsTrigger>
-        <TabsTrigger value="recent-tracks">Recent Tracks</TabsTrigger>
+        <TabsTrigger value="top-albums">{t.tabs.topAlbums.tabs}</TabsTrigger>
+        <TabsTrigger value="recent-tracks">
+          {t.tabs.recentTracks.tabs}
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="top-albums" className="border-none px-0">
         <AlbumsLibrary t={t} locale={locale} />
@@ -60,7 +62,7 @@ function AlbumsLibrary({ t }: MusicLibraryContentProps) {
   return (
     <div className="flex flex-1 flex-col space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-        <p className="text-foreground/70">{t.description}</p>
+        <p className="text-foreground/70">{t.tabs.topAlbums.description}</p>
         <Checkbox
           disabled={loading || !!error || musicLibraryData?.length === 0}
           checked={showPlayCount}
@@ -176,7 +178,7 @@ function RecentTracksLibrary({ t, locale }: MusicLibraryContentProps) {
 
   return (
     <div className="flex flex-1 flex-col space-y-6">
-      <p className="text-foreground/70">{t.description}</p>
+      <p className="text-foreground/70">{t.tabs.recentTracks.description}</p>
 
       <div className="overflow-x-auto">
         {loading && <RecentTracksLibrarySkeleton />}
@@ -209,7 +211,7 @@ function RecentTracksLibrary({ t, locale }: MusicLibraryContentProps) {
                   <td className="text-foreground/70 px-1.5 py-1 text-sm">
                     {track.artist}
                   </td>
-                  <td className="text-foreground/70 px-1.5 py-1 text-end text-sm">
+                  <td className="text-foreground/70 w-32 px-1.5 py-1 text-end text-sm">
                     {track.isListening ? (
                       <div className="flex items-center justify-end gap-2">
                         <div className="flex flex-row items-center gap-0.5">
@@ -217,7 +219,7 @@ function RecentTracksLibrary({ t, locale }: MusicLibraryContentProps) {
                           <span className="bg-lime-bright animate-bar-center h-4 w-1"></span>
                           <span className="bg-lime-bright animate-bar-right h-3 w-1"></span>
                         </div>
-                        Listening
+                        {t.tabs.recentTracks.listening}
                       </div>
                     ) : (
                       format(Number(track.lastListened) * 1000, locale)

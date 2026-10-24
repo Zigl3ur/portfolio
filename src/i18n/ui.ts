@@ -96,8 +96,18 @@ export type uiLangSchema = {
     listenedAt: string;
   };
   musicLibrary: {
+    tabs: {
+      topAlbums: {
+        tabs: string;
+        description: string;
+      };
+      recentTracks: {
+        tabs: string;
+        description: string;
+        listening: string;
+      };
+    };
     title: string;
-    description: string;
     checkboxLabel: string;
     plays: string;
     errorMessage: string;
@@ -222,10 +232,20 @@ export const ui = {
       listenedAt: "Écouté"
     },
     musicLibrary: {
+      tabs: {
+        topAlbums: {
+          tabs: "Albums",
+          description:
+            "Tous les albums que j'écoute, du plus écouté au moins écouté."
+        },
+        recentTracks: {
+          tabs: "Pistes",
+          description: "Les pistes que j'ai écouté récemment.",
+          listening: "À l'écoute"
+        }
+      },
       title: "Bibliothèque Musicale",
       checkboxLabel: "Afficher le nombre d'écoutes",
-      description:
-        "Tous les albums que j'écoute, du plus écouté au moins écouté.",
       plays: "écoutes",
       errorMessage: "Impossible de récupérer les albums, réessayez plus tard.",
       noAlbumsMessage: "Aucun album trouvé."
@@ -355,9 +375,19 @@ export const ui = {
     },
     musicLibrary: {
       title: "Music Library",
+      tabs: {
+        topAlbums: {
+          tabs: "Top Albums",
+          description:
+            "All the music I listen to, from most listened to least listened."
+        },
+        recentTracks: {
+          tabs: "Recent Tracks",
+          description: "Tracks I've listened to recently.",
+          listening: "Listening"
+        }
+      },
       checkboxLabel: "Show play count",
-      description:
-        "All the music I listen to, from most listened to least listened.",
       plays: "plays",
       errorMessage: "Failed to fetch albums, try again later.",
       noAlbumsMessage: "No albums found."
