@@ -22,6 +22,16 @@ export type MusicAlbum = {
   mbid: string;
 };
 
+export type RecentTrack = {
+  artist: string;
+  album: string;
+  name: string;
+  image: string;
+  url: string;
+  isListening: boolean;
+  lastListened: string;
+};
+
 export type AlbumInfo = {
   album: {
     artist: string;
@@ -65,4 +75,26 @@ export type Skill = {
 
 export type LangProps<T extends keyof uiLangSchema> = {
   t: uiLangSchema[T];
+};
+
+type SetListEntry = {
+  index?: string;
+  name?: string;
+  details?: string;
+  href?: string;
+};
+
+type Artist = {
+  name: string;
+  href: string;
+};
+
+export type ShowData = {
+  name: string;
+  artist: Artist;
+  location: string;
+  date: Date;
+  openers?: Artist[];
+  setList: SetListEntry[];
+  medias: CarouselMedia[];
 };

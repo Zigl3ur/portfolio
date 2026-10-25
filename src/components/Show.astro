@@ -1,0 +1,162 @@
+---
+import type { ShowData } from "../types";
+import Carousel from "./ui/Carousel";
+import { getLangFromUrl, translate } from "../i18n/utils";
+
+interface Props {
+  showData: ShowData;
+}
+
+const { showData } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+
+const formattedDate = showData.date.toLocaleDateString(lang, {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+});
+
+const { showLibrary: t } = translate(lang);
+---
+
+<div
+  class="border-gray bg-muted/30 flex flex-col gap-6 overflow-hidden border border-dashed p-6"
+>
+  <div class="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
+    <h2
+      class="xs:text-xl text-center font-mono text-lg leading-tight font-semibold text-balance uppercase sm:text-2xl"
+    >
+      {showData.name}
+    </h2>
+
+    <a
+      href={showData.artist.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="border-gray bg-gray/20 hover:border-lime-bright/40 <px-3 w-fit border border-dashed px-2 py-1.5 font-mono text-xs text-white/80 uppercase transition-colors duration-200 hover:cursor-pointer sm:text-sm"
+    >
+      {showData.artist.name}
+    </a>
+  </div>
+
+  {
+    showData.medias.length > 0 && (
+      <Carousel client:load medias={showData.medias} />
+    )
+  }
+
+  <div class="grid gap-4 md:grid-cols-[minmax(0,0.90fr)_minmax(0,1.10fr)]">
+    <div>
+      <div class="mb-4 flex h-6.5 items-center gap-2">
+        <span class="bg-lime-bright size-1.5 shrink-0"></span>
+        <h3 class="font-mono text-sm uppercase">{t.details}</h3>
+      </div>
+
+      <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-1">
+        <div class="border-gray bg-background/35 border border-dashed p-3">
+          <h4 class="font-mono text-xs text-white/50 uppercase">{t.date}</h4>
+          <p class="mt-1.5 text-sm leading-relaxed text-pretty sm:text-base">
+            <time datetime={showData.date.toISOString()}>{formattedDate}</time>
+          </p>
+        </div>
+
+        <div class="border-gray bg-background/35 border border-dashed p-3">
+          <h4 class="font-mono text-xs text-white/50 uppercase">
+            {t.location}
+          </h4>
+          <p class="mt-1.5 text-sm leading-relaxed text-pretty sm:text-base">
+            {showData.location}
+          </p>
+        </div>
+
+        {
+          showData.openers && (
+            <div class="border-gray bg-background/35 border border-dashed p-3 sm:col-span-2 md:col-span-1">
+              <h4 class="font-mono text-xs text-white/50 uppercase">
+                {t.openers}
+              </h4>
+              <div class="mt-1.5 flex flex-wrap gap-2">
+                {showData.openers.map((opener) => (
+                  <a
+                    href={opener.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="border-gray bg-gray/20 hover:border-lime-bright/40 border border-dashed px-2.5 py-1 font-mono text-xs text-white/80 transition-colors duration-200 hover:cursor-pointer sm:text-sm"
+                  >
+                    {opener.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <div>
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <div class="flex h-6.5 items-center gap-2">
+          <span class="bg-lime-bright size-1.5 shrink-0"></span>
+          <h3 class="font-mono text-sm uppercase">setlist</h3>
+        </div>
+
+        <span
+          class="border-gray bg-background/35 border border-dashed px-2 py-1 font-mono text-xs text-white/50 uppercase"
+        >
+          {showData.setList.length}{" "}
+          {t.tracks}
+        </span>
+      </div>
+
+      <div class="max-h-80 space-y-1.5 overflow-y-scroll">
+        {
+          showData.setList.map((song) => {
+            const content = (
+              <>
+                <div class="flex min-h-8 min-w-17.5 items-center justify-center">
+                  {song.index ? (
+                    <span class="inline-flex items-center justify-center text-center font-mono text-sm text-white/50">
+                      {song.index}.
+                    </span>
+                  ) : (
+                    <span class="bg-gray h-px w-3" />
+                  )}
+                </div>
+
+                <div class="space-y-px">
+                  {song.name && (
+                    <p class="font-mono text-xs leading-snug text-white sm:text-base">
+                      {song.name}
+                    </p>
+                  )}
+                  {song.details && (
+                    <p class="font-mono text-xs leading-relaxed text-pretty text-white/50 uppercase">
+                      {song.details}
+                    </p>
+                  )}
+                </div>
+              </>
+            );
+
+            return song.href ? (
+              <a
+                href={song.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="border-gray bg-background/35 hover:border-lime-bright/40 hover:bg-background/60 flex items-center gap-3 border border-dashed px-3 py-2 transition-[background-color,border-color] duration-200 hover:cursor-pointer"
+              >
+                {content}
+              </a>
+            ) : (
+              <div class="border-gray bg-background/35 flex items-center gap-3 border border-dashed px-3 py-2">
+                {content}
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+</div>

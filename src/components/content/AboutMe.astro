@@ -10,8 +10,10 @@ const { aboutme: t } = translate(lang);
   <Title id="about-me" text={t.title} />
   <p class="inline-flex flex-wrap gap-1.5 font-sans text-xl break-all">
     <span>{t.hi}</span>
-    <!-- prettier-ignore -->
-    <span class="bg-lime-bright text-gray -skew-x-8 transform px-1 font-mono font-bold">Eden</span>
+    <span
+      class="bg-lime-bright text-gray -skew-x-8 transform px-1 font-mono font-bold"
+      >Eden</span
+    >
   </p>
   <p set:html={t.description} />
 </section>

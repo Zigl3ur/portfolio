@@ -1,29 +1,15 @@
 import type { languages } from "../i18n/ui";
 import { getLocalesUrl, translate } from "../i18n/utils";
 
-type RouteChild =
-  | string
-  | {
-      href: string;
-      activeHrefs?: string[];
-    };
-
 type RouteType = {
   href: string;
   isPlaceholder?: boolean; // if route is not a real one but needed to route childs ones
-  childs?: RouteChild[];
+  childs?: string[];
 };
 
 const routesList = [
   {
-    href: "/",
-    childs: [
-      { href: "#landing", activeHrefs: ["/"] },
-      "#about-me",
-      "#skills",
-      "#projects",
-      "#contact"
-    ]
+    href: "/"
   },
   {
     href: "/library",
@@ -35,15 +21,20 @@ const routesList = [
 export type RouteWithLabel = {
   href?: string;
   label: string;
-  childs?: { href: string; label: string; activeHrefs?: string[] }[];
+  childs?: { href: string; label: string }[];
 };
 
 const locals = getLocalesUrl();
 
-export function routes(
-  url: URL,
-  lang: keyof typeof languages
-): { routesList: RouteWithLabel[] } {
+export function joinPath(localeUrl: string, path: string) {
+  if (localeUrl && path.startsWith("/#")) return `${localeUrl}${path.slice(1)}`;
+
+  return `${localeUrl}${path}`;
+}
+
+export function routes(lang: keyof typeof languages): {
+  routesList: RouteWithLabel[];
+} {
   const { pages: t } = translate(lang);
 
   const localPath = locals.find((local) => local.locale === lang)?.url;
@@ -52,18 +43,12 @@ export function routes(
     href: !route.isPlaceholder ? localPath + route.href : undefined,
     label: t[route.href as keyof typeof t].label,
     childs: route.childs?.map((child) => {
-      const childHref = typeof child === "string" ? child : child.href;
-      const childName = childHref.slice(1);
+      const childName = child.slice(1);
       return {
-        href: localPath + route.href + childHref,
+        href: joinPath(localPath || "", route.href + child),
         label:
-          t[route.href as keyof typeof t].childs?.find(
-            (c) => c.href === childHref
-          )?.label || childName.at(0)?.toUpperCase() + childName.slice(1),
-        activeHrefs:
-          typeof child === "string"
-            ? undefined
-            : child.activeHrefs?.map((href) => localPath + href)
+          t[route.href as keyof typeof t].childs?.find((c) => c.href === child)
+            ?.label || childName.at(0)?.toUpperCase() + childName.slice(1)
       };
     })
   }));
@@ -79,14 +64,9 @@ export function getPathWithoutLocale(
 
   if (path === localePrefix) return "/";
 
-  if (
-    path.startsWith(`${localePrefix}/`) ||
-    path.startsWith(`${localePrefix}#`)
-  ) {
+  if (path.startsWith(`${localePrefix}/`)) {
     const pathWithoutLocale = path.slice(localePrefix.length);
-    return pathWithoutLocale.startsWith("#")
-      ? `/${pathWithoutLocale}`
-      : pathWithoutLocale;
+    return pathWithoutLocale;
   }
 
   return path || "/";
@@ -95,14 +75,10 @@ export function getPathWithoutLocale(
 export function isActivePath(
   href: string,
   currentPath: string,
-  locale: keyof typeof languages,
-  activeHrefs: string[] = []
+  locale: keyof typeof languages
 ) {
   const hrefWithoutLocale = getPathWithoutLocale(href, locale);
   const currentPathWithoutLocale = getPathWithoutLocale(currentPath, locale);
 
-  return [
-    hrefWithoutLocale,
-    ...activeHrefs.map((href) => getPathWithoutLocale(href, locale))
-  ].includes(currentPathWithoutLocale);
+  return hrefWithoutLocale === currentPathWithoutLocale;
 }

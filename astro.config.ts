@@ -1,6 +1,6 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-import svgr from 'vite-plugin-svgr';
+import svgr from "vite-plugin-svgr";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
@@ -23,13 +23,16 @@ export default defineConfig({
 
   i18n: {
     locales: ["en", "fr"],
-    defaultLocale: "fr"
+    defaultLocale: "en"
   },
 
   output: "static",
 
   vite: {
     plugins: [tailwindcss(), svgr()],
+    server: {
+      allowedHosts: true
+    }
   },
 
   integrations: [react(), sitemap()]

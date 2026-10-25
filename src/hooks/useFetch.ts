@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { apiUrl } from "../lib/api";
 
-type FetchOptions = Omit<RequestInit, "method">;
+type FetchOptions = Omit<RequestInit, "method"> & { refetchInterval: number };
 
 type useFetchParams = {
-  baseUrl: string;
+  baseUrl?: string;
   options?: FetchOptions;
 };
 
 export function useFetch<T>(
   url: string,
-  params: useFetchParams = { baseUrl: apiUrl() }
+  { baseUrl = apiUrl(), options }: useFetchParams = {}
 ) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
@@ -18,11 +18,9 @@ export function useFetch<T>(
   const [status, setStatus] = useState<number | null>(null);
   const [headers, setHeaders] = useState<Headers | null>(null);
 
-  const fetchData = async () => {
-    const endpoint = params.baseUrl + url;
-
+  const fetchData = useCallback(async () => {
     try {
-      const res = await fetch(endpoint, params.options);
+      const res = await fetch(baseUrl + url, options);
       setStatus(res.status);
       setHeaders(res.headers);
       if (!res.ok) setError(new Error(`HTTP error! status: ${res.status}`));
@@ -33,18 +31,21 @@ export function useFetch<T>(
     } finally {
       setLoading(false);
     }
-  };
+  }, [baseUrl, url]);
 
   useEffect(() => {
     fetchData();
-  }, [url, params.options]);
+    if (!options?.refetchInterval) return;
+    const id = setInterval(fetchData, options.refetchInterval);
+    return () => clearInterval(id);
+  }, [fetchData, options?.refetchInterval]);
 
   return { data, loading, error, status, headers, refetch: fetchData };
 }
 
 export const useMutation = <T>(
   url: string,
-  params: useFetchParams = { baseUrl: apiUrl() }
+  { baseUrl = apiUrl(), options }: useFetchParams = {}
 ) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
@@ -52,17 +53,15 @@ export const useMutation = <T>(
   const [status, setStatus] = useState<number | null>(null);
   const [headers, setHeaders] = useState<Headers | null>(null);
 
-  const endpoint = params.baseUrl + url;
-
   const mutate = async (body: any) => {
     setLoading(true);
     try {
-      const res = await fetch(endpoint, {
-        ...params.options,
+      const res = await fetch(baseUrl + url, {
+        ...options,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...params.options?.headers
+          ...options?.headers
         },
         body: JSON.stringify(body)
       });
