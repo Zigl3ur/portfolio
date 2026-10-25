@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "./Image";
 import { twMerge } from "tailwind-merge";
 import ChevronIcon from "../../icons/chevron-down.svg?react";
