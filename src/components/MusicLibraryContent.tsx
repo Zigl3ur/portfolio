@@ -21,7 +21,7 @@ export default function MusicLibraryContent({
   locale
 }: MusicLibraryContentProps) {
   return (
-    <TabsRoot defaultValue="recent-tracks">
+    <TabsRoot defaultValue="top-albums">
       <TabsList>
         <TabsTrigger value="top-albums">{t.tabs.topAlbums.tabs}</TabsTrigger>
         <TabsTrigger value="recent-tracks">
