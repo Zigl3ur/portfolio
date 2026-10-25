@@ -358,9 +358,9 @@ export const ui = {
           submitting: "Sending Message..."
         },
         submitMessages: {
-          ok: "Successfully send message !",
-          rateLimit: "Too much messages send, try again later !",
-          error: "Failed to send message, try again later.",
+          ok: "Message successfully sent!",
+          rateLimit: "Too many messages sent, please try again later.",
+          error: "Failed to send the message, please try again later.",
           dismiss: "Dismiss"
         }
       }
