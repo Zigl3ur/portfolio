@@ -191,8 +191,14 @@ function RecentTracksLibrary({ t, locale }: MusicLibraryContentProps) {
               {recentTracksData.map((track, index) => (
                 <tr
                   key={index}
-                  className="hover:bg-muted/50 border-border/60 border-gray w-full border-dashed transition-colors duration-200 not-last:border-b hover:cursor-pointer [&>td]:px-2 [&>td]:py-2.5"
+                  className="hover:bg-muted/50 border-border/60 border-gray relative w-full border-dashed transition-colors duration-200 not-last:border-b hover:cursor-pointer [&>td]:px-2 [&>td]:py-2.5"
                 >
+                  <a
+                    href={track.url}
+                    className="absolute inset-0 z-10"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
                   <td className="w-12">
                     {track.image && (
                       <Image
